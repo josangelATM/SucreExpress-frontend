@@ -1,0 +1,9 @@
+.quotation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.quotation h1{
+    font-size: 3rem;
+    margin: 5rem;
+}

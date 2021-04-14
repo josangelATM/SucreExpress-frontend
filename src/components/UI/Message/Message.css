@@ -1,0 +1,19 @@
+.Message{
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    font-size: 3.5rem;
+    border-radius: 5px;
+    margin: 5rem 0;
+    padding: 2rem 2rem;
+}
+
+.Error-msg{
+    background-color: #f3a5a5 ;
+    color: red
+}
+
+.Normal-msg{
+    background-color: #f3a5a5 ;
+    color: #31a741
+}

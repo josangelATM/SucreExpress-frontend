@@ -1,0 +1,31 @@
+*:focus {
+    outline: none;
+}
+a { 
+    color: inherit; 
+} 
+
+.Normal{
+    background-color: #005B7F;
+    width: fit-content;
+    padding: 1rem 1rem;
+    border-radius: 15px;
+    color: white;  
+    font-size: 2rem; 
+    margin: 1rem 0;
+}
+
+.Normal:disabled{
+    opacity: 0.65; 
+    cursor: not-allowed;
+}
+
+.Link{
+    background-color: #005B7F;
+    width: fit-content;
+    padding: 1rem 1rem;
+    border-radius: 15px;
+    color: white;  
+    font-size: 1.8rem; 
+    margin: 1rem 0;
+}

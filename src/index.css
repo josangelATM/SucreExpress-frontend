@@ -7,7 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'Rubik', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
