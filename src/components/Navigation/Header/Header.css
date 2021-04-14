@@ -1,24 +1,29 @@
 .Header{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    background-color: #5293C1;
+    height: 10rem;
 }
 
 .Navbar{
     width:70%;
     height: 10.5rem;
-    background-color: white;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
 .logo-navbar{
-    width: 14rem;
+    display: flex;
+    align-items: center;
+    width: 11rem;
+    height: 100%;
+    margin-left: 3rem;
 }
 
 .NavItem{
-    color: #1A6C8C;
+    color: #FFFFFF;
     border:none;
     font-size: 1.8rem;
     font-family: 'Rubik';
@@ -26,14 +31,49 @@
     width: fit-content;
     border-radius:30px;
     font-weight: bold;
+    position: relative;
+    display: inline-block;
 }
 
-.NavItem:hover{
-    background-color: #1A6C8C;
-    color: white;
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 20rem;
+    
+}
+
+.dropdown-content a {
+    color: #5293C1;
+    text-decoration: none;
+    display: block;
+    background-color: #FFFFFF;
+    padding: 1rem 2rem;
+  }
+  
+.dropdown-content a:hover {
+    background-color: #5293C1;
+    color: #FFFFFF;
+}
+  
+.NavItem:hover .dropdown-content {
+    display: block;
+  }
+
+.NavItem span{
+    margin-right: 1rem;
+}
+
+.NavItem-title:hover{
+    opacity: 0.50;
 }
 
 .active {
-    background-color: #1A6C8C;
-    color: white;
+    opacity: 0.50;
+}
+
+.profile-container{
+    margin-right: 3rem;
 }

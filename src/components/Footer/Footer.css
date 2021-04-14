@@ -18,8 +18,10 @@
 
 
 .logo-footer{
-    width: 10rem;
-    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+    width: 35rem;
+    margin-right: 1rem;
 }
 
 

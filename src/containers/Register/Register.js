@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import * as Yup from 'yup'
 import axios from 'axios'
 import '../../assets/Shared/Forms.css'
@@ -42,6 +43,7 @@ class Register extends Component{
     handleSubmit = (values) =>{
         this.setState({status:'LOADING'})
         values.id = values.id + '-PN'
+        values.status = this.props.isAdmin ? 'active' : 'pending'
         axios.post('http://localhost:5000/register',values)
             .then(res =>  {
                 this.setState({status:'SUCCESFUL'})
@@ -53,11 +55,10 @@ class Register extends Component{
 
 
     render(){
-        let form = null 
-
+        let toRender = null
         switch(this.state.status){
             case 'REGISTER':
-                form = 
+                toRender = 
                 <Formik
                     initialValues={initialValues}
                     validationSchema={registerSchema}
@@ -65,7 +66,7 @@ class Register extends Component{
                         this.handleSubmit(values)
                     }}
                 >
-                    {({touched, errors, dirty, isValid}) => (
+                    {({touched, errors, dirty, isValid,handleChange,values}) => (
                             <Form className='form'>
                             <h1>Crear cuenta</h1>
                             <div className='name-inputs'>
@@ -88,6 +89,13 @@ class Register extends Component{
                             className={`form-control ${touched.password && errors.password ? 'error' : ''}`}></Field>
                             <Field type="password" placeholder="Confirmar contraseña" name='confirmPassword' 
                             className={`form-control ${touched.confirmPassword && errors.confirmPassword ? 'error' : ''}`}></Field>
+                            {this.props.isSuperAdmin ? 
+                            <select name='type' onChange={handleChange} value={values.type} class='form-control'>
+                            <option hidden>Tipo de usuario</option>
+                            <option value='customer'>Customer</option>
+                            <option value='admin'>admin</option>
+                            </select>
+                        : null}
                             <div className='errors-container'>
                             {Object.keys(errors).map(key=>(
                                 <span>{touched[key] ? `* ${errors[key]}` : null}</span>
@@ -101,28 +109,34 @@ class Register extends Component{
                 break;
 
             case 'LOADING':
-                form = <Loader></Loader>
+                toRender = <Loader></Loader>
                 break;
             case 'SUCCESFUL': 
-                form = <Message class='Normal-msg' message='CUENTA REGISTRADA, REVISA TU CORREO PARA ACTIVAR TU CUENTA'>
+                toRender = <Message class='Normal-msg' message='CUENTA REGISTRADA, REVISA TU CORREO PARA ACTIVAR TU CUENTA'>
                 </Message>
-
-           
                 break;
             case 'FAILED': 
-                form = <Message class='Error-msg' message='Upss hubo un error'>
+                toRender = <Message class='Error-msg' message='Upss hubo un error'>
                 </Message>
                 break;
             default: 
-                form = null
+                toRender = null
         }
         
         return(
             <Auxilary>
-                {form}
+                {toRender}
             </Auxilary>
             )
     }
 }
 
-export default Register;
+const mapStateToProps = state => {
+    return{
+        isAdmin: state.auth.isAdmin,
+        isSuperAdmin: state.auth.isSuperAdmin
+    }
+}
+
+
+export default connect(mapStateToProps,null)(Register);

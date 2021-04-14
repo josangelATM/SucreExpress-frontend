@@ -2,13 +2,14 @@ import * as actionTypes from '../actions/actionTypes'
 
 const user = JSON.parse(localStorage.getItem('user'))
 
-const initialState = user ? {isLogged: true, isAdmin: user.type==='admin' ? true:false, user} : {isLogged: false, isAdmin: false, user: null}
+const initialState = user ? {isLogged: true, isAdmin: user.type==='admin' ? true:false, isSuperAdmin: user.type==='superadmin' ? true:false, user} : {isLogged: false, isAdmin: false, isSuperAdmin: false, user: null}
  
 const login = (state, action) => {
     return{
         ...state,
         isLogged: true,
-        isAdmin: action.user.type==='admin' ? true:false,
+        isAdmin: (action.user.type==='admin' || action.user.type==='superadmin') ? true:false,
+        isSuperAdmin: action.user.type==='superadmin' ? true:false,
         user:action.user
     }
 

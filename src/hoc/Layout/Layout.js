@@ -67,6 +67,9 @@ class Layout extends Component{
           <Route path="/quotation/:quotationID">
                   {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
+          <Route>
+             
+          </Route>
           <Route path="/login">
                 <Login/>
           </Route>
