@@ -27,6 +27,7 @@ const initialValues = {
 const AddPackage =  () =>{
     
     const [status,setStatus] = useState('BEFORE')
+    const [response,setResponse] = useState('')
 
     const handleSubmit = (values) => {
         setStatus('LOADING')
@@ -35,6 +36,7 @@ const AddPackage =  () =>{
                 setStatus('SUCCESS')
             })
             .catch(err => {
+                setResponse(err.response.data);
                 setStatus('FAIL')
             })
     }
@@ -85,22 +87,22 @@ const AddPackage =  () =>{
         case 'LOADING':
             return(
                 <Auxiliary>
-                 {packageForm}
-                 <Loader/>
+                    <Loader/>
+                    {packageForm}
                 </Auxiliary> 
             )
         case 'SUCCESS':
             return(
                 <Auxiliary>
-                 {packageForm}
-                 <Message class='Normal-msg' message='Paquete registrado con éxito'/>
+                    <Message class='Normal-msg' message={response}/>
+                    {packageForm}  
                 </Auxiliary> 
             )
         case 'FAIL':
             return(
                 <Auxiliary>
-                 {packageForm}
-                 <Message class='Error-msg' message='Hubo un error, intentalo más tarde'/>
+                    <Message class='Error-msg' message={response}/>
+                    {packageForm}
                 </Auxiliary> 
             )
     }   

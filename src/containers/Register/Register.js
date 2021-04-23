@@ -8,6 +8,7 @@ import Message from '../../components/UI/Message/Message'
 import Loader from '../../components/UI/Loader/Loader'
 import Button from '../../components/UI/Button/Button'
 import { Formik, Form, Field } from "formik";
+import { Link } from 'react-router-dom'
 
 const registerSchema = Yup.object({
     firstName: Yup.string().required('Nombre es obligatorio'),
@@ -47,7 +48,7 @@ class Register extends Component{
         values.status = this.props.isAdmin ? 'active' : 'pending'
         axios.post('/users/register',values)
             .then(res =>  {
-                this.setState({status:'SUCCESFUL'})
+                this.setState({status:'SUCCESFUL',serverRes:res.data})
             })
             .catch(err => {
                 this.setState({status:'FAILED'})
@@ -126,8 +127,12 @@ class Register extends Component{
                 </Auxiliary>
                 break;
             case 'SUCCESFUL': 
-                toRender = <Message class='Normal-msg' message='CUENTA REGISTRADA, REVISA TU CORREO PARA ACTIVAR TU CUENTA'>
-                </Message>
+                toRender = 
+                <Auxiliary>
+                    <Message class='Normal-msg' message={this.state.serverRes}/>
+                    <Button class='Normal'><Link to='/login'>Iniciar Sesión</Link></Button>
+                </Auxiliary>
+                
                 break;
             case 'FAILED': 
                 toRender = 

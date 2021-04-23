@@ -9,7 +9,7 @@ import Login from '../../containers/Login/Login'
 import Recover from '../../containers/Recover/Recover'
 import './Layout.css'
 import Logout from '../../components/Logout/Logout'
-import PasswordChange from '../../containers/PasswordChange/PasswordChange'
+import PasswordChange from '../../containers/PasswordChangeRecover/PasswordChangeRecover'
 import EditInfo from '../../containers/EditInfo/EditInfo'
 import AddPackage from '../../components/Package/AddPackage/AddPackage'
 import UpdatePackage from '../../components/Package/UpdatePackage/UpdatePackage'
@@ -71,7 +71,7 @@ class Layout extends Component{
           <Route path="/quotation/:quotationID">
                   {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path='/bill'>
+          <Route exact path='/bill'>
                 {this.props.isLogged ? <Bill/> : <Redirect to='/login'/>}  
           </Route>
           <Route path='/bill/upload'>
