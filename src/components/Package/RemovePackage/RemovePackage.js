@@ -7,7 +7,7 @@ const RemovePackage = (props) =>{
     const [message,setMessage] = useState('Cargando...')
     
     useEffect(() => {
-        axios.delete(`http://localhost:5000/package/remove/${idPackage}`)
+        axios.delete(`/package/remove/${idPackage}`)
             .then(res => {
                 setMessage(res.data)
             })

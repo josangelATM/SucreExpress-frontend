@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { useSelector } from 'react-redux'
 import Logo from '../../Logo/Logo'
-import Auxiliary from '../../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import ProfileHeader from '../ProfileHeader/ProfileHeader'
@@ -16,9 +16,6 @@ const Header = () =>{
 
     const adminLinks = 
         <Auxiliary>
-            <NavLink exact to='/' className='NavItem NavItem-title' activeClassName='active'>
-                INICIO
-            </NavLink>
             <div className='NavItem' activeClassName='active'>
                 <div className='NavItem-title'>
                     <span>
@@ -27,10 +24,10 @@ const Header = () =>{
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink to='/package/add'>
+                    <NavLink to='/packages/add'>
                         Registrar
                     </NavLink>
-                    <NavLink to='/package/search'>
+                    <NavLink to='/packages/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -68,6 +65,22 @@ const Header = () =>{
                     </NavLink>
                 </div>
             </div>
+            <div className='NavItem' activeClassName='active'>
+                 <div className='NavItem-title'>
+                    <span>
+                        FACTURAS
+                    </span>
+                    <FontAwesomeIcon icon={faChevronDown} size='1x'/>
+                </div>
+                <div className='dropdown-content'>
+                    <NavLink to='/bill/upload'>
+                        Subir
+                    </NavLink>
+                    <NavLink to='/bill/search'>
+                        Buscar
+                    </NavLink>
+                </div>
+            </div>
             <NavLink exact to='/request' className='NavItem NavItem-title' activeClassName='active'>
                 SOLICITUDES
             </NavLink>
@@ -75,9 +88,6 @@ const Header = () =>{
 
     const customerLinks = 
         <Auxiliary>
-        <NavLink exact to='/' className='NavItem NavItem-title' activeClassName='active'>
-            INICIO
-        </NavLink>
         <div className='NavItem' activeClassName='active'>
             <div className='NavItem-title'>
                     <span>
@@ -86,10 +96,10 @@ const Header = () =>{
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
             </div>
             <div className='dropdown-content'>
-                <NavLink to='/package/add'>
+                <NavLink to='/packages/'>
                     Mis paquetes
                 </NavLink>
-                <NavLink to='/package/search'>
+                <NavLink to='/packages/search'>
                     Buscar
                 </NavLink>
             </div>
@@ -103,30 +113,19 @@ const Header = () =>{
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
             </div>
             <div className='dropdown-content'>
+            <NavLink to='/quotation'>
+                    Mis cotizaciones
+                </NavLink>
                 <NavLink to='/quotation/add'>
                     Solicitar
                 </NavLink>
-                <NavLink to='/quotation/search'>
-                    Buscar
-                </NavLink>
             </div>
         </div>
-        <NavLink exact to='/contact' className='NavItem NavItem-title' activeClassName='active'>
-                CONTACTO
+        <NavLink exact to='/bill' className='NavItem NavItem-title' activeClassName='active'>
+                FACTURAS
         </NavLink>
     </Auxiliary>
  
-
-            // { isLogged ? <NavLink exact to='/logout' className='NavItem' activeClassName='active'>
-            //     CERRAR SESIÓN
-            // </NavLink> : <NavLink exact to='/login' className='NavItem' activeClassName='active'>
-            //     INICIAR SESIÓN
-            // </NavLink> }
-
-            // { isLogged ? null : <NavLink exact to='/register' className='NavItem' activeClassName='active'>
-            //     REGISTRARSE
-            // </NavLink>  }
-
     return(
     <header className='Header'>
         <div className='logo-navbar'>

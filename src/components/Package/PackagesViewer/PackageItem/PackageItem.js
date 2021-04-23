@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import Auxiliary from '../../../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../../../hoc/Auxiliary/Auxiliary'
 import Button from '../../../UI/Button/Button'
 import axios from 'axios'
-
-
+import { formatDate } from '../../../../assets/Shared/JS/utils.js'
+import { deletePackages } from '../../../../store/actions/index'
+import Loader from '../../../UI/Loader/Loader'
+import Message from '../../../UI/Message/Message'
 const PackageItem = (props) => {
   
-    const userType = useSelector(state => state.auth.user.type)
-    const [status,setStatus] = useState('BEFORE')
+    const isAdmin = useSelector(state => state.auth.isAdmin)
     const dispatch = useDispatch()
 
     const removePackage = () => {
-      setStatus('LOADING')
-      axios.delete(`http://localhost:5000/quotation/remove/${props.id}`)
+      axios.delete(`/packages/${props.id}`)
             .then(res => {
-              setStatus('SUCCESS')
+              dispatch(deletePackages(props.id))  
             })
             .catch(err =>{
-              setStatus('FAIL')
+              alert('Hubo un error, intentalo más tarde')
             })    
     }
     
@@ -31,15 +31,15 @@ const PackageItem = (props) => {
       }
     }
 
-    let toRender = userType=='admin' ? <tr>
+    let toRender = isAdmin ? <tr>
     <td>{props.id}</td>
     <td>{props.source}</td>
     <td>{props.customerID}</td>
     <td>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
-    <td>{props.updatedAt}</td>
-    <td><Button class='Link'><Link to={`/quotation/update/${props.id}`}>Actualizar</Link></Button></td>
+    <td>{formatDate(props.updatedAt)}</td>
+    <td><Button class='Link'><Link to={`/packages/update/${props.id}`}>Actualizar</Link></Button></td>
     <td><Button class='Link' onClick={confirmation}>Eliminar</Button></td>
 </tr> : <tr>
     <td>{props.id}</td>
@@ -47,8 +47,21 @@ const PackageItem = (props) => {
     <td>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
-    <td>{props.updatedAt}</td>
+    <td>{formatDate(props.updatedAt)}</td>
 </tr>
+
+    // let deleteStatus = null
+    // switch(status){
+    //   case 'LOADING':
+    //     deleteStatus = <Loader/>
+    //     break;
+    //   case 'SUCCESS':
+    //     deleteStatus = <Message class='Normal-msg' message='Paquete eliminado exitosamente' />
+    //     break;
+    //   case 'FAIL':
+    //     deleteStatus = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde' />
+    //     break;
+    // }
     return(
         <Auxiliary>
             {toRender}

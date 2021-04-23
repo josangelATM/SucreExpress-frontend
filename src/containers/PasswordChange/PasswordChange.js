@@ -10,7 +10,7 @@ const PasswordChange = (props) => {
         const id = props.match.params.userID;
         const code = props.match.params.code;
         
-        axios.post(`http://localhost:5000/recover/${id}/${code}`,pwd)
+        axios.post(`/recover/${id}/${code}`,pwd)
             .then(res =>{
                 console.log(res);
             })

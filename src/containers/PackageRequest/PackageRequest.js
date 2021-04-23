@@ -1,12 +1,31 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Button from '../../components/UI/Button/Button'
-import Auxilary from '../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import PackageRequestViewer from '../../components/Package/PackageRequestViewer/PackageRequestViewer'
+import * as Yup from 'yup'
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import Loader from '../../components/UI/Loader/Loader'
+import Message from '../../components/UI/Message/Message'
+import { connect } from 'react-redux'
+import { updateRequests } from '../../store/actions/index'
+const searchSchema = Yup.object({
+    query: Yup.string().required('Info requerida'),
+    type: Yup.string().required('Tipo de búsqueda ')
+})
+
+const initialValues = {
+    query:'',
+    type:'CustomerID'
+}
+
+
+
 
 class PackageRequest extends Component{
+    
     state = {
-        request:[]
+        status:'LOADING'
     }
 
     componentDidMount(){
@@ -14,23 +33,35 @@ class PackageRequest extends Component{
     }
 
     fetchData = () => {
-        axios.get('http://localhost:5000/packageRequest/first')
+        this.setState({status:'LOADING'})
+        axios.get('/packageRequests?limit=10')
             .then(res =>{
-                this.setState({request:res.data})
+                if(res.data.length === 0){
+                    this.setState({status:'NO_RESULT'})
+                }else{
+                    this.setState({status:'SUCCESS'})
+                    this.props.updateRequests(res.data)
+                }
             })
             .catch(err =>{
-                console.log(err)
+                this.setState({status:'FAIL'})
             })
     }
-    handleSubmit = e =>{
-        e.preventDefault()
-        const formData = new FormData(e.target)
-        const value = Object.fromEntries(formData.entries());
-        axios.get(`http://localhost:5000/packageRequest/find?query=${value.query}&type=${value.type}`)
+    handleSubmit = values =>{
+        this.setState({status:'LOADING'})
+        axios.get(`/packageRequests?query=${values.query}&type=${values.type}&limit=10`)
             .then((res) =>{
-                this.setState({request:res.data})
+                console.log(res.data)
+                if(res.data.length === 0){
+                    this.setState({status:'NO_RESULT'})
+                }else{
+                    
+                    this.setState({status:'SUCCESS'})
+                    this.props.updateRequests(res.data)
+                }
             })
             .catch(err =>{
+                this.setState({status:'FAIL'})
                 this.setState({request:[]})
             })
     }
@@ -38,36 +69,58 @@ class PackageRequest extends Component{
 
 
     render(){
+        let form = <Formik
+        initialValues={initialValues}
+        validationSchema={searchSchema}
+        onSubmit={(values) =>{
+            this.handleSubmit(values);
+        }}
+        >
+            {({dirty, isValid, values, handleChange}) =>(
+            <Form class='form'>
+                <h1>Búsqueda de Solicitudes</h1>
+                <Field type='text' placeholder='ID/CustomerID' name='query' className='form-control'></Field>
+                <select name='type' onChange={handleChange} value={values.type} className='form-control'>  
+                    <option value='CustomerID'>CustomerID</option>
+                    <option value='Tracking' selected>Tracking</option>
+                </select>
+                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
+            </Form>
+            )}
+        </Formik>
         let toRender = null 
-        if(this.state.request.length == 0){
-            toRender = <form onSubmit={this.handleSubmit}>
-            <input type='text' placeholder='CustomerID/Tracking' name='query'></input>
-            <select name='type'>
-                <option value='CustomerID'>CustomerID</option>
-                <option value='Tracking'>Tracking</option>
-            </select>
-            <Button>Buscar</Button>
-            </form>
-        }else{
-            toRender= <Auxilary>
-                <form onSubmit={this.handleSubmit}>
-                    <input type='text' placeholder='CustomerID/Tracking' name='query'></input>
-                    <select name='type'>
-                        <option value='CustomerID'>CustomerID</option>
-                        <option value='Tracking'>Tracking</option>
-                    </select>
-                    <Button>Buscar</Button>
-                </form>
-                <PackageRequestViewer request={this.state.request} update={this.fetchData}/>
-            </Auxilary>
+   
+        switch(this.state.status){
+            case 'LOADING':
+                toRender = <Loader/>
+                break;
+            case 'SUCCESS':
+                toRender = <PackageRequestViewer/>
+                break;
+            case 'NO_RESULT':
+                toRender = <Message class='Normal-msg' message='Sin solicitudes encontradas'/>
+                break;
+            case 'FAIL':
+                toRender = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
+                break;
         }
+                
         return(
-            <Auxilary>
+            <Auxiliary>
+                {form}
                 {toRender}
-            </Auxilary>
+            </Auxiliary>
 
         )
     }
 }
 
-export default PackageRequest;
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        updateRequests: (requests) => dispatch(updateRequests(requests))
+    }
+    
+}
+
+export default connect(null,mapDispatchToProps)(PackageRequest);

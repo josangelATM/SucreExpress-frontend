@@ -1,0 +1,71 @@
+.userInfo{
+    display: flex;
+    width: 40%;
+    height: fit-content;
+    border: 0.3rem solid #5293C1;
+    border-radius: 25px;
+    justify-content: center;
+}
+
+.userInfoForm{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.infoContainer{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    margin: 1rem 0;
+    justify-content: center;
+}
+
+.infoSubContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.formControl {
+    border: 2px solid #1A6C8C;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 1rem 2rem;
+    font-size: 1.4rem;
+    text-align: center;
+    width: auto;
+}   
+
+.formLabel {
+    text-align: center;
+    font-weight: bold;
+}
+
+.buttonHidden {
+    display: none;
+}
+
+.buttonShow{
+    display: flex;
+}
+
+.iconClickable{
+    cursor: pointer;
+}
+
+.titleContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+
+.buttonsContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}

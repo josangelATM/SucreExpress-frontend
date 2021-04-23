@@ -1,13 +1,25 @@
 table {
-    font-size: 2rem;
-    width: 90%;        
+    font-size: 1.8rem;
+    width: fit-content;      
     border-collapse: collapse;
 }
+
+table thead tr th{
+    background-color: #005B7F;
+    color: #FFFFFF;
+}
+
 th, td {
     padding: 8px;
     text-align: center;
-    border-top: 1px solid #dee2e6;
+    padding: 1rem 1rem;
+    white-space: nowrap;
+    max-width: 35rem;
 }
-table tr:nth-child(odd) {
+
+
+
+
+table tr:nth-child(even) {
     background-color: #b0ccf7;
 }

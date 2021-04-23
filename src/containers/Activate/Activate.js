@@ -1,39 +1,54 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Message from '../../components/UI/Message/Message'
 import Loader from '../../components/UI/Loader/Loader'
-import Auxiliary from '../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
+import Button from '../../components/UI/Button/Button'
 
 class Activate extends Component{
     state = {
-        status : 'PENDING',
-        response: 'CARGANDO...'
+        status : 'LOADING'
     }
 
     componentDidMount() {
         const id = this.props.match.params.userID;
         const code = this.props.match.params.code;
 
-        axios.get(`http://localhost:5000/register/${id}/${code}`)
+        axios.get(`users/activate/${id}/${code}`)
             .then(res => {
                 
-                this.setState({status: 'SUCCESFUL', response:res.data})
+                this.setState({status: 'SUCCESS'})
             })
             .catch(err => {
-                this.setState({status: 'FAILED', response:err.response.data})
+                this.setState({status: 'FAIL'})
             })
     }
 
     render(){
         let message = null
 
-        if(this.state.status=='PENDING'){
-            message = <Loader/>
-        }else{
-            message = <Message class='Normal-msg' message='this.state.response.toUpperCase()'>
-                        </Message>
-        }
+
+        switch(this.state.status){
+            case 'LOADING':
+                message = <Loader/>
+                break;
+            case 'SUCCESS':
+                message = 
+                <Auxiliary>
+                    <Message class='Normal-msg' message='Cuenta activada exitosamente'/>
+                    <Button class='Normal'><Link to='/login'>Iniciar Sesión</Link></Button>
+                </Auxiliary>
+                break;
+            case 'FAIL':
+                message = 
+                <Auxiliary>
+                    <Message class='Error-msg' message='Enlace de activación expirado o no válido'/>
+                </Auxiliary>
+                break;
+                
+        }   
 
         
 

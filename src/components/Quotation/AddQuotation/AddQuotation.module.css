@@ -1,0 +1,43 @@
+.quotationForm{
+    display: flex;
+    width: 65%;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    border: 0.3rem solid #5293C1;
+    border-radius: 2.5rem;
+}
+
+
+.formControl{
+    border: 2px solid #1A6C8C;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 25%;
+}
+
+.formControl:disabled, .areaTextControl:disabled {
+    cursor:not-allowed;
+    background: #dddddd ;
+}
+.areaTextControl{
+    width:40%;
+    text-align: start;
+}
+
+
+
+.inputsContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.linksContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

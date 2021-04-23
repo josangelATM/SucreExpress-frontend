@@ -1,25 +1,38 @@
 import React from 'react'
 import Button from '../../../UI/Button/Button'
 import axios from 'axios'
-const PackageRequestItem = (props) =>{
+import { useDispatch } from 'react-redux'
+import { deleteRequest } from '../../../../store/actions/index'
+import { formatDate } from '../../../../assets/Shared/JS/utils.js'
 
-    const deleteRequest = () =>{
-        axios.delete(`http://localhost:5000/packageRequest/delete/${props.request.id}`)
+const PackageRequestItem = (props) =>{
+    const dispatch = useDispatch()
+
+    const removeRequest = () =>{
+        axios.delete(`/packageRequests/${props.request.id}`)
             .then(res =>{
-                console.log('Request eliminado')
-                props.update()
+                dispatch(deleteRequest(props.request.id))
             }).catch(err =>{
-                console.log('Error')
+                alert('Hubo un error, intentalo más tarde')
             })
     }
 
+    const confirmation = () =>{
+        const answ = window.confirm('¿Seguro que deseas eliminar esta solicitud?')
+        if(answ){
+            removeRequest()
+        }
+
+    }
+
+
     return(
-        <div>
-            <p>{props.request.tracking}</p>
-            <p>{props.request.customerID}</p>
-            <p>{props.request.createdAt}</p>
-            <Button onClick={deleteRequest}>Eliminar registro</Button>
-        </div>
+        <tr>
+            <td>{props.request.customerID}</td>
+            <td>{props.request.tracking}</td>
+            <td>{formatDate(props.request.createdAt)}</td>
+            <td><Button class='Normal' onClick={confirmation}>Eliminar registro</Button></td>
+        </tr>
     )
 }
 

@@ -1,6 +1,4 @@
 import React, { useState, useEffect }  from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import Button from '../../UI/Button/Button'
 import QuotationsViewer from '../QuotationsViewer/QuotationsViewer'
@@ -9,7 +7,8 @@ import * as Yup from 'yup'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import '../../../assets/Shared/Forms.css'
 import Message from '../../UI/Message/Message'
-
+import { useDispatch } from 'react-redux'
+import { updateQuotations } from '../../../store/actions/index'
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
     type: Yup.string().required('Tipo de búsqueda ')
@@ -22,19 +21,18 @@ const initialValues = {
 
 
 const QuotationSearcher = () => {
-    const [quotations,setQuotations] = useState([]) 
+    const dispatch = useDispatch()
     const [status,setStatus] = useState('LOADING')
 
     const handleSubmit = values =>{
         setStatus('LOADING')
-        axios.get(`http://localhost:5000/quotation?type=${values.type}&query=${values.query}`)
+        axios.get(`/quotation?type=${values.type}&query=${values.query}`)
             .then(res =>  {
                 if(res.data.length === 0){
                     setStatus('NO_RESULT')
                 }else{  
-                    console.log(res.data);
                     setStatus('SUCCESS')
-                    setQuotations(res.data)
+                    dispatch(updateQuotations(res.data))
                 }   
             })
             .catch(err => {
@@ -43,11 +41,11 @@ const QuotationSearcher = () => {
     }   
 
     const fetchQuotations = () => {
-        axios.get(`http://localhost:5000/quotation?limit=10`)
+        axios.get(`/quotation?limit=10`)
             .then(res=>{
                 if(Array.isArray(res.data) || res.data.length === 0){
                     setStatus('SUCCESS')
-                    setQuotations(res.data)
+                    dispatch(updateQuotations(res.data))
                 }else{
                     setStatus('NO_RESULT')
                 }
@@ -88,10 +86,10 @@ const QuotationSearcher = () => {
             searchResult = <Loader/>
             break;
         case 'SUCCESS':
-            searchResult = <QuotationsViewer quotations={quotations}/>
+            searchResult = <QuotationsViewer/>
             break;
         case 'NO_RESULT':
-            searchResult = <Message class='Error-msg' message='Sin contizaciones encontradas'/>
+            searchResult = <Message class='Error-msg' message='Sin cotizaciones encontradas'/>
             break;
         case 'FAIL':
             searchResult = <Message class='Error-msg' message='Hubo un error, intente en otro momento'/>

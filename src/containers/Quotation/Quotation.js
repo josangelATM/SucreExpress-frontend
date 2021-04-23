@@ -19,7 +19,7 @@ class Quotation extends Component{
 
     fetchData = () => {
         this.setState({status:'LOADING'})
-        axios.get(`http://localhost:5000/quotation?type=CustomerID&query=${this.props.user.id}`)
+        axios.get(`/quotation?type=CustomerID&query=${this.props.user.id}`)
             .then(res =>{
                 this.setState({quotations:res.data,status:'SUCCESS'})
             })
@@ -31,7 +31,7 @@ class Quotation extends Component{
         e.preventDefault()
         const formData = new FormData(e.target)
         const value = Object.fromEntries(formData.entries());
-        axios.get(`http://localhost:5000/quotation/get?type=CustomerID&query=${this.props.user.id}`)
+        axios.get(`/quotation/get?type=CustomerID&query=${this.props.user.id}`)
             .then((res) =>{
                 this.setState({request:res.data})
             })
@@ -51,7 +51,7 @@ class Quotation extends Component{
                 return(<div class='quotation'>
                 <h1>Tus cotizaciones</h1>
                 <QuotationsViewer quotations={this.state.quotations}/>
-                <Button class='Normal'><Link to='quotation/add'>Crear cotización</Link></Button>
+                <Button class='Normal'><Link to='quotation/add'>Solicitar cotización</Link></Button>
             </div>
             )
                 break;

@@ -24,32 +24,36 @@ import QuotationSearcher from '../../components/Quotation/QuotationSearcher/Quot
 import NotAuthorized from '../../containers/NotAuthorized/NotAuthorized'
 import UpdateQuotation from '../../components/Quotation/UpdateQuotation/UpdateQuotation'
 import Footer from '../../components/Footer/Footer'
-
+import UserSearcher from '../../components/User/UserSearcher/UserSearcher'
+import Profile from '../../containers/Profile/Profile'
+import BillUploader from '../../components/BillUploader/BillUploader'
+import BillSearcher from '../../components/BillSearcher/BillSearcher'
+import BillViewer from '../../components/BillsViewer/BillViewer/BillViewer'
+import Bill from '../../containers/Bill/Bill'
 class Layout extends Component{
-
     render(){
         return(              
     <div className='Layout'>
         <Router>
         <Header></Header>
-        <div className='main'>
+        <main className='main'>
         <Switch>
           <Route path="/" exact>
-                <LandingPage/>
+                  <Redirect to='/login'/>
           </Route>
-          <Route exact path="/package">
-                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/package/search'/> : <Packages/> ) : <Redirect to='/login'/>}
+          <Route exact path="/packages">
+                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/packages/search'/> : <Packages/> ) : <Redirect to='/login'/>}
           </Route>
-          <Route path="/package/add">
+          <Route path="/packages/add">
                   {this.props.isLogged ? (this.props.isAdmin ? <AddPackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path="/package/search">
+          <Route path="/packages/search">
                   {this.props.isLogged ? <Searcher/> : <Redirect to='/login'/>}       
           </Route>
-          <Route path="/package/update/:idPackage">
+          <Route path="/packages/update/:idPackage">
                 {this.props.isLogged ? (this.props.isAdmin ? <UpdatePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path="/package/remove/:idPackage">           
+          <Route path="/packages/remove/:idPackage">           
                 {this.props.isLogged ? (this.props.isAdmin ? <RemovePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
           <Route path="/request">
@@ -67,8 +71,26 @@ class Layout extends Component{
           <Route path="/quotation/:quotationID">
                   {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route>
-             
+          <Route path='/bill'>
+                {this.props.isLogged ? <Bill/> : <Redirect to='/login'/>}  
+          </Route>
+          <Route path='/bill/upload'>
+                {this.props.isLogged ? (this.props.isAdmin ? <BillUploader/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+          </Route>
+          <Route path='/bill/search'>
+                {this.props.isLogged ? (this.props.isAdmin ? <BillSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+          </Route>
+          <Route path='/bill/:billID'>
+                {this.props.isLogged ? <BillViewer/> : <Redirect to='/login'/>}  
+          </Route>
+          <Route path='/users/add'>
+                  {this.props.isLogged ? <Register/> : <Redirect to='/login'/>} 
+          </Route>
+          <Route path='/users/search'>
+                  {this.props.isLogged ? (this.props.isAdmin ? <UserSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+          </Route>
+          <Route path='/users/:userID'>
+                 {this.props.isLogged ? <Profile userID={this.props.user.id} isAdmin={this.props.isAdmin}/> : <Redirect to='/login'/>} 
           </Route>
           <Route path="/login">
                 <Login/>
@@ -91,8 +113,11 @@ class Layout extends Component{
           <Route path="/register/:userID/:code">
                 <Activate/>
           </Route>
+          <Route path="/Unauthorized">
+                <NotAuthorized/>
+          </Route>
         </Switch>
-        </div>
+        </main>
         <Footer/>
         </Router>
     </div>

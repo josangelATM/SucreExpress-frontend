@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import '../../assets/Shared/Forms.css'
-import Auxilary from '../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import Message from '../../components/UI/Message/Message'
 import Loader from '../../components/UI/Loader/Loader'
 import { login } from '../../store/actions/index'
@@ -24,20 +24,27 @@ const initialValues = {
 
 class Login extends Component{
     state = {
-        status: 'LOGIN'
+        status: 'LOGIN',
+        serverRes: ''
     }
     
 
     handleSubmit = values =>{
         this.setState({status:'LOADING'})
-        axios.post('http://localhost:5000/login',values)
+        axios.post('/users/login',values)
             .then(res =>  {
                 this.props.login(res.data)
                 localStorage.setItem('user', JSON.stringify(res.data))
                 this.setState({status:'SUCCESFUL'})
             })
             .catch(err => {
-                this.setState({status:'FAILED'})
+                if(err.response.status===401){
+                    this.setState({status:'FAILED',serverRes:'Usuario o contraseña incorrecta'})
+                }else{
+                    this.setState({status:'FAILED',serverRes:'Hubo un error, intentalo más tarde'})
+                }
+                
+
             })
     }   
 
@@ -45,51 +52,54 @@ class Login extends Component{
 
 
     render(){
-        let form = null 
+        let loginForm = <Formik
+        initialValues={initialValues}
+        validationSchema={loginSchema}
+        onSubmit={(values)=>{
+            this.handleSubmit(values)
+        }}
+    >
+        {({touched, errors, dirty, isValid}) => (
+            <Form className='form'>
+                <h1>Iniciar Sesión</h1>
+                <Field type='text' placeholder='Usuario' name='username' 
+                className={`form-control ${touched.username && errors.username ? 'error' : ''}`}></Field>
+                <Field type="password" placeholder="Contraseña" name='password' 
+                className={`form-control ${touched.password && errors.password ? 'error' : ''}`}></Field>
+                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Iniciar Sesión</Button>
+                <Link to='/recover'>Olvidé mi password</Link>   
+            </Form>
+        )}
+    </Formik>
+
+    let toRender = null
 
         switch(this.state.status){
             case 'LOGIN':
-                form = 
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={loginSchema}
-                    onSubmit={(values)=>{
-                        this.handleSubmit(values)
-                    }}
-                >
-                    {({touched, errors, dirty, isValid}) => (
-                        <Form className='form'>
-                            <h1>Iniciar Sesión</h1>
-                            <Field type='text' placeholder='Usuario' name='username' 
-                            className={`form-control ${touched.username && errors.username ? 'error' : ''}`}></Field>
-                            <Field type="password" placeholder="Contraseña" name='password' 
-                            className={`form-control ${touched.password && errors.password ? 'error' : ''}`}></Field>
-                            <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Iniciar Sesión</Button>
-                            <Link to='/recover'>Olvidé mi password</Link>   
-                        </Form>
-                    )}
-                </Formik>
+                toRender = loginForm
                 break;
 
             case 'LOADING':
-                form = <Loader></Loader>
+                toRender =<Loader></Loader>
                 break;
             case 'SUCCESFUL': 
-                form = <Redirect to ='/' />
+                toRender = <Redirect to ='/packages' />
            
                 break;
             case 'FAILED': 
-                form = <Message class='Error-msg' message='Upsss hubo un errror'>
-                </Message>
+                toRender = 
+                <Auxiliary>
+                    <Message class='Error-msg' message={this.state.serverRes}/>
+                    {loginForm}
+                </Auxiliary>
+            
                 break;
-            default: 
-                form = null
         }
         
         return(
-            <Auxilary>
-                {form}
-            </Auxilary>
+            <Auxiliary>
+                {toRender}
+            </Auxiliary>
             )
     }
 }

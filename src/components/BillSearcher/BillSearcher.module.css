@@ -1,0 +1,8 @@
+.billSearcher{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: -moz-fit-content;
+    height: fit-content;
+    overflow: auto;
+}

@@ -4,13 +4,11 @@ import * as Yup from 'yup'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useSelector } from 'react-redux'
 import Button from '../../UI/Button/Button'
-import './AddQuotation.css'
-import Auxiliary from '../../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import Loader from '../../UI/Loader/Loader'
 import Message from '../../UI/Message/Message'
-import '../../../assets/Shared/Forms.css'
 import { Link } from 'react-router-dom';
-
+import styles from './AddQuotation.module.css'
 
 const quotationSchema = Yup.object({
     originCountry: Yup.string(),
@@ -46,7 +44,7 @@ const AddQuotation = () => {
     const handleSubmit = values => {
         setStatus('LOADING')
         values.links = values.links.split(',').map(link => link.trim())
-        axios.post('http://localhost:5000/quotation/add',values)
+        axios.post('/quotation/add',values)
             .then(res=>{
                 setStatus('SUCCESS')
             })
@@ -59,6 +57,7 @@ const AddQuotation = () => {
 
        
     const form = <Formik
+                enableReinitialize={true}
                 initialValues={initialValues}
                 validationSchema={quotationSchema}
                 onSubmit={(values) =>{
@@ -66,23 +65,35 @@ const AddQuotation = () => {
                 }}
                 > 
                 {({touched, errors, dirty, isValid, values, handleChange}) => (
-                <Form className='form'>
+                <Form className={styles.quotationForm}>
                     <h1>Solicitar Cotización</h1>
-                    <Field type='email' name='email' placeholder='Correo'class='form-control'/>
-                    <Field type='text' name='phoneNumber' placeholder='Celular'class='form-control'/>
-                    <select name='contactMethod' onChange={handleChange} value={values.contactMethod} class='form-control'>
-                        <option hidden>Método de contacto</option>
-                        <option value='Whatsapp'>Whatsapp</option>
-                        <option value='Correo'>Correo</option>
-                    </select>
-                    <Field name='originCountry' placeholder='País de Origen' type='text'class='form-control'/>
-                    <Field name='destinationCountry' placeholder='País de Destino' type='text'class='form-control'/>
-                    <Field name='qtyBultos' placeholder='Cantidad de Bultos' type='text'class='form-control'/>
-                    <Field name='weight' placeholder='Peso en KG' type='text' class='form-control'/>
-                    <Field name='cubicMeters' placeholder='Metros cubicos'  type='text' class='form-control'/>
-                    <Field name='cubicFeets' placeholder='Pies cubicos' type='text' class='form-control'/>
-                    <textarea rows='5' cols='10' name='message' placeholder='Mensaje' type='text' class='form-control' onChange={handleChange} value={values.message}/>
-                    <textarea rows='10' cols='10' name='links' placeholder='Links' type='text'class='form-control links-area' onChange={handleChange} value={values.links}/>
+                    <div className={styles.inputsContainer}>
+                        <Field type='email' name='email' placeholder='Correo'class={styles.formControl}/>
+                        <Field type='text' name='phoneNumber' placeholder='Celular'class={styles.formControl}/>
+                        <select name='contactMethod' onChange={handleChange} value={values.contactMethod} class={styles.formControl}>
+                            <option hidden>Método de contacto</option>
+                            <option value='Whatsapp'>Whatsapp</option>
+                            <option value='Correo'>Correo</option>
+                        </select>
+                    </div>
+                    
+                    <div className={styles.inputsContainer}>
+                        <Field name='originCountry' placeholder='País de Origen' type='text'class={styles.formControl}/>
+                        <Field name='destinationCountry' placeholder='País de Destino' type='text'class={styles.formControl}/>
+                        <Field name='qtyBultos' placeholder='Cantidad de Bultos' type='text'class={styles.formControl}/>
+                    </div>
+
+                    <div className={styles.inputsContainer}>
+                        <Field name='weight' placeholder='Peso en KG' type='text' class={styles.formControl}/>
+                        <Field name='cubicMeters' placeholder='Metros cubicos'  type='text' class={styles.formControl}/>
+                        <Field name='cubicFeets' placeholder='Pies cubicos' type='text' class={styles.formControl}/>
+                    </div>
+                    
+                    <div className={styles.inputsContainer}>
+                        <textarea rows='5' cols='10' name='message' placeholder='Mensaje' type='text' class={`${styles.formControl} ${styles.areaTextControl}`} onChange={handleChange} value={values.message}/>
+                        <textarea rows='10' cols='10' name='links' placeholder='Links, separados por coma (,)' type='text' class={`${styles.formControl} ${styles.areaTextControl}`} onChange={handleChange} value={values.links}/>
+                    </div>
+                    
                     <Button type="submit" class='Normal'>Solicitar cotización</Button>
                 </Form>
                 )}

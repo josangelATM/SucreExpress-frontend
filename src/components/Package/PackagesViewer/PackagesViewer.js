@@ -2,10 +2,11 @@ import React,{ useState } from 'react'
 import PackageItem from './PackageItem/PackageItem'
 import { useSelector } from 'react-redux'
 import '../../../assets/Shared/Tables.css'
-import Auxilary from '../../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import Message from '../../UI/Message/Message'
+
 const PackagesViewer = (props) => {
-    const userType = useSelector(state => state.auth.user.type)
+    const isAdmin = useSelector(state => state.auth.isAdmin)
     const packages = useSelector(state => state.package.currentPackages)
 
   
@@ -16,7 +17,7 @@ const PackagesViewer = (props) => {
     })
 
 
-    const headers = userType ==='admin' ? <tr>
+    const headers = isAdmin  ? <tr>
         <th>ID</th>
         <th>Origen</th>
         <th>CustomerID</th>
@@ -36,14 +37,18 @@ const PackagesViewer = (props) => {
     </tr>
 
     const table = packages.length > 0 ? <table>
-    {headers}
-    {packagesToRender}
+    <thead>
+        {headers}
+    </thead>
+    <tbody>
+        {packagesToRender}
+    </tbody>
 </table> : <Message class='Normal-msg' message='Sin paquetes para mostrar'/>
 
     return(
-        <Auxilary>
+        <Auxiliary>
             {table}
-        </Auxilary>
+        </Auxiliary>
     )
 }
 

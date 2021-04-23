@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PackagesViewer from '../../components/Package/PackagesViewer/PackagesViewer'
 import axios from 'axios'
-import Auxilary from '../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import './Packages.css'
 class Packages extends Component{
     state = {  
@@ -11,7 +11,7 @@ class Packages extends Component{
     }
 
     fetchPackages(){
-        axios.get(`http://localhost:5000/package/search?type=CustomerID&query=${this.props.user.id}`)
+        axios.get(`/package/search?type=CustomerID&query=${this.props.user.id}`)
             .then(res=>{
                 this.setState({
                     packages : res.data,

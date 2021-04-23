@@ -13,7 +13,7 @@ const EditInfo = (props) => {
         let formData = new FormData(e.target)
         const value = Object.fromEntries(formData.entries());
         
-        axios.post(`http://localhost:5000/user/edit/${user.id}`,value)
+        axios.post(`/user/edit/${user.id}`,value)
             .then(res =>{
                 console.log(res);
             })

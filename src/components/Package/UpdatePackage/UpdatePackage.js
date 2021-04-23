@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button'
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import Loader from '../../UI/Loader/Loader'
-import Auxilary from '../../../hoc/Auxilary/Auxiliary';
+import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import Message from '../../UI/Message/Message';
 
 const packageSchema = Yup.object({
@@ -27,7 +27,7 @@ const UpdatePackage =  (props) =>{
 
     
     useEffect(() =>{
-        axios.get(`http://localhost:5000/package/update/${idPackage}`)
+        axios.get(`/packages/${idPackage}`)
             .then(res => {
                 setPackage(res.data)
             })
@@ -35,7 +35,7 @@ const UpdatePackage =  (props) =>{
 
     const handleSubmit = values => {
         setStatus('LOADING')
-        axios.post(`http://localhost:5000/package/update/${idPackage}`,values)
+        axios.patch(`/packages/${idPackage}`,values)
             .then(res =>  {
                 setStatus('SUCCESS')
             })
@@ -78,7 +78,6 @@ const UpdatePackage =  (props) =>{
                             <option value="Pagado">Pagado</option>
                             <option value="Entregado">Entregado</option>
                         </select>
-                        {console.log(errors)}
                         <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
                     </Form>             
                         )}
@@ -100,10 +99,10 @@ const UpdatePackage =  (props) =>{
 
 
     return(
-        <Auxilary>
+        <Auxiliary>
             {toRender}
-            <Button class={'Normal'}><Link to='/package/search'>Volver al buscador</Link></Button>
-        </Auxilary>
+            <Button class={'Normal'}><Link to='/packages/search'>Volver al buscador</Link></Button>
+        </Auxiliary>
     )
 }
 

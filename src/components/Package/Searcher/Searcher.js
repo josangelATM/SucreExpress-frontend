@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import Button from '../../UI/Button/Button'
-import Auxilary from '../../../hoc/Auxilary/Auxiliary'
+import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import PackagesViewer from '../PackagesViewer/PackagesViewer'
 import Loader from '../../UI/Loader/Loader'
 import * as Yup from 'yup'
@@ -31,7 +31,6 @@ const initialValues = {
 const Searcher = () => {
     const dispatch = useDispatch();
     
-    const [packages,setPackages] = useState([]) 
     const [status,setStatus] = useState('BEFORE')
 
     const userType = useSelector(state => state.auth.user.type)
@@ -39,7 +38,7 @@ const Searcher = () => {
 
     const handleSubmit = values =>{
         setStatus('LOADING')
-        axios.get(`http://localhost:5000/package/search?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}`)
+        axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
                     if(res.data.length === 0){
@@ -47,21 +46,21 @@ const Searcher = () => {
                     }else{
                         dispatch(updatePackages(res.data))
                         setStatus('SUCCESS')
-                        setPackages(res.data)
                     }
                 }else{
                     setStatus('TRANSIT')
                 }
             })
             .catch(err => {
-                console.log(err);
                 setStatus('FAIL')
             })
     }   
 
     let searchResult = null
     let form = null
-    if(userType=='admin'){
+    
+    if(userType=== 'admin' || userType=== 'superadmin'){
+        
         form = 
         <Formik
         initialValues={initialValues}
@@ -106,13 +105,13 @@ const Searcher = () => {
 
     switch (status){
         case 'BEFORE':
-            searchResult = <PackagesViewer />
+            searchResult = null
             break;
         case 'LOADING': 
             searchResult = <Loader/>
             break;
         case 'SUCCESS':
-            searchResult = <PackagesViewer packages={packages}/>
+            searchResult = <PackagesViewer/>
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Búsqueda sin resultados'/>
@@ -123,8 +122,6 @@ const Searcher = () => {
         case 'FAIL':
             searchResult = <Message class='Error-msg' message='Hubo un error, intente en otro momento'/>
             break;
-        default:
-            searchResult = <div>Error :'(</div>
     }
 
     return(
