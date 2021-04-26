@@ -7,10 +7,10 @@ import Button from '../../components/UI/Button/Button'
 import { Link } from 'react-router-dom'
 import Message from '../../components/UI/Message/Message'
 import Loader from '../../components/UI/Loader/Loader'
+import { updateQuotations } from '../../store/actions/index'
 class Quotation extends Component{
     state = {
-        status:'LOADING',
-        quotations:[]
+        status:'LOADING'
     }
 
     componentDidMount(){
@@ -21,10 +21,12 @@ class Quotation extends Component{
         this.setState({status:'LOADING'})
         axios.get(`/quotation?type=CustomerID&query=${this.props.user.id}`)
             .then(res =>{
-                this.setState({quotations:res.data,status:'SUCCESS'})
+                this.props.updateQuotations(res.data)
+                this.setState({status:'SUCCESS'})
+
             })
             .catch(err =>{
-                this.setState({quotations:[], status:'FAIL'})
+                this.setState({status:'FAIL'})
             })
     }
     handleSubmit = e =>{
@@ -50,7 +52,7 @@ class Quotation extends Component{
             case 'SUCCESS':
                 return(<div class='quotation'>
                 <h1>Tus cotizaciones</h1>
-                <QuotationsViewer quotations={this.state.quotations}/>
+                <QuotationsViewer />
                 <Button class='Normal'><Link to='quotation/add'>Solicitar cotización</Link></Button>
             </div>
             )
@@ -60,6 +62,12 @@ class Quotation extends Component{
                     <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
                 )
                 break;
+            default: 
+                return(
+                    <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
+                )
+                break;
+                    
         }
 
     }
@@ -69,6 +77,13 @@ const mapStateToProps = state => {
     return{
         user: state.auth.user
     }
+    
 }
 
-export default connect(mapStateToProps,null)(Quotation);
+const mapDispatchToProps = dispatch => {
+    return{
+        updateQuotations:(quotations) => dispatch(updateQuotations(quotations))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Quotation);

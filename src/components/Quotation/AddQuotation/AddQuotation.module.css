@@ -8,6 +8,10 @@
     border-radius: 2.5rem;
 }
 
+.field{
+    width: 25%;
+}
+
 
 .formControl{
     border: 2px solid #1A6C8C;
@@ -19,13 +23,22 @@
     width: 25%;
 }
 
-.formControl:disabled, .areaTextControl:disabled {
-    cursor:not-allowed;
-    background: #dddddd ;
-}
-.areaTextControl{
+.areaControl{
     width:40%;
     text-align: start;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #1A6C8C;
+}
+
+.fieldRequired{
+    border: 2px solid red;
+}
+
+
+.formControl:disabled, .areaControl:disabled {
+    cursor:not-allowed;
+    background: #dddddd ;
 }
 
 

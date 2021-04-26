@@ -9,6 +9,8 @@ import Loader from '../../components/UI/Loader/Loader'
 import Button from '../../components/UI/Button/Button'
 import { Formik, Form, Field } from "formik";
 import { Link } from 'react-router-dom'
+import formsStyles from '../../assets/Shared/Forms.module.css'
+import compStyles from './Register.module.css'
 
 const registerSchema = Yup.object({
     firstName: Yup.string().required('Nombre es obligatorio'),
@@ -16,23 +18,12 @@ const registerSchema = Yup.object({
     username: Yup.string().required('Usuario es obligatorio'),
     email: Yup.string().email('Correo no válido').required('Correo es obligatorio'),
     phoneNumber: Yup.string(),
-    id: Yup.string().required('Cédula es obligatoria'),
+    id: Yup.string().required('Cédula es obligatoria').matches(/^[a-zA-Z0-9]+$/,'Cédula sin guiones'),
     address: Yup.string().required('Dirección es obligatoria'),
     password: Yup.string().required('Contraseña es obligatorio'),
-    confirmPassword : Yup.string().oneOf([Yup.ref('password'), null],'Las contraseñas deben coincidir').required('Confirmar contraseña es obligatorio')
+    confirmPassword : Yup.string().oneOf([Yup.ref('password'), null],'Las contraseñas deben coincidir').required('Confirmar contraseña es obligatorio'),
 })
 
-const initialValues = {
-    firstName:'',
-    lastName:'',
-    username:'',
-    email:'',
-    phoneNumber:'',
-    id:'',
-    address:'',
-    password:'',
-    confirmPassword:''
-}
 
 
 class Register extends Component{
@@ -41,12 +32,24 @@ class Register extends Component{
         serverRes: ''
     }
     
-
+    initialValues = {
+        firstName:'',
+        lastName:'',
+        username:'',
+        email:'',
+        phoneNumber:'',
+        id:'',
+        address:'',
+        password:'',
+        confirmPassword:''
+    }
+   
     handleSubmit = (values) =>{
+        let data = {...values}
         this.setState({status:'LOADING'})
-        values.id = values.id + '-PN'
-        values.status = this.props.isAdmin ? 'active' : 'pending'
-        axios.post('/users/register',values)
+        data.id = data.id + '-PN'
+        data.status = this.props.isAdmin ? 'active' : 'pending'
+        axios.post('/users/register',data)
             .then(res =>  {
                 this.setState({status:'SUCCESFUL',serverRes:res.data})
             })
@@ -69,37 +72,42 @@ class Register extends Component{
     render(){
         let toRender = null
         let form = <Formik
-        initialValues={initialValues}
+        enableReinitialize = {true}
+        initialValues={this.initialValues}
         validationSchema={registerSchema}
-        onSubmit={values =>{
+        onSubmit={(values, {resetForm}) =>{
             this.handleSubmit(values)
+            if(this.state.status ==='SUCCESS'){
+                resetForm()
+            }
         }}
     >
         {({touched, errors, dirty, isValid,handleChange,values}) => (
                 <Form className='form'>
                 <h1>Crear cuenta</h1>
+                <span>Campos obligatorios marcados en rojo</span>
                 <div className='name-inputs'>
                     <Field type='text' placeholder='Nombre' name='firstName' 
-                    className={`form-control ${touched.firstName && errors.firstName ? 'error' : ''}`}></Field>
+                    className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                     <Field type='text' placeholder='Apellido' name='lastName'
-                    className={`form-control ${touched.lastName && errors.lastName ? 'error' : ''}`}></Field>
+                    className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 </div>
                 <Field type='text' placeholder='Usuario' name='username'
-                className={`form-control ${touched.username && errors.username ? 'error' : ''}`}></Field>
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type='email' placeholder='Correo' name='email' 
-                className={`form-control ${touched.email && errors.email ? 'error' : ''}`}></Field>
-                <Field type='tel' placeholder='Télefono' name='phoneNumber'
-                className={`form-control ${touched.phoneNumber && errors.phoneNumber ? 'error' : ''}`}></Field>
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
+                <Field type='tel' placeholder='Celular' name='phoneNumber'
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type='text' placeholder='Cédula (sin guiones)' name='id'
-                className={`form-control ${touched.id && errors.id ? 'error' : ''}`}></Field>
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type='text' placeholder='Dirección' name='address'
-                className={`form-control ${touched.address && errors.address ? 'error' : ''}`}></Field>
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type="password" placeholder="Contraseña" name='password' 
-                className={`form-control ${touched.password && errors.password ? 'error' : ''}`}></Field>
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type="password" placeholder="Confirmar contraseña" name='confirmPassword' 
-                className={`form-control ${touched.confirmPassword && errors.confirmPassword ? 'error' : ''}`}></Field>
+                className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 {this.props.isSuperAdmin ? 
-                <select name='type' onChange={handleChange} value={values.type} class='form-control'>
+                <select name='type' onChange={handleChange} value={values.type} className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}>
                 <option hidden>Tipo de usuario</option>
                 <option value='customer'>Customer</option>
                 <option value='admin'>admin</option>
@@ -117,7 +125,11 @@ class Register extends Component{
     </Formik>
         switch(this.state.status){
             case 'REGISTER':
-                toRender = form 
+                toRender = 
+                <Auxiliary>
+                    <Loader hidden={true}></Loader>
+                    {form}          
+                </Auxiliary>
                 break;
             case 'LOADING':
                 toRender = 

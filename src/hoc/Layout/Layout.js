@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../../components/Navigation/Header/Header'
+import browserHistory from "history/createBrowserHistory";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import LandingPage from '../../containers/LandingPage/LandingPage'
 import Register from '../../containers/Register/Register'
@@ -34,7 +35,7 @@ class Layout extends Component{
     render(){
         return(              
     <div className='Layout'>
-        <Router>
+        <Router history={browserHistory}>
         <Header></Header>
         <main className='main'>
         <Switch>

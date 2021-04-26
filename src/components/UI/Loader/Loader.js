@@ -1,8 +1,8 @@
 import React from 'react'
 import './Loader.css'
 
-const Loader = () => (
-    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+const Loader = (props) => (
+    <div class={`lds-ellipsis ${props.hidden ? 'hidden' : ''}`} ><div></div><div></div><div></div><div></div></div>
 )
 
 export default Loader;

@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Loader from '../../UI/Loader/Loader'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import Message from '../../UI/Message/Message'
-
+import formsStyles from '../../../assets/Shared/Forms.module.css'
 const packageSchema = Yup.object({
     status: Yup.string().required('Status es requerido'),
     source: Yup.string(),
@@ -55,16 +55,17 @@ const AddPackage =  () =>{
     {({touched, errors, dirty, isValid, values, handleChange}) =>(
         <Form className='form'>
             <h1>Registrar paquete</h1>
+            <span>Campos obligatorios marcados en rojo</span>
             <Field type='text' placeholder='Origen' name='source'
-            className={`form-control ${touched.source && errors.source ? 'error' : ''}`}></Field>
+            className={`${formsStyles.normalField}  ${formsStyles.requiredField} `}></Field>
             <Field type='text' placeholder='Customer ID' name='customerID'
-            className={`form-control ${touched.customerID && errors.customerID ? 'error' : ''}`}></Field>
+            className={`${formsStyles.normalField} ${formsStyles.requiredField} `}></Field>
             <Field type='text' placeholder='Tracking' name='tracking'
-            className={`form-control ${touched.tracking && errors.tracking ? 'error' : ''}`}></Field>
+            className={`${formsStyles.normalField} ${formsStyles.requiredField} `}></Field>
             <Field type='text' placeholder='Peso' name='weight' 
-            className={`form-control ${touched.weight && errors.weight ? 'error' : ''}`}></Field>
+            className={`${formsStyles.normalField} `}></Field>
             <select name="status" value={values.status} onChange={handleChange}
-            className={`form-control ${touched.status && errors.status ? 'error' : ''}`}>
+            className={`${formsStyles.normalField} ${formsStyles.requiredField} `}>
                 <option value="En tránsito" selected>En tránsito</option>
                 <option value="Miami">Miami</option>
                 <option value="Panamá">Panamá</option>

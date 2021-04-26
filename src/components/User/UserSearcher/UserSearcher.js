@@ -79,7 +79,7 @@ const UserSearcher = () =>{
                     <option value='lastName'>Apellido</option>
                     <option value='email'>Correo</option>
                 </select>
-                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
+                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar usuario</Button>
             </Form>
             )}
         </Formik>
