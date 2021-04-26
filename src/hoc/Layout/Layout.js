@@ -94,7 +94,7 @@ class Layout extends Component{
                  {this.props.isLogged ? <Profile userID={this.props.user.id} isAdmin={this.props.isAdmin}/> : <Redirect to='/login'/>} 
           </Route>
           <Route path="/login">
-                <Login/>
+                  {this.props.isLogged ? <Redirect to='/home'/> : <Login/>} 
           </Route>
           <Route exact path="/register">
                 <Register/>
