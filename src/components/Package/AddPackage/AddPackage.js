@@ -33,6 +33,7 @@ const AddPackage =  () =>{
         setStatus('LOADING')
         axios.post('/packages',values)
             .then(res =>  {
+                setResponse(res.data)
                 setStatus('SUCCESS')
             })
             .catch(err => {

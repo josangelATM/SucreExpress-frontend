@@ -11,7 +11,7 @@ class Packages extends Component{
     }
 
     fetchPackages(){
-        axios.get(`/package/search?type=CustomerID&query=${this.props.user.id}`)
+        axios.get(`/packages?type=CustomerID&query=${this.props.user.id}`)
             .then(res=>{
                 this.setState({
                     packages : res.data,
