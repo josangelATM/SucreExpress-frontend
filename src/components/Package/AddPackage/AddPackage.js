@@ -72,6 +72,7 @@ const AddPackage =  () =>{
                 <option value="Panamá">Panamá</option>
                 <option value="Pagado">Pagado</option>
                 <option value="Entregado">Entregado</option>
+                <option value="Mal identificado">Mal identificado</option>
             </select>
             <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Registrar paquete</Button>
         </Form>
