@@ -41,10 +41,11 @@ const Searcher = () => {
         axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
+                    dispatch(updatePackages(res.data))
                     if(res.data.length === 0){
+                        
                         setStatus('NO_RESULT')
                     }else{
-                        dispatch(updatePackages(res.data))
                         setStatus('SUCCESS')
                     }
                 }else{

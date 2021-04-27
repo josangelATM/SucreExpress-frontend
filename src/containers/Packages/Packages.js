@@ -4,6 +4,7 @@ import PackagesViewer from '../../components/Package/PackagesViewer/PackagesView
 import axios from 'axios'
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import './Packages.css'
+import { updatePackages } from '../../store/actions/index'
 class Packages extends Component{
     state = {  
         packages: [],
@@ -13,8 +14,9 @@ class Packages extends Component{
     fetchPackages(){
         axios.get(`/packages?type=CustomerID&query=${this.props.user.id}`)
             .then(res=>{
+                console.log(res.data);
+                this.props.updatePackages(res.data)
                 this.setState({
-                    packages : res.data,
                     status : 'OK'
                 })
             })
@@ -34,7 +36,7 @@ class Packages extends Component{
         return(
             <div className='Packages'>
                 <h1>Tus paquetes</h1>
-                <PackagesViewer packages={this.state.packages} userType={this.props.user.type}/>
+                <PackagesViewer userType={this.props.user.type}/>
             </div> 
         )
     }
@@ -46,4 +48,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,null)(Packages);
+const mapDispatchToProps = dispatch =>{
+    return{
+        updatePackages : (packages) => dispatch(updatePackages(packages))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Packages);
