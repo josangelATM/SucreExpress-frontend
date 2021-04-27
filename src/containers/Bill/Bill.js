@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import Loader from '../../components/UI/Loader/Loader'
 import Message from '../../components/UI/Message/Message'
@@ -46,4 +47,11 @@ class Bill extends Component{
     }
 }
 
-export default Bill;
+
+const mapStateToProps = state => {
+    return{
+        userID: state.auth.user.id
+    }
+}
+
+export default connect(mapStateToProps,null)(Bill);

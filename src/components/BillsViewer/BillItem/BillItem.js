@@ -10,9 +10,8 @@ const BillItem = (props) => {
     <td>{props.customerID}</td>
     <td><a href={props.billLink} target='_blank' className={styles.clickableLink}>{props.billFileName}</a></td>
 </tr> : <tr>
-<td>{props.id}</td>
-    <td>{props.customerID}</td>
-    <td>{props.billFileName}</td>
+    <td>{props.id}</td>
+    <td><a href={props.billLink} target='_blank' className={styles.clickableLink}>{props.billFileName}</a></td>
 </tr>
 
     return(
