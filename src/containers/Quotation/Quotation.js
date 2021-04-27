@@ -53,7 +53,7 @@ class Quotation extends Component{
                 return(<div class='quotation'>
                 <h1>Tus cotizaciones</h1>
                 <QuotationsViewer />
-                <Button class='Normal'><Link to='quotation/add'>Solicitar cotización</Link></Button>
+                <Button class='Normal'><Link to='/quotation/add'>Solicitar cotización</Link></Button>
             </div>
             )
                 break;

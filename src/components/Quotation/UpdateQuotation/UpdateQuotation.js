@@ -78,7 +78,7 @@ const UpdateQuotation = (props) => {
                 <div className={styles.inputsContainer}>
                     <textarea rows='5' cols='10' name='message' placeholder='Mensaje' type='text' class={`${styles.formControl} ${styles.areaTextControl}`}  disabled onChange={handleChange} value={values.message}/>
                     <div className={styles.linksContainer}>
-                        { values.links ? values.links.map((link,idx)=>(<a class='link' href={link} target="_blank">Producto {idx}</a>)) : null}   
+                        { values.links ? values.links.map((link,idx)=>(<a class='link' href={link} target="_blank">Producto {idx+1}</a>)) : null}   
                         
                     </div>
                     
