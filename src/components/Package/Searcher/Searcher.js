@@ -43,7 +43,6 @@ const Searcher = () => {
                 if(Array.isArray(res.data)){
                     dispatch(updatePackages(res.data))
                     if(res.data.length === 0){
-                        
                         setStatus('NO_RESULT')
                     }else{
                         setStatus('SUCCESS')

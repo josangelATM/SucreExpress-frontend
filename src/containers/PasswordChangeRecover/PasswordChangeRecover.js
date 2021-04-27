@@ -20,10 +20,11 @@ const PasswordChange = (props) => {
     const [status,setStatus] = useState('BEFORE')
     const userID = props.match.params.userID;
     const code = props.match.params.code;
-
+    
     const handleSubmit = values =>{   
         setStatus('LOADING')
-        axios.post(`/users/password/${userID}/${code}`,values)
+        const url = props.isAdmin ? `/users/password/${userID}` : `/users/password/${userID}/${code}`
+        axios.post(url,values)
             .then(res =>{
                 setStatus('SUCCESS')
             })

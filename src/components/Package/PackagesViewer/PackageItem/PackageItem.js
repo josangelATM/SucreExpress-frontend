@@ -35,6 +35,7 @@ const PackageItem = (props) => {
     <td>{props.id}</td>
     <td>{props.source}</td>
     <td>{props.customerID}</td>
+    <td>{props.owner.firstName}</td>
     <td>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>

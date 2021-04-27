@@ -21,6 +21,7 @@ const PackagesViewer = (props) => {
         <th>ID</th>
         <th>Origen</th>
         <th>CustomerID</th>
+        <th>Cliente</th>
         <th>Tracking</th>
         <th>Peso</th>
         <th>Status</th>
