@@ -13,7 +13,8 @@ const packageSchema = Yup.object({
     source: Yup.string(),
     customerID: Yup.string().required('Customer ID es requerido'),
     tracking: Yup.string().required('Tracking es requerido'),
-    weight: Yup.string()
+    weight: Yup.string(),
+    comments: Yup.string()
 })
 
 const initialValues = {
@@ -21,7 +22,8 @@ const initialValues = {
     source: '',
     customerID:'',
     tracking:'',
-    weight:''
+    weight:'',
+    comments: ''
 }
 
 const AddPackage =  () =>{
@@ -37,7 +39,8 @@ const AddPackage =  () =>{
                 setStatus('SUCCESS')
             })
             .catch(err => {
-                setResponse(err.response.data);
+                
+                
                 setStatus('FAIL')
             })
     }
@@ -74,6 +77,8 @@ const AddPackage =  () =>{
                 <option value="Entregado">Entregado</option>
                 <option value="Mal identificado">Mal identificado</option>
             </select>
+            <textarea rows="6" cols="15" placeholder="Comentarios" name='comments' 
+            className={`${formsStyles.normalField}`} onChange={handleChange} value={values.comments}></textarea>
             <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Registrar paquete</Button>
         </Form>
     )}
@@ -83,7 +88,8 @@ const AddPackage =  () =>{
         case 'BEFORE':
             return(
              <Auxiliary>
-                 {packageForm}
+                 <Loader hidden={true}/>
+                {packageForm}
              </Auxiliary>   
             )
             break;
@@ -104,7 +110,7 @@ const AddPackage =  () =>{
         case 'FAIL':
             return(
                 <Auxiliary>
-                    <Message class='Error-msg' message={response}/>
+                    <Message class='Error-msg' message='Algún campo único ya está registrado'/>
                     {packageForm}
                 </Auxiliary> 
             )

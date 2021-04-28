@@ -24,6 +24,7 @@ const PasswordChange = (props) => {
     const handleSubmit = values =>{   
         setStatus('LOADING')
         const url = props.isAdmin ? `/users/password/${userID}` : `/users/password/${userID}/${code}`
+        console.log(values);
         axios.post(url,values)
             .then(res =>{
                 setStatus('SUCCESS')
