@@ -6,8 +6,7 @@ import Button from '../../../UI/Button/Button'
 import axios from 'axios'
 import { formatDate } from '../../../../assets/Shared/JS/utils.js'
 import { deletePackages } from '../../../../store/actions/index'
-import Loader from '../../../UI/Loader/Loader'
-import Message from '../../../UI/Message/Message'
+import compStyles from './PackageItem.module.css'
 const PackageItem = (props) => {
   
     const isAdmin = useSelector(state => state.auth.isAdmin)
@@ -36,7 +35,7 @@ const PackageItem = (props) => {
     <td>{props.source}</td>
     <td>{props.customerID}</td>
     <td>{props.owner.firstName}</td>
-    <td>{props.tracking}</td>
+    <td className={compStyles.smallTD}>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{formatDate(props.updatedAt)}</td>
@@ -45,7 +44,7 @@ const PackageItem = (props) => {
 </tr> : <tr>
     <td>{props.id}</td>
     <td>{props.source}</td>
-    <td>{props.tracking}</td>
+    <td className={compStyles.smallTD}>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{formatDate(props.updatedAt)}</td>

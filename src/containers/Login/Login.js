@@ -30,6 +30,7 @@ class Login extends Component{
     
 
     handleSubmit = values =>{
+        console.log(values)
         this.setState({status:'LOADING'})
         axios.post('/users/login',values)
             .then(res =>  {
@@ -38,7 +39,7 @@ class Login extends Component{
                 this.setState({status:'SUCCESFUL'})
             })
             .catch(err => {
-                if(err.response.status===401){
+                if(err.response && err.response.status===401){
                     this.setState({status:'FAILED',serverRes:'Usuario o contraseña incorrecta'})
                 }else{
                     this.setState({status:'FAILED',serverRes:'Hubo un error, intentalo más tarde'})

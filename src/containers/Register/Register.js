@@ -22,6 +22,7 @@ const registerSchema = Yup.object({
     address: Yup.string().required('Dirección es obligatoria'),
     password: Yup.string().required('Contraseña es obligatorio'),
     confirmPassword : Yup.string().oneOf([Yup.ref('password'), null],'Las contraseñas deben coincidir').required('Confirmar contraseña es obligatorio'),
+    comments: Yup.string()
 })
 
 
@@ -41,7 +42,8 @@ class Register extends Component{
         id:'',
         address:'',
         password:'',
-        confirmPassword:''
+        confirmPassword:'',
+        comments:''
     }
    
     handleSubmit = (values) =>{
