@@ -14,7 +14,8 @@ const packageSchema = Yup.object({
     id: Yup.string().required('ID no se puede modificar'),
     customerID: Yup.string().required('Customer ID es requerido'),
     tracking: Yup.string().required('Tracking es requerido'),
-    weight: Yup.string()
+    weight: Yup.string(),
+    comments: Yup.string()
 })
 
 
@@ -70,6 +71,8 @@ const UpdatePackage =  (props) =>{
                         className='form-control'></Field>
                         <Field type='text' placeholder='Peso' name='weight' 
                         className='form-control'></Field>
+                        <textarea rows="6" cols="15" placeholder="Comentarios" name='comments' 
+                        className='form-control' onChange={handleChange} value={values.comments}></textarea>
                         <select name="status" value={values.status} onChange={handleChange}
                         className='form-control'>
                             <option value="En tránsito" >En tránsito</option>

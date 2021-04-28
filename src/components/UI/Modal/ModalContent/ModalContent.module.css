@@ -1,0 +1,21 @@
+.modalContent{
+  background-color: #fefefe;
+  margin: 20% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 0.2rem solid #1A6C8C;
+  width: fit-content; /* Could be more or less, depending on screen size */
+  height: fit-content;
+}
+.closeContainer{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.closeBtn{
+  cursor: pointer;
+  color: #1A6C8C;
+  margin-left: 2rem;
+}

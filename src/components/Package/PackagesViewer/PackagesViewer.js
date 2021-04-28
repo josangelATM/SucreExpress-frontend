@@ -19,6 +19,33 @@ const PackagesViewer = (props) => {
         )
     })
 
+    const filterTable = function() {
+        let input, filter, table, tr, th,td, i,index, txtValue,field;
+        input = document.getElementById("filterInput");
+        filter = input.value.toUpperCase();
+        field = document.getElementById("fieldInput").value
+        table = document.getElementById("packagesTable");
+        tr = table.getElementsByTagName("tr");
+        th = table.getElementsByTagName("th");
+        index = tableHeaders.indexOf(field)
+        
+
+        
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[index];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+  }
+        
+    }
 
     const exportCsv = function download_table_as_csv(table_id, separator = ',') {
         // Select rows from table_id
@@ -54,25 +81,25 @@ const PackagesViewer = (props) => {
     }
 
 
+    const tableHeaders = isAdmin ? [
+        'ID','Origen','CustomerID','Cliente','Tracking','Peso','Status','Última actualización'
+    ] : [
+        'ID','Origen','Tracking','Peso','Status','Última actualización'
+    ]
 
-    const headers = isAdmin  ? <tr>
-        <th>ID</th>
-        <th>Origen</th>
-        <th>CustomerID</th>
-        <th>Cliente</th>
-        <th>Tracking</th>
-        <th>Peso</th>
-        <th>Status</th>
-        <th>Última actualización</th>
-        <th>Actualizar</th>
-        <th>Eliminar</th>
-    </tr> :<tr>
-        <th>ID</th>
-        <th>Origen</th>
-        <th>Tracking</th>
-        <th>Peso</th>
-        <th>Status</th>
-        <th>Última actualización</th>
+
+
+    const headers = <tr>
+        {tableHeaders.map(head =>(
+            <th>{head}</th>
+        ))}
+        {isAdmin ? 
+        <Auxiliary>
+            <th>Actualizar</th>
+            <th>Eliminar</th> 
+        </Auxiliary>
+        : 
+        <th>Ver comentarios</th> }
     </tr>
 
     const table = packages.length > 0 ? 
@@ -90,6 +117,14 @@ const PackagesViewer = (props) => {
     : <Message class='Normal-msg' message='Sin paquetes para mostrar'/>
     return(
         <Auxiliary>
+            <div className={compStyles.filterContainer}>
+                <input id='filterInput' placeholder='Filtro' type='text' onChange={filterTable} className={compStyles.input}></input>
+                <select id='fieldInput'onChange={filterTable} className={compStyles.input}>
+                    {tableHeaders.map(header =>(
+                        <option value={header}>{header}</option>
+                    )) }
+                </select>
+            </div>
             {table}
         </Auxiliary>
     )

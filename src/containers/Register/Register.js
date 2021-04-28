@@ -11,6 +11,8 @@ import { Formik, Form, Field } from "formik";
 import { Link } from 'react-router-dom'
 import formsStyles from '../../assets/Shared/Forms.module.css'
 import compStyles from './Register.module.css'
+import Modal from '../../components/UI/Modal/Modal'
+import ModalContent from '../../components/UI/Modal/ModalContent/ModalContent'
 
 const registerSchema = Yup.object({
     firstName: Yup.string().required('Nombre es obligatorio'),

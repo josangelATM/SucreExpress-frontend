@@ -7,8 +7,10 @@ import axios from 'axios'
 import { formatDate } from '../../../../assets/Shared/JS/utils.js'
 import { deletePackages } from '../../../../store/actions/index'
 import compStyles from './PackageItem.module.css'
+import ModelContent from '../../../UI/Modal/ModalContent/ModalContent'
+import ModalContent from '../../../UI/Modal/ModalContent/ModalContent'
 const PackageItem = (props) => {
-  
+    const [showModal,setShowModal] = useState(false)
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const dispatch = useDispatch()
 
@@ -30,6 +32,13 @@ const PackageItem = (props) => {
       }
     }
 
+    const toggleModal = () =>{
+      setShowModal(!showModal)
+    }
+
+    const hasComments = props.comments ? true:false
+
+
     let toRender = isAdmin ? <tr>
     <td>{props.id}</td>
     <td>{props.source}</td>
@@ -39,8 +48,8 @@ const PackageItem = (props) => {
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{formatDate(props.updatedAt)}</td>
-    <td><Button class='Link'><Link to={`/packages/update/${props.id}`}>Actualizar</Link></Button></td>
-    <td><Button class='Link' onClick={confirmation}>Eliminar</Button></td>
+    <td><Button class='Link' size={'small'}><a target='_blank' href={`/packages/update/${props.id}`}>Actualizar</a></Button></td>
+    <td><Button class='Link' size={'small'} onClick={confirmation}>Eliminar</Button></td>
 </tr> : <tr>
     <td>{props.id}</td>
     <td>{props.source}</td>
@@ -48,6 +57,10 @@ const PackageItem = (props) => {
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{formatDate(props.updatedAt)}</td>
+    <td><Button disabled={!hasComments} class='Link' size={'small'} onClick={toggleModal} >Ver comentarios</Button></td>
+    <ModalContent id={`item${props.id}`} status={showModal} toggleModal={toggleModal}>
+        { hasComments && props.comments.length  === 0 ? <p>No comments</p> : <p>{props.comments}</p>}
+    </ModalContent>
 </tr>
 
     // let deleteStatus = null

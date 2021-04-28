@@ -76,6 +76,7 @@ const AddPackage =  () =>{
                 <option value="Pagado">Pagado</option>
                 <option value="Entregado">Entregado</option>
                 <option value="Mal identificado">Mal identificado</option>
+                <option value="No encontrado">No encontrado</option>
             </select>
             <textarea rows="6" cols="15" placeholder="Comentarios" name='comments' 
             className={`${formsStyles.normalField}`} onChange={handleChange} value={values.comments}></textarea>

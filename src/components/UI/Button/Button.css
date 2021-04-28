@@ -8,9 +8,9 @@ a {
 .Normal{
     background-color: #005B7F;
     width: fit-content;
-    padding: 1rem 1rem;
-    border-radius: 15px;
+    border-radius: 1.5rem;
     color: white;  
+    padding: 1rem 1rem;
     font-size: 2rem; 
     margin: 1rem 0;
 }
@@ -19,6 +19,18 @@ a {
     opacity: 0.65; 
     cursor: not-allowed;
 }
+
+.Link:disabled{
+    opacity: 0.65; 
+    cursor: not-allowed;
+}
+
+
+.normal{
+    
+}
+
+
 
 .Link{
     background-color: #005B7F;
@@ -30,3 +42,8 @@ a {
     margin: 1rem 0;
 }
 
+.small{
+    padding: 0.5rem 0.5rem;
+    font-size: 1.4rem; 
+    border-radius: 1rem
+}
