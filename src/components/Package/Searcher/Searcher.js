@@ -36,6 +36,26 @@ const Searcher = () => {
     const userType = useSelector(state => state.auth.user.type)
     const userID = useSelector(state => state.auth.user.id)
 
+    const getAll = values =>{
+        setStatus('LOADING')
+        axios.get(`/packages?type=all`)
+            .then(res =>  {
+                if(Array.isArray(res.data)){
+                    dispatch(updatePackages(res.data))
+                    if(res.data.length === 0){
+                        setStatus('NO_RESULT')
+                    }else{
+                        setStatus('SUCCESS')
+                    }
+                }else{
+                    setStatus('TRANSIT')
+                }
+            })
+            .catch(err => {
+                setStatus('FAIL')
+            })
+    }
+
     const handleSubmit = values =>{
         setStatus('LOADING')
         axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}`)
@@ -79,6 +99,7 @@ const Searcher = () => {
                     <option value='ID' selected>ID</option>
                 </select>
                 <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
+                <Button class={'Normal'} type="button" onClick={getAll} >Mostrar todos</Button>
             </Form>
             )}
         </Formik>

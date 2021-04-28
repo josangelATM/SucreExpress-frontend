@@ -7,7 +7,6 @@ import axios from 'axios'
 import { formatDate } from '../../../../assets/Shared/JS/utils.js'
 import { deletePackages } from '../../../../store/actions/index'
 import compStyles from './PackageItem.module.css'
-import ModelContent from '../../../UI/Modal/ModalContent/ModalContent'
 import ModalContent from '../../../UI/Modal/ModalContent/ModalContent'
 const PackageItem = (props) => {
     const [showModal,setShowModal] = useState(false)

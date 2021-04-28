@@ -80,6 +80,9 @@ const UpdatePackage =  (props) =>{
                             <option value="Panamá">Panamá</option>
                             <option value="Pagado">Pagado</option>
                             <option value="Entregado">Entregado</option>
+                            <option value="No encontrado">No encontrado</option>
+                            <option value="Mal identificado">Mal identificado</option>
+                            <option value="Reclamadoi">Reclamado</option>
                         </select>
                         <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
                     </Form>             
