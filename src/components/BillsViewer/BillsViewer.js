@@ -3,7 +3,10 @@ import BillItem from './BillItem/BillItem'
 import { useSelector } from 'react-redux'
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import Message from '../UI/Message/Message'
-
+import Button from '../UI/Button/Button'
+import sharedStyles from '../../assets/Shared/General.module.css'
+import SearchFilter from '../SearchFilter/SearchFilter'
+import {exportToCSV} from '../../helpers/helpers'
 const BillsViewer = (props) => {
    
     const isAdmin = useSelector(state => state.auth.isAdmin)
@@ -13,27 +16,34 @@ const BillsViewer = (props) => {
         )
     })
 
+    const tableHeaders = isAdmin ? [
+        'ID','CustomerID','Factura'
+    ] : [
+        'ID','Factura'
+    ]
 
-    const headers = isAdmin  ? <tr>
-        <th>ID</th>
-        <th>CustomerID</th>
-        <th>Factura</th>
-    </tr> :<tr>
-        <th>ID</th>
-        <th>Factura</th>
+
+    const headers = <tr>
+    {tableHeaders.map(head =>(
+        <th>{head}</th>
+    ))}
     </tr>
 
-    const table = props.bills.length > 0 ? <table>
+    const table = props.bills.length > 0 ? 
+    <div className={sharedStyles.tableContainer}>
+    <Button class='Normal' onClick={() => exportToCSV('billsTable','Bills')}>Exportar datos</Button>
+    <table id='billsTable'>
     <thead>
         {headers}
     </thead>
     <tbody>
         {billsToRender}
     </tbody>
-</table> : <Message class='Normal-msg' message='Sin facturas para mostrar'/>
+</table> </div>: <Message class='Normal-msg' message='Sin facturas para mostrar'/>
 
     return(
         <Auxiliary>
+            <SearchFilter headers={tableHeaders} tableID={'billsTable'} />
             {table}
         </Auxiliary>
     )

@@ -51,7 +51,7 @@ class Quotation extends Component{
                 break;
             case 'SUCCESS':
                 return(<div class='quotation'>
-                <h1>Tus cotizaciones</h1>
+                <h1 className='title'>Tus cotizaciones</h1>
                 <QuotationsViewer />
                 <Button class='Normal'><Link to='/quotation/add'>Solicitar cotización</Link></Button>
             </div>

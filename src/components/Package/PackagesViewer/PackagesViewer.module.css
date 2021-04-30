@@ -1,20 +1,7 @@
-.tableContainer{
+.functionsContainer{
     display: flex;
-    flex-direction: column;
+    margin-bottom: 2rem;
+    width: 100%;
+    justify-content: space-around;
     align-items: center;
-}
-
-.filterContainer{
-    border: 0.2rem solid #1A6C8C;
-    border-radius: 1.5rem;
-    display: flex;
-
-}
-
-.input{
-    padding: 0.5rem 0.5rem;
-    margin: 1rem 1rem;
-    border: 0.2rem solid #1A6C8C;
-    border-radius: 1.2rem;
-    font-size: 1.5rem;
 }

@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux'
 import QuotationItem from '../QuotationsViewer/QuotationItem/QuotationItem'
 import Message from '../../UI/Message/Message'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
-
+import sharedStyles from '../../../assets/Shared/General.module.css'
+import SearchFilter from '../../SearchFilter/SearchFilter'
+import {exportToCSV} from '../../../helpers/helpers'
+import Button from '../../UI/Button/Button'
 const QuotationsViewer = (props) => {
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const currentQuotations = useSelector(state => state.quotation.currentQuotations)
@@ -15,36 +18,41 @@ const QuotationsViewer = (props) => {
     })
 
 
-    const headers = isAdmin ? <tr>
-        <th>ID</th>
-        <th>CustomerID</th>
-        <th>Origen</th>
-        <th>Destino</th>
-        <th>Weigth</th>
-        <th>Status</th>
-        <th>Fecha creación</th>
-        <th>Ver detalles</th>
-        <th>Eliminar</th>
-    </tr> :<tr>
-        <th>ID</th>
-        <th>Origen</th>
-        <th>Destino</th>
-        <th>Weigth</th>
-        <th>Status</th>
-        <th>Fecha creación</th>
+    const tableHeaders = isAdmin ? [
+        'ID','CustomerID','Origen','Destino','Peso','Status','Fecha Creación'
+    ] : [
+        'ID','Origen','Destino','Weight','Status','Fecha Creación'
+    ]
+
+
+    const headers = <tr>
+        {tableHeaders.map(head =>(
+            <th>{head}</th>
+        ))}
+        {isAdmin ?  
+        <Auxiliary>
+            <th>Ver detalles</th>
+            <th>Eliminar</th> 
+        </Auxiliary>
+        : null }
     </tr>
 
-    const table = quotations.length > 0 ? <table>
+
+    const table = quotations.length > 0 ? 
+    <div className={sharedStyles.tableContainer}>
+    <Button class='Normal' onClick={() => exportToCSV('quotationsTable','Quotations')}>Exportar datos</Button>
+    <table id='quotationsTable'>
         <thead>
             {headers}
         </thead>
         <tbody>
             {quotations}
         </tbody>  
-    </table> : <Message class='Normal-msg' message='Sin cotizaciones para mostrar'/>
+    </table> </div> : <Message class='Normal-msg' message='Sin cotizaciones para mostrar'/>
 
     return(
         <Auxiliary>
+            <SearchFilter headers={tableHeaders} tableID={'quotationsTable'} />
             {table}
         </Auxiliary>
     )

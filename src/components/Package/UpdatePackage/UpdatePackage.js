@@ -7,7 +7,8 @@ import { Formik, Form, Field } from 'formik';
 import Loader from '../../UI/Loader/Loader'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import Message from '../../UI/Message/Message';
-
+import { useDispatch } from 'react-redux';
+import {updatePackage} from '../../../store/actions/index'
 const packageSchema = Yup.object({
     status: Yup.string().required('Status es requerido'),
     source: Yup.string(),
@@ -25,7 +26,7 @@ const UpdatePackage =  (props) =>{
     const [status,setStatus] = useState('BEFORE')
     const [currentPackage, setPackage] = useState({})
     const idPackage = props.match.params.idPackage;
-
+    const dispatch = useDispatch()
     
     useEffect(() =>{
         axios.get(`/packages/${idPackage}`)
@@ -39,6 +40,8 @@ const UpdatePackage =  (props) =>{
         axios.patch(`/packages/${idPackage}`,values)
             .then(res =>  {
                 setStatus('SUCCESS')
+                console.log(res.data)
+                dispatch(updatePackage(res.data))
             })
             .catch(err => {
                 setStatus('FAIL')
@@ -82,7 +85,7 @@ const UpdatePackage =  (props) =>{
                             <option value="Entregado">Entregado</option>
                             <option value="No encontrado">No encontrado</option>
                             <option value="Mal identificado">Mal identificado</option>
-                            <option value="Reclamadoi">Reclamado</option>
+                            <option value="Reclamado">Reclamado</option>
                         </select>
                         <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
                     </Form>             

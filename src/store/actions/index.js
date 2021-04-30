@@ -3,7 +3,7 @@ export {
 } from './userActions'
 
 export {
-    updatePackages,deletePackages
+    updatePackages,deletePackages,updatePackage
 } from './packagesActions'
 
 export {

@@ -3,7 +3,10 @@ import PackageRequestItem from './PackageRequestItem/PackageRequestItem'
 import { useSelector } from 'react-redux'
 import Message from '../../UI/Message/Message'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
-
+import Button from '../../UI/Button/Button'
+import sharedStyles from '../../../assets/Shared/General.module.css'
+import SearchFilter from '../../SearchFilter/SearchFilter'
+import {exportToCSV} from '../../../helpers/helpers'
 const PackageRequestViewer = (props) =>{
     const requests = useSelector( state => state.request.currentRequests)
 
@@ -14,17 +17,23 @@ const PackageRequestViewer = (props) =>{
         )
     })
 
+    const tableHeaders = [
+        'ID','CustomerID','Tracking','CreatedAt'
+    ] 
+
     const headers =
     <tr>
-        <th>CustomerID</th>
-        <th>Tracking</th>
-        <th>CreatedAt</th>
+        {tableHeaders.map(head =>(
+            <th>{head}</th>
+        ))}
         <th>Eliminar</th>
     </tr>
 
 
     const finalRender = requests.length === 0 ? <Message class='Normal-msg' message='Sin solicitudes para mostrar'/> : 
-    <table>
+    <div className={sharedStyles.tableContainer}>
+    <Button class='Normal' onClick={() => exportToCSV('requestsTable','Requests')}>Exportar datos</Button>
+    <table id='requestsTable'>
         <thead>
             {headers}   
         </thead>
@@ -32,10 +41,11 @@ const PackageRequestViewer = (props) =>{
             {toRender}
         </tbody>
     
-</table>  
+</table> </div>
 
     return(
     <Auxiliary>
+        <SearchFilter headers={tableHeaders} tableID={'requestsTable'} />
         {finalRender}
     </Auxiliary>
     )

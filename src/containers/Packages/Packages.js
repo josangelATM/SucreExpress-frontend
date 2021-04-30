@@ -35,7 +35,7 @@ class Packages extends Component{
     render(){
         return(
             <div className='Packages'>
-                <h1>Tus paquetes</h1>
+                <h1 className={'title'}>Tus paquetes</h1>
                 <PackagesViewer userType={this.props.user.type}/>
             </div> 
         )

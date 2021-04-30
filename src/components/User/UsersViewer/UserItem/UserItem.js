@@ -9,6 +9,7 @@ const UserItem = (props) =>{
         <td>{props.id}</td>
         <td>{props.firstName}</td>
         <td>{props.lastName}</td>
+        <td>{props.username}</td>
         <td>{props.email}</td>
         <td>{props.phoneNumber}</td>
         <td><Button class='Link'><Link to={`/users/${props.id}`}>Ver más</Link></Button></td>

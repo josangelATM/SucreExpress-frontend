@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    border: 0.3rem solid #1A6C8C;
+    border-radius: 1.5rem;
+    font-size: 2rem;
+    width: fit-content;
+}
+
+.counterContainer{
+    display: flex;
+    margin: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.counterContainer p{
+    margin: 0 1rem;
+}

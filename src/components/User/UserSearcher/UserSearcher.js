@@ -56,6 +56,22 @@ const UserSearcher = () =>{
             })
     }
 
+    const getAll = () =>{
+        axios.get(`/users?limit=all`)
+            .then(res=>{
+                if(Array.isArray(res.data) || res.data.length === 0){
+                    setStatus('SUCCESS')
+                    setUsers(res.data)
+                }else{
+                    setStatus('NO_RESULT')
+                }
+                
+            })
+            .catch(err=>{
+                setStatus('FAIL')
+            })
+    }
+
     useEffect(() => {
         fetchUsers();
     },[])
@@ -80,6 +96,7 @@ const UserSearcher = () =>{
                     <option value='email'>Correo</option>
                 </select>
                 <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar usuario</Button>
+                <Button class={'Normal'} type="button" onClick={getAll}>Mostrar Todos</Button>
             </Form>
             )}
         </Formik>
@@ -89,7 +106,8 @@ const UserSearcher = () =>{
             searchResult = <Loader/>
             break;
         case 'SUCCESS':
-            searchResult = <UsersViewer users={users}/>
+            searchResult = 
+            <UsersViewer users={users}/>
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Sin usuarios encontrados'/>
