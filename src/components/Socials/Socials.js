@@ -6,17 +6,11 @@ import './Socials.css'
 const Socials = (props) => (
 
     <div className={`Socials ${props.color}`}>
-        <a href='/'> 
+        <a href='https://www.instagram.com/sucrexpress/'> 
             <FontAwesomeIcon icon={faInstagram} size='3x'/>
         </a>
-        <a href='/'> 
-            <FontAwesomeIcon icon={faFacebook} size='3x'/>
-        </a>
-        <a href='/'> 
+        <a href='https://api.whatsapp.com/send?phone=50769198012'> 
             <FontAwesomeIcon icon={faWhatsapp} size='3x'/>
-        </a>
-        <a href='/'> 
-            <FontAwesomeIcon icon={faTwitter} size='3x'/>
         </a>
     </div>
 )

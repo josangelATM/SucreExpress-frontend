@@ -8,6 +8,7 @@ import { formatDate } from '../../../../assets/Shared/JS/utils.js'
 import { deletePackages } from '../../../../store/actions/index'
 import compStyles from './PackageItem.module.css'
 import ModalContent from '../../../UI/Modal/ModalContent/ModalContent'
+import Comments from './Comments/Comments'
 const PackageItem = (props) => {
     const [showModal,setShowModal] = useState(false)
     const isAdmin = useSelector(state => state.auth.isAdmin)
@@ -43,7 +44,9 @@ const PackageItem = (props) => {
     <td>{props.source}</td>
     <td>{props.customerID}</td>
     <td>{props.owner.firstName}</td>
-    <td className={compStyles.smallTD}>{props.tracking}</td>
+    <td className={compStyles.smallTD}>
+      <Comments text={props.tracking} toolTip={props.comments}/>
+    </td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{formatDate(props.updatedAt)}</td>
