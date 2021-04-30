@@ -31,7 +31,7 @@ const PackagesViewer = (props) => {
 
 
     const updateCounter = ()=>{
-        setCounter(ocurrencesCounter(['Entregado','Panamá','En tránsito','Reclamado','No encontrado','Mal identificado','Miami'],'packagesTable','Status',tableHeaders))
+        setCounter(ocurrencesCounter(['Entregado','Panamá','En tránsito','Reclamado','No encontrado','Mal identificado','Miami','Pagado','Facturado', 'Devuelto al origen'],'packagesTable','Status',tableHeaders))
     }
 
     useLayoutEffect(()=>{
