@@ -87,7 +87,7 @@ class Register extends Component{
         }}
     >
         {({touched, errors, dirty, isValid,handleChange,values}) => (
-                <Form className='form'>
+                <Form className={`form ${compStyles.registerMobile}`}>
                 <h1>Crear cuenta</h1>
                 <span>Campos obligatorios marcados en rojo</span>
                 <div className='name-inputs'>
