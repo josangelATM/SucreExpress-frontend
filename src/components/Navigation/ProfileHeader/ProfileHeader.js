@@ -33,14 +33,14 @@ const ProfileHeader = () =>{
                                         <Link to='/login'>
                                             <div className='profile-header-option'>
                                                 <FontAwesomeIcon icon={faSignInAlt}/>
-                                                <span>Iniciar Sesión</span>
+                                                <p>Iniciar Sesión</p>
                                                 
                                             </div> 
                                         </Link>
                                         <Link to='/register'>
                                             <div className='profile-header-option'>
                                                 <FontAwesomeIcon icon={faUserPlus}/>
-                                                <span>Registrarse</span>
+                                                <p>Registrarse</p>
                                             </div>  
                                          </Link>
                                          

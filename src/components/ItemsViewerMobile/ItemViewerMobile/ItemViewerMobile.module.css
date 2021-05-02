@@ -1,0 +1,19 @@
+.itemContainer{
+    font-size: 1.6rem;
+    width: 90%;
+    margin-bottom: 2rem ;
+}
+
+.columnContainer {
+    display: flex;
+    border-bottom: 0.1rem solid #1A6C8C;
+}
+
+.columnContainer span{
+    width: 100%;
+    
+}
+
+.data{
+    text-align: right;
+}

@@ -10,6 +10,7 @@ import SearchFilter from '../../SearchFilter/SearchFilter'
 import {exportToCSV,ocurrencesCounter} from '../../../helpers/helpers'
 import CounterDisplay from '../../CounterDisplay/CounterDisplay'
 import compStyles from './PackagesViewer.module.css'
+import './PackagesViewer.css'
 const PackagesViewer = (props) => {
     
     const isAdmin = useSelector(state => state.auth.isAdmin)

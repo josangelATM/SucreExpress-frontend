@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import { faChevronCircleDown, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SideBarButton from '../../UI/Button/SideBarButton/SideBarButton'
 const Sidebar = (props) => {
 
     const isAdmin = useSelector(state => state.auth.isAdmin)
@@ -20,10 +21,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/packages/add'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/packages/add'>
                         Registrar
                     </NavLink>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/packages/search'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/packages/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -37,10 +38,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/quotation/add'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotation/add'>
                         Solicitar
                     </NavLink>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/quotation/search'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotation/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -53,10 +54,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/users/add'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/users/add'>
                         Registrar
                     </NavLink>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/users/search'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/users/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -69,15 +70,15 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/bill/upload'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bill/upload'>
                         Subir
                     </NavLink>
-                    <NavLink className={compStyles.navItem} activeClassName='active' to='/bill/search'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bill/search'>
                         Buscar
                     </NavLink>
                 </div>
             </div>
-            <NavLink className={compStyles.navItem} exact to='/request' activeClassName='active'>
+            <NavLink onClick={props.toggle} className={compStyles.navItem} exact to='/request' activeClassName='active'>
                 SOLICITUDES
             </NavLink>
         </Auxiliary>
@@ -92,10 +93,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
             </div>
             <div className='dropdown-content'>
-                <NavLink className={compStyles.navItem} activeClassName='active' to='/packages/'>
+                <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/packages/'>
                     Mis paquetes
                 </NavLink>
-                <NavLink className={compStyles.navItem} activeClassName='active' to='/packages/search'>
+                <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/packages/search'>
                     Buscar
                 </NavLink>
             </div>
@@ -109,16 +110,16 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
             </div>
             <div className='dropdown-content'>
-            <NavLink className={compStyles.navItem} activeClassName='active'to='/quotation'>
+            <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active'to='/quotation'>
                     Mis cotizaciones
                 </NavLink>
-                <NavLink className={compStyles.navItem} activeClassName='active' to='/quotation/add'>
+                <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotation/add'>
                     Solicitar
                 </NavLink>
             </div>
         </div>
         <div className='NavItem'>
-                <NavLink className={compStyles.navItem} exact to='/bill' activeClassName='active'>
+                <NavLink onClick={props.toggle} onClick={props.toggle} className={compStyles.navItem} exact to='/bill' activeClassName='active'>
                         FACTURAS
                 </NavLink>
         </div>
@@ -128,6 +129,7 @@ const Sidebar = (props) => {
 
     return(
         <div className={`${compStyles.sidebar} ${props.show ? compStyles.show : compStyles.hide}`}>
+            <SideBarButton toOpen={false} toggle={props.toggle}/>
             { isLogged ? (isAdmin ? adminLinks : customerLinks) : customerLinks}
         </div>
     )

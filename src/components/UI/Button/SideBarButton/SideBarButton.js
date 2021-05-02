@@ -6,7 +6,7 @@ const SideBarButton = (props) =>{
 
     return(
         <div className={compStyles.sideBarButton}> 
-            <FontAwesomeIcon className={compStyles.icon} onClick={props.toggle} icon={props.show ? faArrowLeft : faBars}  size='5x'/>
+            <FontAwesomeIcon className={`${compStyles.icon} ${props.toOpen ? '' : compStyles.arrow}`} onClick={props.toggle} icon={props.toOpen ? faBars : faArrowLeft}  size='5x'/>
         </div>
     )
 }

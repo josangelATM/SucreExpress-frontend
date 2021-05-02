@@ -1,10 +1,20 @@
 import * as actionTypes from '../actions/actionTypes'
-
+import {formatDate} from '../../helpers/helpers'
 const initialState = {
     currentQuotations:[]
 }
  
 const updateQuoations = (state, action) => {
+    const regexForDate = new RegExp('\\d{4}-\\d{2}-\\d{2}T')
+
+    for (let item of action.quoations){
+        for (let key in item) {
+            if(regexForDate.test(item[key])){
+                item[key] = formatDate(item[key])
+            }
+            
+          }
+    }
     return{
         ...state,
         currentQuotations: action.quoations

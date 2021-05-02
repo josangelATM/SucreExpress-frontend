@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Auxiliary from '../../../../hoc/Auxiliary/Auxiliary'
 import Button from '../../../UI/Button/Button'
 import axios from 'axios'
-import { formatDate } from '../../../../assets/Shared/JS/utils.js'
+
 import { deletePackages } from '../../../../store/actions/index'
 import compStyles from './PackageItem.module.css'
 import ModalContent from '../../../UI/Modal/ModalContent/ModalContent'
@@ -49,7 +49,7 @@ const PackageItem = (props) => {
     </td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
-    <td>{formatDate(props.updatedAt)}</td>
+    <td>{props.updatedAt}</td>
     <td><Button class='Link' size={'small'}><a target='_blank' href={`/packages/update/${props.id}`}>Actualizar</a></Button></td>
     <td><Button class='Link' size={'small'} onClick={confirmation}>Eliminar</Button></td>
 </tr> : <tr>
@@ -58,8 +58,8 @@ const PackageItem = (props) => {
     <td className={compStyles.smallTD}>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
-    <td>{formatDate(props.updatedAt)}</td>
-    <td><Button disabled={!hasComments} class='Link' size={'small'} onClick={toggleModal} >Ver comentarios</Button></td>
+    <td>{props.updatedAt}</td>
+    <td><Button disabled={!hasComments} class='Link' size={'small'} onClick={toggleModal}>Ver comentarios</Button></td>
     <ModalContent id={`item${props.id}`} status={showModal} toggleModal={toggleModal}>
         { hasComments && props.comments.length  === 0 ? <p>No comments</p> : <p>{props.comments}</p>}
     </ModalContent>

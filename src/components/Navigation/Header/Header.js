@@ -134,8 +134,8 @@ const Header = () =>{
  
     return(
     <header className='Header'>
-        <SideBarButton toggle={toggleSideBar} show={showSideBar}/>
-        <Sidebar show={showSideBar}/>
+        <SideBarButton toggle={toggleSideBar} toOpen={true}/>
+        <Sidebar show={showSideBar}  toggle={toggleSideBar}/>
         <div className='logo-navbar'>
             <Logo/>
         </div>

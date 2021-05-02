@@ -5,7 +5,12 @@ import axios from 'axios'
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import './Packages.css'
 import { updatePackages } from '../../store/actions/index'
+import { useMediaQuery } from 'react-responsive'
+
+
 class Packages extends Component{
+
+
     state = {  
         packages: [],
         status: 'LOADING'
@@ -26,6 +31,18 @@ class Packages extends Component{
                 })
             })
     }
+
+
+    headers = {
+        'ID': 'id',
+        'Origen' : 'source',
+        'Tracking' : 'tracking',
+        'Peso' : 'weight',
+        'Status' :'status',
+        'Última actualización' : 'updatedAt',
+        'Comentarios' : 'comments'
+    } 
+
 
     componentDidMount(){
         this.fetchPackages()

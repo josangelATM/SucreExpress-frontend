@@ -1,3 +1,9 @@
+export const formatDate = (date) => {
+    let dateTF = new Date(date) //dateToFormat
+    return(`${dateTF.getDate()}-${dateTF.getMonth() + 1}-${dateTF.getFullYear()} ${dateTF.getHours()}:${(dateTF.getMinutes()<10 ? '0':'')+dateTF.getMinutes()}`)
+}
+
+
 export const exportToCSV = (table_id,title,separator = ',') => {
     // Select rows from table_id
     var rows = document.querySelectorAll('table#' + table_id + ' tr');
@@ -55,3 +61,4 @@ export const ocurrencesCounter = (ocurrences,tableID,field,headers) => {
     return(counter)
    
 }
+

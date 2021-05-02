@@ -83,4 +83,7 @@
     .Navbar{
         display: none;
     }
+    .profile-container{
+        margin-right: 0;
+    }
 }   

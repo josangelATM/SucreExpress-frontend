@@ -12,6 +12,8 @@ import '../../../assets/Shared/Forms.css'
 import './Searcher.css'
 import Message from '../../UI/Message/Message'
 import { updatePackages } from '../../../store/actions/index'
+import { useMediaQuery } from 'react-responsive'
+import ItemsViewerMobile from '../../ItemsViewerMobile/ItemsViewerMobile'
 
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
@@ -30,11 +32,13 @@ const initialValues = {
 
 const Searcher = () => {
     const dispatch = useDispatch();
-    
     const [status,setStatus] = useState('BEFORE')
-
     const userType = useSelector(state => state.auth.user.type)
+    const isAdmin = useSelector(state => state.auth.isAdmin)
     const userID = useSelector(state => state.auth.user.id)
+
+    const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+
 
     const getAll = values =>{
         setStatus('LOADING')
@@ -79,8 +83,7 @@ const Searcher = () => {
     let searchResult = null
     let form = null
     
-    if(userType=== 'admin' || userType=== 'superadmin'){
-        
+    if(isAdmin){
         form = 
         <Formik
         initialValues={initialValues}
@@ -132,7 +135,29 @@ const Searcher = () => {
             searchResult = <Loader/>
             break;
         case 'SUCCESS':
-            searchResult = <PackagesViewer/>
+            const headers = isAdmin ? {
+                'ID': 'id',
+                'Origen' : 'source',
+                'CustomerID' : 'customerID',
+                'Cliente' : 'owner.firstName',
+                'Tracking' : 'tracking',
+                'Peso' : 'weight',
+                'Status' :'status',
+                'Última actualización' : 'updatedAt',
+                'Comentarios' : 'comments'
+            } : {
+                'ID': 'id',
+                'Origen' : 'source',
+                'Tracking' : 'tracking',
+                'Peso' : 'weight',
+                'Status' :'status',
+                'Última actualización' : 'updatedAt',
+                'Comentarios' : 'comments'
+            } 
+
+
+       
+            searchResult = isDesktopOrLaptop ? <PackagesViewer/> : <ItemsViewerMobile headers={headers} reduxItem='Package' />
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Búsqueda sin resultados'/>
