@@ -9,6 +9,7 @@ import '../../../assets/Shared/Forms.css'
 import Message from '../../UI/Message/Message'
 import { useDispatch } from 'react-redux'
 import { updateQuotations } from '../../../store/actions/index'
+import { useMediaQuery } from 'react-responsive'
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
     type: Yup.string().required('Tipo de búsqueda ')
@@ -86,6 +87,17 @@ const QuotationSearcher = () => {
             searchResult = <Loader/>
             break;
         case 'SUCCESS':
+            const headers =  {
+                'ID': 'id',
+                'Origen' : 'source',
+                'CustomerID' : 'customerID',
+                'Cliente' : 'owner.firstName',
+                'Tracking' : 'tracking',
+                'Peso' : 'weight',
+                'Status' :'status',
+                'Última actualización' : 'updatedAt',
+                'Comentarios' : 'comments'
+            } 
             searchResult = <QuotationsViewer/>
             break;
         case 'NO_RESULT':

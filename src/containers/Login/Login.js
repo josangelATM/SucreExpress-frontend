@@ -11,7 +11,7 @@ import Button from '../../components/UI/Button/Button'
 import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
+import './Login.css'
 const loginSchema = Yup.object({
     username: Yup.string().required('Usuario es obligatorio'),
     password: Yup.string().required('Contraseña es obligatorio'),
@@ -25,7 +25,8 @@ const initialValues = {
 class Login extends Component{
     state = {
         status: 'LOGIN',
-        serverRes: ''
+        serverRes: '',
+        showPassword: false
     }
     
 
@@ -65,9 +66,14 @@ class Login extends Component{
                 <h1>Iniciar Sesión</h1>
                 <Field type='text' placeholder='Usuario' name='username' 
                 className={`form-control ${touched.username && errors.username ? 'error' : ''}`}></Field>
-                <Field type="password" placeholder="Contraseña" name='password' 
+                <Field type={this.state.showPassword ? 'text' : 'password'} placeholder="Contraseña" name='password' 
                 className={`form-control ${touched.password && errors.password ? 'error' : ''}`}></Field>
-                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Iniciar Sesión</Button>
+                <div className='showPasswordContainer' onClick={() => {this.setState({showPassword:!this.state.showPassword})}}> 
+                <input type='checkbox' checked={this.state.showPassword}/>
+                <label className={'showPassword'}>Mostrar contraseña</label>
+                </div>
+                
+                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Iniciar sesión</Button>
                 <Link to='/recover'>Olvidé mi password</Link>   
             </Form>
         )}

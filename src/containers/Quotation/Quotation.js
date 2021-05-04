@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 import Message from '../../components/UI/Message/Message'
 import Loader from '../../components/UI/Loader/Loader'
 import { updateQuotations } from '../../store/actions/index'
+import MediaQuery from 'react-responsive'
+import ItemsViewerMobile from '../../components/ItemsViewerMobile/ItemsViewerMobile'
 class Quotation extends Component{
     state = {
         status:'LOADING'
@@ -29,44 +31,48 @@ class Quotation extends Component{
                 this.setState({status:'FAIL'})
             })
     }
-    handleSubmit = e =>{
-        e.preventDefault()
-        const formData = new FormData(e.target)
-        const value = Object.fromEntries(formData.entries());
-        axios.get(`/quotation/get?type=CustomerID&query=${this.props.user.id}`)
-            .then((res) =>{
-                this.setState({request:res.data})
-            })
-            .catch(err =>{
-                this.setState({request:[]})
-            })
-    }
-    
+
+    headers = {
+        'ID': 'id',
+        'Origen' : 'originCountry',
+        'Destino' : 'destinationCountry',
+        'Peso' : 'weight',
+        'Status' :'status',
+        'Fecha Creación' : 'createdAt',
+        'Comentarios' : 'comments'
+    } 
+
+
 
 
     render(){
         switch(this.state.status){
             case 'LOADING':
                 return(<Loader/>)
-                break;
             case 'SUCCESS':
                 return(<div class='quotation'>
                 <h1 className='title'>Tus cotizaciones</h1>
-                <QuotationsViewer />
+                <MediaQuery minDeviceWidth={1224}>
+                    <QuotationsViewer />
+                </MediaQuery>
+                
+                <MediaQuery maxDeviceWidth={1224}>
+                    <ItemsViewerMobile headers={this.headers} reduxItem='Quotation' id={'quotationMobileTable'}/>
+                </MediaQuery>
                 <Button class='Normal'><Link to='/quotation/add'>Solicitar cotización</Link></Button>
             </div>
             )
-                break;
+
             case 'FAIL':
                 return(
                     <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
                 )
-                break;
+  
             default: 
                 return(
                     <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
                 )
-                break;
+
                     
         }
 

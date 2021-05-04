@@ -8,6 +8,10 @@
     height: 100%;
 }
 
+.profile-header-option{
+    display: flex;
+}
+
 .profile-icons{
     width: 100%;
     display: flex;

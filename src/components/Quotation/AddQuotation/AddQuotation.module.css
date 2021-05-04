@@ -54,3 +54,24 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .quotationForm{
+        text-align: center;
+        width: 90%;
+        height: fit-content;
+        margin-bottom: 2rem;
+    }
+    .inputsContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .field , .areaControl{
+        width: 85%;
+        margin: 1rem;
+    }
+    
+
+}   

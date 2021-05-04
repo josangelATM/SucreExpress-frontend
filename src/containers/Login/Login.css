@@ -1,6 +1,8 @@
-.Login-form{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: 0 auto;
+.showPasswordContainer{
+    width: 100%;
+    font-weight: bold;
+}
+
+.showPasswordContainer input{
+    margin-right: 1rem;
 }

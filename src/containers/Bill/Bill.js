@@ -5,6 +5,9 @@ import Loader from '../../components/UI/Loader/Loader'
 import Message from '../../components/UI/Message/Message'
 import BillsViewer from '../../components/BillsViewer/BillsViewer'
 import styles from './Bill.module.css'
+import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
+import ItemsViewerMobile from '../../components/ItemsViewerMobile/ItemsViewerMobile'
+import MediaQuery  from 'react-responsive'
 class Bill extends Component{
     state = {
         status:'LOADING',
@@ -25,14 +28,29 @@ class Bill extends Component{
         this.fetchData()
     }
 
+    headers = {
+        'ID': 'id',
+        'Factura' : 'billLink'
+    } 
+
     render(){
         let toRender = null
         switch(this.state.status){
             case 'LOADING':
                 toRender=<Loader/>
                 break;
-            case 'SUCCESS':
-                toRender = <BillsViewer bills={this.state.bills}/>
+            case 'SUCCESS': 
+                toRender = 
+                <Auxiliary>
+                    <MediaQuery minDeviceWidth={1224}>
+                        <BillsViewer bills={this.state.bills}/>
+                    </MediaQuery>
+                
+                <MediaQuery maxDeviceWidth={1224}>
+                        <ItemsViewerMobile headers={this.headers} items={this.state.bills} id={'packageMobileTable'}/>
+                </MediaQuery>
+                </Auxiliary>
+       
                 break;
             case 'FAIL':
                 toRender = <Message class='Error-msg' name='Hubo un problema, intentalo más tarde'/>
@@ -42,6 +60,7 @@ class Bill extends Component{
             <div className={styles.myBills}>
                 <h1 className={styles.title}>Tus facturas</h1>
                 {toRender}
+
             </div>
         )
     }

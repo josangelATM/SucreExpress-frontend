@@ -4,6 +4,7 @@ import Header from '../../components/Navigation/Header/Header'
 import browserHistory from "history/createBrowserHistory";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import LandingPage from '../../containers/LandingPage/LandingPage'
+import MediaQuery from 'react-responsive'
 import Register from '../../containers/Register/Register'
 import Activate from '../../containers/Activate/Activate'
 import Login from '../../containers/Login/Login'
@@ -119,7 +120,9 @@ class Layout extends Component{
           </Route>
         </Switch>
         </main>
-        <Footer/>
+        <MediaQuery minDeviceWidth={1224}>
+                <Footer/>
+        </MediaQuery>
         </Router>
     </div>
         )

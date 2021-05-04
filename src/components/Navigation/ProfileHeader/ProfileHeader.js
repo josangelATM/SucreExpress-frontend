@@ -5,17 +5,20 @@ import { useSelector } from 'react-redux'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import { Link } from 'react-router-dom'
 import './ProfileHeader.css'
+import { useMediaQuery } from 'react-responsive'
 const ProfileHeader = () =>{ 
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const isLogged = useSelector(state => state.auth.isLogged)
     const user = useSelector(state => state.auth.user)
     const isSuperAdmin = useSelector(state => state.auth.isSuperAdmin )
+    const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+    const iconSize = isDesktopOrLaptop ? '3x' : '2x'
     return(
         <Auxiliary>
             { isLogged ? (isAdmin || isSuperAdmin ?  <div className='profile-header'>
                                         <div className='profile-icons'>
-                                            <Link to='/profile' title='Perfil'><FontAwesomeIcon icon={faUserCircle} size='3x'/></Link>
-                                            <Link to='/logout' title='Cerrar sesión'><FontAwesomeIcon icon={faSignOutAlt} size='3x'/></Link>
+                                            <Link to='/profile' title='Perfil'><FontAwesomeIcon icon={faUserCircle} size={iconSize}/></Link>
+                                            <Link to='/logout' title='Cerrar sesión'><FontAwesomeIcon icon={faSignOutAlt} size={iconSize}/></Link>
                                         </div>
                                         <span>{`${user.firstName} ${user.lastName}`}</span>
                                         <span>{user.type}</span>
@@ -23,8 +26,8 @@ const ProfileHeader = () =>{
                                     </div>
                                     : <div className='profile-header'>
                                         <div className='profile-icons'>
-                                        <Link to='/profile' title='Perfil'><FontAwesomeIcon icon={faUserCircle} size='3x'/></Link>
-                                            <Link to='/logout' title='Cerrar sesión'><FontAwesomeIcon icon={faSignOutAlt} size='3x'/></Link>
+                                        <Link to='/profile' title='Perfil'><FontAwesomeIcon icon={faUserCircle}size={iconSize} /></Link>
+                                            <Link to='/logout' title='Cerrar sesión'><FontAwesomeIcon icon={faSignOutAlt} size={iconSize}/></Link>
                                         </div>
                                         <span>{`${user.firstName} ${user.lastName}`}</span>
                                         <span>{user.id}</span>

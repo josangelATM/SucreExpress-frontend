@@ -11,8 +11,6 @@ import { Formik, Form, Field } from "formik";
 import { Link } from 'react-router-dom'
 import formsStyles from '../../assets/Shared/Forms.module.css'
 import compStyles from './Register.module.css'
-import Modal from '../../components/UI/Modal/Modal'
-import ModalContent from '../../components/UI/Modal/ModalContent/ModalContent'
 
 const registerSchema = Yup.object({
     firstName: Yup.string().required('Nombre es obligatorio'),
@@ -32,7 +30,8 @@ const registerSchema = Yup.object({
 class Register extends Component{
     state = {
         status: 'REGISTER',
-        serverRes: ''
+        serverRes: '',
+        showPassword: false
     }
     
     initialValues = {
@@ -106,10 +105,15 @@ class Register extends Component{
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type='text' placeholder='Dirección' name='address'
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
-                <Field type="password" placeholder="Contraseña" name='password' 
+                <Field type={this.state.showPassword ? 'text' : 'password'} placeholder="Contraseña" name='password' 
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
-                <Field type="password" placeholder="Confirmar contraseña" name='confirmPassword' 
+                <Field type={this.state.showPassword ? 'text' : 'password'} placeholder="Confirmar contraseña" name='confirmPassword' 
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
+                <div className='showPasswordContainer' onClick={() => {this.setState({showPassword:!this.state.showPassword})}}> 
+                <input type='checkbox' checked={this.state.showPassword}/>
+                <label className={'showPassword'}>Mostrar contraseña</label>
+                </div>
+                
                 {this.props.isSuperAdmin ? 
                 <select name='type' onChange={handleChange} value={values.type} className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}>
                 <option hidden>Tipo de usuario</option>

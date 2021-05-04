@@ -5,7 +5,10 @@ import axios from 'axios'
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import './Packages.css'
 import { updatePackages } from '../../store/actions/index'
-import { useMediaQuery } from 'react-responsive'
+import MediaQuery  from 'react-responsive'
+import ItemsViewerMobile from '../../components/ItemsViewerMobile/ItemsViewerMobile'
+import Loader from '../../components/UI/Loader/Loader'
+import Message from '../../components/UI/Message/Message'
 
 
 class Packages extends Component{
@@ -22,7 +25,7 @@ class Packages extends Component{
                 console.log(res.data);
                 this.props.updatePackages(res.data)
                 this.setState({
-                    status : 'OK'
+                    status : 'SUCCESS'
                 })
             })
             .catch(err=>{
@@ -50,13 +53,38 @@ class Packages extends Component{
 
 
     render(){
-        return(
-            <div className='Packages'>
+        switch(this.state.status){
+            case 'LOADING':
+                return(<Loader/>)
+            case 'SUCCESS': 
+                return(
+                    <div className='Packages'>
                 <h1 className={'title'}>Tus paquetes</h1>
-                <PackagesViewer userType={this.props.user.type}/>
+                <MediaQuery minDeviceWidth={1224}>
+                    <PackagesViewer userType={this.props.user.type}/>
+                </MediaQuery>
+                
+                <MediaQuery maxDeviceWidth={1224}>
+                    <ItemsViewerMobile headers={this.headers} reduxItem='Package' id={'packageMobileTable'}/>
+                </MediaQuery>
+                
             </div> 
-        )
+                )
+            case 'FAIL':
+                    return(
+                        <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
+                    )
+      
+            default: 
+                    return(
+                        <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
+                    )
+        
+
+
+        
     }
+}
 }
 
 const mapStateToProps = state => {

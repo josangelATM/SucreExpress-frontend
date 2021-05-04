@@ -13,7 +13,7 @@ const Sidebar = (props) => {
 
     const adminLinks = 
         <Auxiliary>
-            <div className={compStyles.navItem} activeClassName='active'>
+            <div className='NavItem' >
                 <div className={compStyles.navItem}>
                     <span>
                         PAQUETES
@@ -30,7 +30,7 @@ const Sidebar = (props) => {
                 </div>
             </div>
             
-            <div className={compStyles.navItem} activeClassName='active'>
+            <div className='NavItem'>
                 <div className={compStyles.navItem}>
                     <span>
                         COTIZACIONES
@@ -78,9 +78,12 @@ const Sidebar = (props) => {
                     </NavLink>
                 </div>
             </div>
+            <div className='NavItem'>
             <NavLink onClick={props.toggle} className={compStyles.navItem} exact to='/request' activeClassName='active'>
                 SOLICITUDES
-            </NavLink>
+            </NavLink>  
+            </div>
+            
         </Auxiliary>
 
     const customerLinks = 
