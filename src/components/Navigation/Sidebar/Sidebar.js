@@ -38,10 +38,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotation/add'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotations/add'>
                         Solicitar
                     </NavLink>
-                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotation/search'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotations/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -79,7 +79,7 @@ const Sidebar = (props) => {
                 </div>
             </div>
             <div className='NavItem'>
-            <NavLink onClick={props.toggle} className={compStyles.navItem} exact to='/request' activeClassName='active'>
+            <NavLink onClick={props.toggle} className={compStyles.navItem} exact to='/requests' activeClassName='active'>
                 SOLICITUDES
             </NavLink>  
             </div>
@@ -113,10 +113,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
             </div>
             <div className='dropdown-content'>
-            <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active'to='/quotation'>
+            <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active'to='/quotations'>
                     Mis cotizaciones
                 </NavLink>
-                <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotation/add'>
+                <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/quotations/add'>
                     Solicitar
                 </NavLink>
             </div>

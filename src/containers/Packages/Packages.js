@@ -65,7 +65,7 @@ class Packages extends Component{
                 </MediaQuery>
                 
                 <MediaQuery maxDeviceWidth={1224}>
-                    <ItemsViewerMobile headers={this.headers} reduxItem='Package' id={'packageMobileTable'}/>
+                    <ItemsViewerMobile headers={this.headers} reduxItem='packages' id={'packageMobileTable'}/>
                 </MediaQuery>
                 
             </div> 

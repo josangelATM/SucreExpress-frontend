@@ -12,7 +12,7 @@ const QuotationItem = (props) =>{
     const dispatch = useDispatch()
 
     const removeQuotation = () => {
-        axios.delete(`/quotation/${props.id}`)
+        axios.delete(`/quotations/${props.id}`)
             .then(res =>{
                 dispatch(deleteQuotation(props.id))
             })
@@ -37,7 +37,7 @@ const QuotationItem = (props) =>{
         <td>{props.weight}</td>     
         <td>{props.status}</td> 
         <td>{props.createdAt}</td>
-        <td><Button class='Link'><Link to={`/quotation/${props.id}`}>Ver más</Link></Button></td>
+        <td><Button class='Link'><Link to={`/quotations/${props.id}`}>Ver más</Link></Button></td>
         <td><Button class='Link' onClick={confirmation}>Eliminar</Button></td>
   </tr> : <tr>
         <td>{props.id}</td>

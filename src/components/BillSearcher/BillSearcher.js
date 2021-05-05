@@ -7,6 +7,8 @@ import Message from '../UI/Message/Message'
 import { Formik, Form, Field } from "formik"
 import * as Yup from 'yup'
 import styles from './BillSearcher.module.css'
+import ItemsViewerMobile from '../ItemsViewerMobile/ItemsViewerMobile'
+import { useMediaQuery } from 'react-responsive'
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
     type: Yup.string().required('Tipo de búsqueda ')
@@ -21,7 +23,7 @@ const initialValues = {
 const BillSearcher = () =>{
     const [status, setStatus] = useState('BEFORE')
     const [bills, setBills] = useState([])
-
+    const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
     const searchBills = (values) =>{
         setStatus('LOADING')
         axios.get(`/bills?type=${values.type}&query=${values.query}`)
@@ -64,11 +66,15 @@ switch(status){
         toRender = <Loader/>
         break;
     case 'SUCCESS':
-        console.log(bills)
-        toRender = <BillsViewer bills={bills}/>
+        const headers = {
+            'ID': 'id',
+            'CustomerID' : 'customerID',
+            'Factura' : 'billLink'
+        } 
+        toRender = isDesktopOrLaptop ? <BillsViewer bills={bills}/> : <ItemsViewerMobile items={bills} headers={headers} id={'billMobileTable'} details={false}/>
         break;
     case 'FAIL':
-        toRender = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
+        toRender = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde' />
         break;
 
 }

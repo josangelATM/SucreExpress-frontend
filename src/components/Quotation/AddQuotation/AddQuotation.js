@@ -50,7 +50,7 @@ const AddQuotation = () => {
                 values[key] = 'NA'
             }
         }
-        axios.post('/quotation/add',values)
+        axios.post('/quotations/add',values)
             .then(res=>{
                 setStatus('SUCCESS')
             })
@@ -128,13 +128,13 @@ const AddQuotation = () => {
         case 'SUCCESS':
             toRender = <Auxiliary>
                 <Message class='Normal-msg' message='Cotización registrada'/>
-                <Button class='Normal'><Link to='/quotation/'>Ver mis cotatizaciones</Link> </Button>
+                <Button class='Normal'><Link to='/quotations/'>Ver mis cotatizaciones</Link> </Button>
             </Auxiliary>
             break;
         case 'FAIL':
             toRender = <Auxiliary>
             <Message class='Error-msg' message='Hubo un problema, intentalo más tarde'/>
-            <Button class='Normal'><Link to='/quotation/'>Ver mis cotatizaciones</Link></Button>
+            <Button class='Normal'><Link to='/quotations/'>Ver mis cotatizaciones</Link></Button>
         </Auxiliary>
                         
     }

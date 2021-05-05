@@ -1,12 +1,15 @@
 import React, { useState, useEffect }  from 'react'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Button from '../../UI/Button/Button'
 import Loader from '../../UI/Loader/Loader'
 import * as Yup from 'yup'
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import '../../../assets/Shared/Forms.css'
 import Message from '../../UI/Message/Message'
 import UsersViewer from '../UsersViewer/UsersViewer'
+import { useMediaQuery } from 'react-responsive'
+import ItemsViewerMobile from '../../ItemsViewerMobile/ItemsViewerMobile'
 
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
@@ -22,7 +25,8 @@ const initialValues = {
 const UserSearcher = () =>{
     const [users,setUsers] = useState([]) 
     const [status,setStatus] = useState('LOADING')
-
+    const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+    const isAdmin = useSelector(state => state.auth.isAdmin)
     const handleSubmit = values =>{
         setStatus('LOADING')
         axios.get(`/users?type=${values.type}&query=${values.query}`)
@@ -106,8 +110,15 @@ const UserSearcher = () =>{
             searchResult = <Loader/>
             break;
         case 'SUCCESS':
-            searchResult = 
-            <UsersViewer users={users}/>
+            const headers =  {
+                'ID': 'id',
+                'Nombre' : 'firstName',
+                'Apellido' : 'lastName',
+                'Usuario' : 'username',
+                'Correo' : 'email',
+                'Celular' :'phoneNumber'
+            } 
+            searchResult = isDesktopOrLaptop ? <UsersViewer users={users}/> : <ItemsViewerMobile items={users} reduxItem={'users'} headers={headers} id={'userMobileTable'} details={isAdmin ? true : false}/>
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Sin usuarios encontrados'/>

@@ -72,6 +72,11 @@
         width: 85%;
         margin: 1rem;
     }
+
+    .formControl{
+        width: 85%;
+    }
+    
     
 
 }   

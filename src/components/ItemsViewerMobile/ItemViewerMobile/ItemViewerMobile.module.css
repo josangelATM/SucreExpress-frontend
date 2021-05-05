@@ -1,11 +1,17 @@
 .itemContainer{
     font-size: 1.6rem;
-    width: 90%;
+    width: 95%;
     margin-bottom: 2rem ;
 }
 
+.detailsContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .smallFont{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .columnContainer {

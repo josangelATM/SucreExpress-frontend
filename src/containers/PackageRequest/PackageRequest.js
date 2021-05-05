@@ -9,6 +9,8 @@ import Loader from '../../components/UI/Loader/Loader'
 import Message from '../../components/UI/Message/Message'
 import { connect } from 'react-redux'
 import { updateRequests } from '../../store/actions/index'
+import  MediaQuery  from 'react-responsive'
+import ItemsViewerMobile from '../../components/ItemsViewerMobile/ItemsViewerMobile'
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
     type: Yup.string().required('Tipo de búsqueda ')
@@ -66,6 +68,12 @@ class PackageRequest extends Component{
             })
     }
     
+    headers = {
+        'ID': 'id',
+        'CustomerID':'customerID',
+        'Tracking' : 'tracking',
+        'Fecha Creación': 'createdAt'
+    } 
 
 
     render(){
@@ -95,8 +103,16 @@ class PackageRequest extends Component{
                 toRender = <Loader/>
                 break;
             case 'SUCCESS':
-                toRender = <PackageRequestViewer/>
-                break;
+                toRender = <Auxiliary>
+                <MediaQuery minDeviceWidth={1224}>
+                    <PackageRequestViewer/>
+                </MediaQuery>
+            
+            <MediaQuery maxDeviceWidth={1224}>
+                    <ItemsViewerMobile headers={this.headers} reduxItem={'requests'} id={'requestMobileTable'}/>
+            </MediaQuery>
+            </Auxiliary>
+            break;
             case 'NO_RESULT':
                 toRender = <Message class='Normal-msg' message='Sin solicitudes encontradas'/>
                 break;

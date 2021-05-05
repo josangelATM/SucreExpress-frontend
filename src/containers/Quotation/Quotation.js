@@ -21,7 +21,7 @@ class Quotation extends Component{
 
     fetchData = () => {
         this.setState({status:'LOADING'})
-        axios.get(`/quotation?type=CustomerID&query=${this.props.user.id}`)
+        axios.get(`/quotations?type=CustomerID&query=${this.props.user.id}`)
             .then(res =>{
                 this.props.updateQuotations(res.data)
                 this.setState({status:'SUCCESS'})
@@ -57,9 +57,9 @@ class Quotation extends Component{
                 </MediaQuery>
                 
                 <MediaQuery maxDeviceWidth={1224}>
-                    <ItemsViewerMobile headers={this.headers} reduxItem='Quotation' id={'quotationMobileTable'}/>
+                    <ItemsViewerMobile headers={this.headers} reduxItem='quotations' id={'quotationMobileTable'}/>
                 </MediaQuery>
-                <Button class='Normal'><Link to='/quotation/add'>Solicitar cotización</Link></Button>
+                <Button class='Normal'><Link to='/quotations/add'>Solicitar cotización</Link></Button>
             </div>
             )
 

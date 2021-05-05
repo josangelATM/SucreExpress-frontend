@@ -13,7 +13,7 @@ const UpdateQuotation = (props) => {
     const [status,setStatus] = useState('LOADING')
 
     const getQuotation = () =>{
-        axios.get(`/quotation/${quotationID}`)
+        axios.get(`/quotations/${quotationID}`)
             .then(res=>{
                 setStatus('SUCCESS')
                 setQuotation(res.data)
@@ -24,7 +24,7 @@ const UpdateQuotation = (props) => {
     }
     
     const handleSubmit = (values) =>{
-        axios.patch(`/quotation/${quotationID}`,values)
+        axios.patch(`/quotations/${quotationID}`,values)
             .then(res=>{
                 setStatus('UPDATED')
                 setQuotation(res.data)

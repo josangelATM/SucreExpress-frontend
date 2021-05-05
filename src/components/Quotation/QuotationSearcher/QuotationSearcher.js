@@ -1,15 +1,17 @@
 import React, { useState, useEffect }  from 'react'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Button from '../../UI/Button/Button'
 import QuotationsViewer from '../QuotationsViewer/QuotationsViewer'
 import Loader from '../../UI/Loader/Loader'
 import * as Yup from 'yup'
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field} from "formik";
 import '../../../assets/Shared/Forms.css'
 import Message from '../../UI/Message/Message'
 import { useDispatch } from 'react-redux'
 import { updateQuotations } from '../../../store/actions/index'
 import { useMediaQuery } from 'react-responsive'
+import ItemsViewerMobile from '../../ItemsViewerMobile/ItemsViewerMobile'
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
     type: Yup.string().required('Tipo de búsqueda ')
@@ -24,10 +26,11 @@ const initialValues = {
 const QuotationSearcher = () => {
     const dispatch = useDispatch()
     const [status,setStatus] = useState('LOADING')
-
+    const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+    const isAdmin = useSelector(state => state.auth.isAdmin)
     const handleSubmit = values =>{
         setStatus('LOADING')
-        axios.get(`/quotation?type=${values.type}&query=${values.query}`)
+        axios.get(`/quotations?type=${values.type}&query=${values.query}`)
             .then(res =>  {
                 if(res.data.length === 0){
                     setStatus('NO_RESULT')
@@ -42,7 +45,7 @@ const QuotationSearcher = () => {
     }   
 
     const fetchQuotations = () => {
-        axios.get(`/quotation?limit=10`)
+        axios.get(`/quotations?limit=10`)
             .then(res=>{
                 if(Array.isArray(res.data) || res.data.length === 0){
                     setStatus('SUCCESS')
@@ -89,16 +92,14 @@ const QuotationSearcher = () => {
         case 'SUCCESS':
             const headers =  {
                 'ID': 'id',
-                'Origen' : 'source',
                 'CustomerID' : 'customerID',
-                'Cliente' : 'owner.firstName',
-                'Tracking' : 'tracking',
+                'Origen' : 'originCountry',
+                'Destino' : 'destinationCountry',
                 'Peso' : 'weight',
                 'Status' :'status',
-                'Última actualización' : 'updatedAt',
-                'Comentarios' : 'comments'
+                'Fecha creación' : 'createdAt'
             } 
-            searchResult = <QuotationsViewer/>
+            searchResult = isDesktopOrLaptop ? <QuotationsViewer/> : <ItemsViewerMobile headers={headers} reduxItem='quotations' id={'quotationMobileTable'} details={isAdmin ? true : false}/>
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Sin cotizaciones encontradas'/>

@@ -47,10 +47,10 @@ const Header = () =>{
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink to='/quotation/add'>
+                    <NavLink to='/quotations/add'>
                         Solicitar
                     </NavLink>
-                    <NavLink to='/quotation/search'>
+                    <NavLink to='/quotations/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -87,7 +87,7 @@ const Header = () =>{
                     </NavLink>
                 </div>
             </div>
-            <NavLink exact to='/request' className='NavItem NavItem-title' activeClassName='active'>
+            <NavLink exact to='/requests' className='NavItem NavItem-title' activeClassName='active'>
                 SOLICITUDES
             </NavLink>
         </Auxiliary>
@@ -119,10 +119,10 @@ const Header = () =>{
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
             </div>
             <div className='dropdown-content'>
-            <NavLink to='/quotation'>
+            <NavLink to='/quotations'>
                     Mis cotizaciones
                 </NavLink>
-                <NavLink to='/quotation/add'>
+                <NavLink to='/quotations/add'>
                     Solicitar
                 </NavLink>
             </div>

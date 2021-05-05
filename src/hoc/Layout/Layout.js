@@ -52,25 +52,25 @@ class Layout extends Component{
           <Route path="/packages/search">
                   {this.props.isLogged ? <Searcher/> : <Redirect to='/login'/>}       
           </Route>
-          <Route path="/packages/update/:idPackage">
+          <Route path="/packages/:idPackage">
                 {this.props.isLogged ? (this.props.isAdmin ? <UpdatePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
           <Route path="/packages/remove/:idPackage">           
                 {this.props.isLogged ? (this.props.isAdmin ? <RemovePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path="/request">
+          <Route path="/requests">
                   {this.props.isLogged ? <PackageRequest/> : <Redirect to='/login'/>}    
           </Route>
-          <Route exact path="/quotation">                  
+          <Route exact path="/quotations">                  
                   {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/quotation/search'/> : <Quotation/> ) : <Redirect to='/login'/>}
           </Route>
-          <Route path="/quotation/add">
+          <Route path="/quotations/add">
                   {this.props.isLogged ? <AddQuotation/> : <Redirect to='/login'/>}  
           </Route>
-          <Route path="/quotation/search">
+          <Route path="/quotations/search">
           {this.props.isLogged ? (this.props.isAdmin ? <QuotationSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>} 
           </Route>
-          <Route path="/quotation/:quotationID">
+          <Route path="/quotations/:quotationID">
                   {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
           <Route exact path='/bill'>

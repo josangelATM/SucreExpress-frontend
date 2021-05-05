@@ -24,7 +24,8 @@ const SearchFilter = (props) =>{
             }
         }
         }
-        props.updatedCounter()
+        
+         props.updatedCounter && props.updatedCounter()
     }
 
     return(

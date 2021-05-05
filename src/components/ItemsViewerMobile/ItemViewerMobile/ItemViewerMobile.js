@@ -1,6 +1,7 @@
 import React from 'react'
 import compStyles from './ItemViewerMobile.module.css'
 import _ from 'lodash'
+import Button from '../../UI/Button/Button'
 const ItemViewerMobile = (props) =>{
     return(
         <div className={compStyles.itemContainer}>
@@ -14,9 +15,12 @@ const ItemViewerMobile = (props) =>{
                     
                 </div>
             ))}
+            { props.details ? 
+            <div className={compStyles.detailsContainer}>
+                <Button class='Link' size={'small'}><a target='_blank' href={`/${props.itemName}/${props.item.id}`}>Actualizar</a></Button>
+            </div> : null }
 
-
-
+ 
             
         </div>
     )

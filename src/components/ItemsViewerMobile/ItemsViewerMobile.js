@@ -8,10 +8,12 @@ import SearchFilterMobile from '../SearchFilter/SearchFilterMobile/SearchFilterM
 const ItemsViewerMobile = (props) =>{
     let items = useSelector(state => {
         switch(props.reduxItem){
-            case 'Package':
+            case 'packages':
                 return state.package.currentPackages
-            case 'Quotation':
+            case 'quotations':
                 return state.quotation.currentQuotations
+            case 'requests':
+                return state.request.currentRequests
             default: 
                 return props.items
         }
@@ -21,7 +23,7 @@ const ItemsViewerMobile = (props) =>{
         <SearchFilterMobile headers={Object.keys(props.headers)} tableID={props.id} />
         <div className={compStyles.itemsViewerContainer} id={props.id}>
         {items.map(item =>(
-            <ItemViewerMobile headers={props.headers} item={item}/>
+            <ItemViewerMobile headers={props.headers} item={item} details={props.details} itemName={props.reduxItem}/>
         ))}
         </div> 
     </Auxiliary> : <Message class='Normal-msg' message='Sin registros para mostrar'/>

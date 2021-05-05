@@ -157,7 +157,7 @@ const Searcher = () => {
 
 
        
-            searchResult = isDesktopOrLaptop ? <PackagesViewer/> : <ItemsViewerMobile headers={headers} reduxItem='Package' id={'packageMobileTable'}/>
+            searchResult = isDesktopOrLaptop ? <PackagesViewer/> : <ItemsViewerMobile headers={headers} reduxItem='packages' id={'packageMobileTable'} details={isAdmin ? true : false}/>
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Búsqueda sin resultados'/>

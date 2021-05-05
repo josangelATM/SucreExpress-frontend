@@ -50,7 +50,7 @@ const PackageItem = (props) => {
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{props.updatedAt}</td>
-    <td><Button class='Link' size={'small'}><a target='_blank' href={`/packages/update/${props.id}`}>Actualizar</a></Button></td>
+    <td><Button class='Link' size={'small'}><a target='_blank' href={`/packages/${props.id}`}>Actualizar</a></Button></td>
     <td><Button class='Link' size={'small'} onClick={confirmation}>Eliminar</Button></td>
 </tr> : <tr>
     <td>{props.id}</td>

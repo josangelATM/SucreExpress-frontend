@@ -7,7 +7,7 @@ const QuoationViewer = (props) =>{
     const quotationID = props.match.params.quotationID;
 
     const fetchQuotation = (quotationID) => {
-        axios.get(`/quotation/get?type=ID&query=${quotationID}`)
+        axios.get(`/quotations/get?type=ID&query=${quotationID}`)
             .then(res =>{
                 setQuotation(res.data)
             })
