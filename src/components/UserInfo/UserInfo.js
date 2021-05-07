@@ -16,6 +16,7 @@ const userInfoSchema = Yup.object({
     email: Yup.string().email('Correo no válido').required('Correo es obligatorio'),
     phoneNumber: Yup.string(),
     address: Yup.string().required('Dirección es obligatoria'),
+    referredBy: Yup.string()
 })
 
 const UserInfo = (props) => {

@@ -76,7 +76,7 @@ const PackagesViewer = (props) => {
             <Auxiliary>
             <div className={compStyles.functionsContainer}>
                 <CounterDisplay counter={counter}/>
-                <SearchFilter headers={tableHeaders} tableID={props.tableID} updatedCounter={updateCounter}/>
+                <SearchFilter headers={tableHeaders} tableID={'packagesTable'} updatedCounter={updateCounter}/>
                 <Button class='Normal' onClick={() => exportToCSV(props.tableID,'Packages')}>Exportar datos</Button>
             </div>
             {table}
