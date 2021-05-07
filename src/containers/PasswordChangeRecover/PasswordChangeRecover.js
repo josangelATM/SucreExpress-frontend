@@ -7,6 +7,7 @@ import { Field, Formik, Form } from 'formik'
 import Loader from '../../components/UI/Loader/Loader'
 import Message from '../../components/UI/Message/Message'
 import styles from '../../components/User/PasswordChange/PasswordChange.module.css'
+import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 const passwordSchema = Yup.object({
     newPassword: Yup.string().required('Contraseña nueva requerida'),
     passwordConfirmation: Yup.string().oneOf([Yup.ref('newPassword'), null], 'Contraseñas deben coincidir')
@@ -20,7 +21,8 @@ const PasswordChange = (props) => {
     const [status,setStatus] = useState('BEFORE')
     const userID = props.match.params.userID;
     const code = props.match.params.code;
-    
+    const [showPassword, setShowPassword] = useState(false)
+
     const handleSubmit = values =>{   
         setStatus('LOADING')
         const url = props.isAdmin ? `/users/password/${userID}` : `/users/password/${userID}/${code}`
@@ -48,8 +50,12 @@ const PasswordChange = (props) => {
                 {({touched, errors, dirty, isValid,handleChange,values}) => (
                         <Form className='form'>
                         <h1>Cambiar contraseña</h1>
-                        <Field type='password' name='newPassword' placeholder='Contraseña nueva' className='form-control' />
-                        <Field type='password' name='passwordConfirmation' placeholder='Confirmar contraseña' className='form-control'/>
+                        <Field type={showPassword ? 'text' : 'password'} name='newPassword' placeholder='Contraseña nueva' className='form-control' />
+                        <Field type={showPassword ? 'text' : 'password'} name='passwordConfirmation' placeholder='Confirmar contraseña' className='form-control'/>
+                        <div className='showPasswordContainer' onClick={() => {setShowPassword(!showPassword)}}> 
+                            <input type='checkbox' checked={showPassword}/>
+                            <label className={'showPassword'}>Mostrar contraseña</label>
+                        </div>
                         <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Cambiar</Button>
                         </Form>
                 )}
@@ -69,9 +75,9 @@ const PasswordChange = (props) => {
 
 
     return(
-    <div>
+    <Auxiliary>
         {toRender}
-    </div>
+    </Auxiliary>
     )
 }
 

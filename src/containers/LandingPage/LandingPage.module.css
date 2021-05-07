@@ -1,0 +1,53 @@
+.landingPage{
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logoContainer{
+    height: fit-content;
+    
+}
+
+.icon{
+    color: #5293C1;
+}
+
+
+.buttonsContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.iconContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iconContainer p{
+    font-size: 4rem;
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .buttonsContainer{
+        flex-direction: column;
+        font-size: 1rem;
+    }
+    .iconContainer{
+        margin: 1rem 0;
+    }
+
+    .iconContainer p{
+        font-size: 4rem;
+    }
+    .logoContainer{
+        margin-bottom: 0;
+        
+    }
+}   

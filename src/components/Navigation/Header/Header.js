@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import './Header.css'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Logo from '../../Logo/Logo'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
@@ -14,6 +14,7 @@ const Header = () =>{
     
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const isLogged = useSelector(state => state.auth.isLogged)
+    const hasReferrals = useSelector(state => state.auth.user.hasReferrals)
     const [showSideBar,setShowSideBar] = useState(false) 
 
     const toggleSideBar = () =>{
@@ -79,10 +80,10 @@ const Header = () =>{
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink to='/bill/upload'>
+                    <NavLink to='/bills/upload'>
                         Subir
                     </NavLink>
-                    <NavLink to='/bill/search'>
+                    <NavLink to='/bills/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -108,6 +109,10 @@ const Header = () =>{
                 <NavLink to='/packages/search'>
                     Buscar
                 </NavLink>
+                { hasReferrals ? 
+                <NavLink to='/packages/referrals'>
+                    Referidos
+                </NavLink>: null }
             </div>
         </div>
         
@@ -127,7 +132,7 @@ const Header = () =>{
                 </NavLink>
             </div>
         </div>
-        <NavLink exact to='/bill' className='NavItem NavItem-title' activeClassName='active'>
+        <NavLink exact to='/bills' className='NavItem NavItem-title' activeClassName='active'>
                 FACTURAS
         </NavLink>
     </Auxiliary>
@@ -136,9 +141,11 @@ const Header = () =>{
     <header className='Header'>
         <SideBarButton toggle={toggleSideBar} toOpen={true}/>
         <Sidebar show={showSideBar}  toggle={toggleSideBar}/>
+        <Link to='/home'>
         <div className='logo-navbar'>
             <Logo/>
         </div>
+        </Link>
         <nav className='Navbar'>
             { isLogged ? (isAdmin ? adminLinks : customerLinks) : customerLinks}
         </nav>

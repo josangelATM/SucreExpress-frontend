@@ -1,11 +1,11 @@
 .userInfo{
     display: flex;
     width: 40%;
-    height: 100%;
     border: 0.3rem solid #5293C1;
     border-radius: 25px;
     justify-content: center;
     align-items: center;
+    height: fit-content;
 }
 
 .userInfoForm{

@@ -20,15 +20,16 @@ const PackagesViewer = (props) => {
  
     const packagesToRender = packages.map(pa => {
         return(
-            <PackageItem {...pa} key={pa.id}/>
+            <PackageItem {...pa} key={pa.id} referrals={props.referrals}/>
         )
     })
-
     const tableHeaders = isAdmin ? [
         'ID','Origen','CustomerID','Cliente','Tracking','Peso','Status','Última actualización'
     ] : [
         'ID','Origen','Tracking','Peso','Status','Última actualización'
     ]
+
+    props.referrals && tableHeaders.push('Cliente')
 
 
     const updateCounter = ()=>{
@@ -75,16 +76,16 @@ const PackagesViewer = (props) => {
             <Auxiliary>
             <div className={compStyles.functionsContainer}>
                 <CounterDisplay counter={counter}/>
-                <SearchFilter headers={tableHeaders} tableID={'packagesTable'} updatedCounter={updateCounter}/>
-                <Button class='Normal' onClick={() => exportToCSV('packagesTable','Packages')}>Exportar datos</Button>
+                <SearchFilter headers={tableHeaders} tableID={props.tableID} updatedCounter={updateCounter}/>
+                <Button class='Normal' onClick={() => exportToCSV(props.tableID,'Packages')}>Exportar datos</Button>
             </div>
             {table}
             </Auxiliary>
             : 
             <Auxiliary>
-            <SearchFilter headers={tableHeaders} tableID={'packagesTable'} updatedCounter={updateCounter}/>
-            <Button class='Normal' onClick={() => exportToCSV('packagesTable','Packages')}>Exportar datos</Button> 
-            {table} 
+                <SearchFilter headers={tableHeaders} tableID={props.tableID} updatedCounter={updateCounter}/>
+                <Button class='Normal' onClick={() => exportToCSV(props.tableID,'Packages')}>Exportar datos</Button> 
+                {table} 
             </Auxiliary>
             }
            

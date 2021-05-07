@@ -22,7 +22,8 @@ const registerSchema = Yup.object({
     address: Yup.string().required('Dirección es obligatoria'),
     password: Yup.string().required('Contraseña es obligatorio'),
     confirmPassword : Yup.string().oneOf([Yup.ref('password'), null],'Las contraseñas deben coincidir').required('Confirmar contraseña es obligatorio'),
-    comments: Yup.string()
+    comments: Yup.string(),
+    referredBy: Yup.string()
 })
 
 
@@ -44,7 +45,8 @@ class Register extends Component{
         address:'',
         password:'',
         confirmPassword:'',
-        comments:''
+        comments:'',
+        referredBy: undefined
     }
    
     handleSubmit = (values) =>{
@@ -52,6 +54,7 @@ class Register extends Component{
         this.setState({status:'LOADING'})
         data.id = data.id + '-PN'
         data.status = this.props.isAdmin ? 'active' : 'pending'
+        console.log(data.referredBy);
         axios.post('/users/register',data)
             .then(res =>  {
                 this.setState({status:'SUCCESFUL',serverRes:res.data})
@@ -86,7 +89,7 @@ class Register extends Component{
         }}
     >
         {({touched, errors, dirty, isValid,handleChange,values}) => (
-                <Form className={`form ${compStyles.registerMobile}`}>
+                <Form className={`form ${compStyles.form} ${compStyles.registerMobile}`}>
                 <h1>Crear cuenta</h1>
                 <span>Campos obligatorios marcados en rojo</span>
                 <div className='name-inputs'>
@@ -105,6 +108,13 @@ class Register extends Component{
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type='text' placeholder='Dirección' name='address'
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
+                {this.props.isSuperAdmin ? 
+                <Auxiliary>
+                    <p>Número de casillero del cliente que refiere: </p>
+                    <Field type='text' placeholder='# de casillero' name='referredBy'
+                    className={`${formsStyles.normalField} ${compStyles.field}`}></Field> 
+                </Auxiliary> : null }
+            
                 <Field type={this.state.showPassword ? 'text' : 'password'} placeholder="Contraseña" name='password' 
                 className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}></Field>
                 <Field type={this.state.showPassword ? 'text' : 'password'} placeholder="Confirmar contraseña" name='confirmPassword' 
@@ -113,7 +123,6 @@ class Register extends Component{
                 <input type='checkbox' checked={this.state.showPassword}/>
                 <label className={'showPassword'}>Mostrar contraseña</label>
                 </div>
-                
                 {this.props.isSuperAdmin ? 
                 <select name='type' onChange={handleChange} value={values.type} className={`${formsStyles.normalField} ${formsStyles.requiredField} ${compStyles.field}`}>
                 <option hidden>Tipo de usuario</option>

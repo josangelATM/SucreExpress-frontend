@@ -70,10 +70,10 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
-                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bill/upload'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bills/upload'>
                         Subir
                     </NavLink>
-                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bill/search'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bills/search'>
                         Buscar
                     </NavLink>
                 </div>
@@ -122,7 +122,7 @@ const Sidebar = (props) => {
             </div>
         </div>
         <div className='NavItem'>
-                <NavLink onClick={props.toggle} onClick={props.toggle} className={compStyles.navItem} exact to='/bill' activeClassName='active'>
+                <NavLink onClick={props.toggle} onClick={props.toggle} className={compStyles.navItem} exact to='/bills' activeClassName='active'>
                         FACTURAS
                 </NavLink>
         </div>

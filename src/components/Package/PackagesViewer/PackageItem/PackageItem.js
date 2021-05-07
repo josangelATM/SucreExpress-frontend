@@ -59,6 +59,7 @@ const PackageItem = (props) => {
     <td>{props.weight}</td>
     <td>{props.status}</td>
     <td>{props.updatedAt}</td>
+    { props.referrals ? <td>{props.owner.firstName}</td> : null}
     <td><Button disabled={!hasComments} class='Link' size={'small'} onClick={toggleModal}>Ver comentarios</Button></td>
     <ModalContent id={`item${props.id}`} status={showModal} toggleModal={toggleModal}>
         { hasComments && props.comments.length  === 0 ? <p>No comments</p> : <p>{props.comments}</p>}

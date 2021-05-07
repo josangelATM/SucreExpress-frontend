@@ -32,6 +32,7 @@ import BillUploader from '../../components/BillUploader/BillUploader'
 import BillSearcher from '../../components/BillSearcher/BillSearcher'
 import BillViewer from '../../components/BillsViewer/BillViewer/BillViewer'
 import Bill from '../../containers/Bill/Bill'
+import ReferralsPackages from '../../components/Package/ReferralsPackages/ReferralsPackages';
 class Layout extends Component{
     render(){
         return(              
@@ -41,7 +42,10 @@ class Layout extends Component{
         <main className='main'>
         <Switch>
           <Route path="/" exact>
-                  <Redirect to='/login'/>
+                  <Redirect to='/home'/>
+          </Route>
+          <Route path="/home" exact>
+                  <LandingPage/>
           </Route>
           <Route exact path="/packages">
                   {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/packages/search'/> : <Packages/> ) : <Redirect to='/login'/>}
@@ -51,6 +55,9 @@ class Layout extends Component{
           </Route>
           <Route path="/packages/search">
                   {this.props.isLogged ? <Searcher/> : <Redirect to='/login'/>}       
+          </Route>
+          <Route path="/packages/referrals">
+                  {this.props.isLogged ? (this.props.user.hasReferrals ? <ReferralsPackages/> : <NotAuthorized/>) : <Redirect to='/login'/>}       
           </Route>
           <Route path="/packages/:idPackage">
                 {this.props.isLogged ? (this.props.isAdmin ? <UpdatePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
@@ -62,7 +69,7 @@ class Layout extends Component{
                   {this.props.isLogged ? <PackageRequest/> : <Redirect to='/login'/>}    
           </Route>
           <Route exact path="/quotations">                  
-                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/quotation/search'/> : <Quotation/> ) : <Redirect to='/login'/>}
+                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/quotations/search'/> : <Quotation/> ) : <Redirect to='/login'/>}
           </Route>
           <Route path="/quotations/add">
                   {this.props.isLogged ? <AddQuotation/> : <Redirect to='/login'/>}  
@@ -73,18 +80,21 @@ class Layout extends Component{
           <Route path="/quotations/:quotationID">
                   {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route exact path='/bill'>
-                {this.props.isLogged ? <Bill/> : <Redirect to='/login'/>}  
+          <Route exact path='/bills'>
+                {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/bills/search'/> : <Bill/> )  : <Redirect to='/login'/>}  
           </Route>
-          <Route path='/bill/upload'>
+          <Route path='/bills/upload'>
                 {this.props.isLogged ? (this.props.isAdmin ? <BillUploader/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path='/bill/search'>
+          <Route path='/bills/search'>
                 {this.props.isLogged ? (this.props.isAdmin ? <BillSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path='/bill/:billID'>
+          <Route path='/bills/:billID'>
                 {this.props.isLogged ? <BillViewer/> : <Redirect to='/login'/>}  
-          </Route>
+          </Route>     
+          <Route exact path='/users'>
+                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/users/search'/> : <NotAuthorized/> ) : <Redirect to='/login'/>} 
+          </Route> 
           <Route path='/users/add'>
                   {this.props.isLogged ? <Register/> : <Redirect to='/login'/>} 
           </Route>

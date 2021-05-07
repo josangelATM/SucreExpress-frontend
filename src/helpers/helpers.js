@@ -5,6 +5,7 @@ export const formatDate = (date) => {
 
 
 export const exportToCSV = (table_id,title,separator = ',') => {
+    
     // Select rows from table_id
     var rows = document.querySelectorAll('table#' + table_id + ' tr');
     // Construct csv

@@ -28,6 +28,7 @@ const PackageRequestItem = (props) =>{
 
     return(
         <tr>
+            <td>{props.request.id}</td>
             <td>{props.request.customerID}</td>
             <td>{props.request.tracking}</td>
             <td>{props.request.createdAt}</td>

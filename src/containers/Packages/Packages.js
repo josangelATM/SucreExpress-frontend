@@ -22,7 +22,6 @@ class Packages extends Component{
     fetchPackages(){
         axios.get(`/packages?type=CustomerID&query=${this.props.user.id}`)
             .then(res=>{
-                console.log(res.data);
                 this.props.updatePackages(res.data)
                 this.setState({
                     status : 'SUCCESS'
@@ -58,12 +57,13 @@ class Packages extends Component{
                 return(<Loader/>)
             case 'SUCCESS': 
                 return(
-                    <div className='Packages'>
+            <div className='Packages'>
                 <h1 className={'title'}>Tus paquetes</h1>
                 <MediaQuery minDeviceWidth={1224}>
-                    <PackagesViewer userType={this.props.user.type}/>
+                    <PackagesViewer tableID={'packagesTable'}/>
                 </MediaQuery>
-                
+
+            
                 <MediaQuery maxDeviceWidth={1224}>
                     <ItemsViewerMobile headers={this.headers} reduxItem='packages' id={'packageMobileTable'}/>
                 </MediaQuery>
