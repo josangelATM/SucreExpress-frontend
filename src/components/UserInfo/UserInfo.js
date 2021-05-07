@@ -87,6 +87,8 @@ const UserInfo = (props) => {
                     <Field type='text' name='lastName' id='lastName' placeholder='Apellido ' className={styles.formControl} disabled={!modify}/>
                     <label className={styles.formLabel} htmlFor='username'>Usuario</label>
                     <Field type='text' name='username' id='username' placeholder='Usuario ' className={styles.formControl} disabled/>
+                    <label className={styles.formLabel} htmlFor='status'>Status</label>
+                    <Field type='text' name='status' id='status' placeholder='Status ' className={styles.formControl} disabled/>
                 </div>
                 <div className={styles.infoSubContainer}>
                     <label className={styles.formLabel} htmlFor='email'>Correo</label>
@@ -95,7 +97,11 @@ const UserInfo = (props) => {
                     <Field type='text' name='phoneNumber' id='phoneNumber' placeholder='Celular ' className={styles.formControl} disabled={!modify}/>
                     <label className={styles.formLabel} htmlFor='address'>Dirección</label>
                     <Field type='text' name='address' id='address' placeholder='Dirección ' className={styles.formControl} disabled={!modify}/>
+                    <label className={styles.formLabel} htmlFor='referredBy'>Referido por</label>
+                    <Field type='text' name='referredBy' id='referredBy' placeholder='' className={styles.formControl} disabled={!modify}/>
                 </div>
+
+           
                 </div>
                 <div className={styles.buttonsContainer}>
                     <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>

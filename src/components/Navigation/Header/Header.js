@@ -14,7 +14,7 @@ const Header = () =>{
     
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const isLogged = useSelector(state => state.auth.isLogged)
-    const hasReferrals = useSelector(state => state.auth.user.hasReferrals)
+    const user = useSelector(state => state.auth.user)
     const [showSideBar,setShowSideBar] = useState(false) 
 
     const toggleSideBar = () =>{
@@ -109,7 +109,7 @@ const Header = () =>{
                 <NavLink to='/packages/search'>
                     Buscar
                 </NavLink>
-                { hasReferrals ? 
+                { user && user.hasReferrals ? 
                 <NavLink to='/packages/referrals'>
                     Referidos
                 </NavLink>: null }
