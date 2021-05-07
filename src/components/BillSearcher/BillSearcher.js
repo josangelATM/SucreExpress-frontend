@@ -24,9 +24,22 @@ const BillSearcher = () =>{
     const [status, setStatus] = useState('BEFORE')
     const [bills, setBills] = useState([])
     const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 1224 })
+
     const searchBills = (values) =>{
         setStatus('LOADING')
         axios.get(`/bills?type=${values.type}&query=${values.query}`)
+            .then(res=>{
+                setStatus('SUCCESS')
+                setBills(res.data)
+            })
+            .catch(err=>{
+                setStatus('FAIL')
+            })
+    }
+
+    const fetchAllBills = () => {
+        setStatus('LOADING')
+        axios.get(`/bills?type=all`)
             .then(res=>{
                 setStatus('SUCCESS')
                 setBills(res.data)
@@ -54,6 +67,7 @@ const BillSearcher = () =>{
                 <option value='id'>ID</option>
             </select>
             <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar facturas</Button>
+            <Button class={'Normal'} type="button" onClick={fetchAllBills}>Mostrar todas</Button>
         </Form>
         )}
     </Formik>
