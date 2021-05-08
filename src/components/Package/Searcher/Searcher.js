@@ -119,7 +119,7 @@ const Searcher = () => {
     }else{
         form = <Formik
         initialValues={{query:''}}
-        validationSchema={searchSchemaCust}
+
         onSubmit={(values) =>{
             values.type= 'Tracking'
             handleSubmit(values);
