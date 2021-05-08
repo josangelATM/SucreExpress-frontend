@@ -16,8 +16,7 @@ const PackagesViewer = (props) => {
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const packages = useSelector(state => state.package.currentPackages)
     const [counter,setCounter] = useState({})
-
- 
+    
     const packagesToRender = packages.map(pa => {
         return(
             <PackageItem {...pa} key={pa.id} referrals={props.referrals}/>
@@ -46,7 +45,7 @@ const PackagesViewer = (props) => {
 
     const headers = <tr>
         {tableHeaders.map(head =>(
-            <th>{head}</th>
+            <th> {head} </th>
         ))}
         {isAdmin ?  
         <Auxiliary>
@@ -70,13 +69,19 @@ const PackagesViewer = (props) => {
     </table>
     </div>
     : <Message class='Normal-msg' message='Sin paquetes para mostrar'/>
+
     return(
         <Auxiliary>
             {isAdmin ? 
             <Auxiliary>
             <div className={compStyles.functionsContainer}>
                 <CounterDisplay counter={counter}/>
-                <SearchFilter headers={tableHeaders} tableID={'packagesTable'} updatedCounter={updateCounter}/>
+                <div className={compStyles.filtersContainer}>
+                    <h1>Filtros</h1>
+                    <SearchFilter headers={tableHeaders} tableID={'packagesTable'} filterInputID={'inputOne'} fieldInputID={'fieldOne'} updatedCounter={updateCounter}/>
+                    <SearchFilter headers={tableHeaders} tableID={'packagesTable'} filterInputID={'inputTwo'} fieldInputID={'fieldTwo'} updatedCounter={updateCounter}/>
+                    <SearchFilter headers={tableHeaders} tableID={'packagesTable'} filterInputID={'inputThree'} fieldInputID={'fieldThree'} updatedCounter={updateCounter}/>
+                </div>
                 <Button class='Normal' onClick={() => exportToCSV(props.tableID,'Packages')}>Exportar datos</Button>
             </div>
             {table}

@@ -6,4 +6,23 @@
     align-items: center;
 }
 
+.tableHeader{
+    display: flex;
+    flex-direction: column;
+}
+
+.filtersContainer{
+    border: 0.2rem solid #1A6C8C;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: space-between;
+}
+
+.filtersContainer h1{
+    margin-top: 2rem;
+    font-size: 3rem;
+    text-align: center;
+}
 

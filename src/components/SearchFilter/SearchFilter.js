@@ -1,13 +1,12 @@
 import React from 'react'
 import compStyles from './SearchFilter.module.css'
 const SearchFilter = (props) =>{
-    console.log(props)
-    
+
     const filterTable = function() {
         let input, filter, table, tr, th,td, i,index, txtValue,field;
-        input = document.getElementById('filterInput');
+        input = document.getElementById(props.filterInputID);
         filter = input.value.toUpperCase();
-        field = document.getElementById('fieldInput').value
+        field = document.getElementById(props.fieldInputID).value
         table = document.getElementById(props.tableID);
         tr = table.getElementsByTagName("tr");
         th = table.getElementsByTagName("th");
@@ -30,9 +29,8 @@ const SearchFilter = (props) =>{
 
     return(
     <div className={compStyles.filterContainer}>
-            <h1>Filtrar Resultados</h1>
-            <input id='filterInput' placeholder='Filtro' type='text' onChange={filterTable} className={compStyles.input}></input>
-            <select id='fieldInput' onChange={filterTable} className={compStyles.input}>
+            <input id={props.filterInputID} placeholder='Filtro' type='text' onChange={filterTable} className={compStyles.input}></input>
+            <select id={props.fieldInputID} onChange={filterTable} className={compStyles.input}>
                 {props.headers.map(header =>(
                     <option value={header}>{header}</option>
                 )) }

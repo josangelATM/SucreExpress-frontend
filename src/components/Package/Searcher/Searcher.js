@@ -18,6 +18,7 @@ import ItemsViewerMobile from '../../ItemsViewerMobile/ItemsViewerMobile'
 const searchSchema = Yup.object({
     query: Yup.string().required('Info requerida'),
     type: Yup.string().required('Tipo de búsqueda ')
+
 })
 
 const searchSchemaCust = Yup.object({
@@ -26,7 +27,9 @@ const searchSchemaCust = Yup.object({
 
 const initialValues = {
     query:'',
-    type:'CustomerID'
+    type:'CustomerID',
+    initialDate:'',
+    finalDate:''
 }
 
 
@@ -41,8 +44,9 @@ const Searcher = () => {
 
 
     const getAll = values =>{
+        console.log(values)
         setStatus('LOADING')
-        axios.get(`/packages?type=all`)
+        axios.get(`/packages?type=all&initialDate=${values.initialDate}&finalDate=${values.finalDate}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
                     dispatch(updatePackages(res.data))
@@ -62,7 +66,7 @@ const Searcher = () => {
 
     const handleSubmit = values =>{
         setStatus('LOADING')
-        axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}`)
+        axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
                     dispatch(updatePackages(res.data))
@@ -92,7 +96,7 @@ const Searcher = () => {
             handleSubmit(values);
         }}
         >
-            {({dirty, isValid, values, handleChange}) =>(
+            {({dirty, isValid, values, handleChange, resetForm}) =>(
             <Form class='form'>
                 <h1>Búsqueda de paquetes</h1>
                 <Field type='text' placeholder='ID/CustomerID/Tracking' name='query' className='form-control'></Field>
@@ -101,8 +105,13 @@ const Searcher = () => {
                     <option value='Tracking'>Tracking</option>
                     <option value='ID' selected>ID</option>
                 </select>
-                <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
-                <Button class={'Normal'} type="button" onClick={getAll} >Mostrar todos</Button>
+                <Field type='date' placeholder='initialDate' name='initialDate' className='form-control'></Field>
+                <Field type='date' placeholder='finalDate' name='finalDate' className='form-control'></Field>
+                <div className={'buttonsContainer'}>
+                    <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
+                    <Button class={'Normal'} type="button" onClick={() => getAll(values)} >Mostrar todos</Button>
+                </div>
+                <Button class={'Normal'} type="button" onClick={resetForm} >Limpiar Campos</Button>
             </Form>
             )}
         </Formik>
