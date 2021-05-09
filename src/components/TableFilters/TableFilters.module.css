@@ -1,0 +1,45 @@
+.tableFilters{
+    display: flex;
+    flex-direction: column;
+    border: 0.3rem solid #1A6C8C;
+    border-radius: 1.5rem;
+    font-size: 2rem;
+    width: fit-content;
+    text-align: center;
+}
+
+.btnsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 0.3rem solid #1A6C8C;
+    border-radius: 1.5rem;
+    height: fit-content;
+    padding: 1rem 1rem;
+    margin-left: 2rem;
+    color: #1A6C8C;
+}
+.btnsContainer svg{
+    margin: 1rem 0;
+    cursor: pointer;
+}
+
+.content{
+    display: flex;
+    margin: 1rem 2rem;
+    align-items: center;
+}
+
+.filterContainer{
+    display: flex;
+}
+
+.formControl{
+    height: fit-content;
+    border: 2px solid #1A6C8C;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 1rem 1rem;
+    font-size: 1.5rem;
+    width: 100%;
+}

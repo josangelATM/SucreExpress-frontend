@@ -11,6 +11,7 @@ import {exportToCSV,ocurrencesCounter} from '../../../helpers/helpers'
 import CounterDisplay from '../../CounterDisplay/CounterDisplay'
 import compStyles from './PackagesViewer.module.css'
 import './PackagesViewer.css'
+import TableFilters from '../../TableFilters/TableFilters'
 const PackagesViewer = (props) => {
     
     const isAdmin = useSelector(state => state.auth.isAdmin)
@@ -76,12 +77,7 @@ const PackagesViewer = (props) => {
             <Auxiliary>
             <div className={compStyles.functionsContainer}>
                 <CounterDisplay counter={counter}/>
-                <div className={compStyles.filtersContainer}>
-                    <h1>Filtros</h1>
-                    <SearchFilter headers={tableHeaders} tableID={'packagesTable'} filterInputID={'inputOne'} fieldInputID={'fieldOne'} updatedCounter={updateCounter}/>
-                    <SearchFilter headers={tableHeaders} tableID={'packagesTable'} filterInputID={'inputTwo'} fieldInputID={'fieldTwo'} updatedCounter={updateCounter}/>
-                    <SearchFilter headers={tableHeaders} tableID={'packagesTable'} filterInputID={'inputThree'} fieldInputID={'fieldThree'} updatedCounter={updateCounter}/>
-                </div>
+                <TableFilters headers={tableHeaders} qty={1} tableID={'packagesTable'} updatedCounter={updateCounter}/>
                 <Button class='Normal' onClick={() => exportToCSV(props.tableID,'Packages')}>Exportar datos</Button>
             </div>
             {table}
