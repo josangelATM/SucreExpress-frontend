@@ -44,7 +44,7 @@ const Searcher = () => {
 
 
     const getAll = values =>{
-        console.log(values)
+        
         setStatus('LOADING')
         axios.get(`/packages?type=all&initialDate=${values.initialDate}&finalDate=${values.finalDate}`)
             .then(res =>  {
@@ -69,6 +69,7 @@ const Searcher = () => {
         axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
+                    
                     dispatch(updatePackages(res.data))
                     if(res.data.length === 0){
                         setStatus('NO_RESULT')
