@@ -17,7 +17,7 @@ const ProfileHeader = () =>{
         <Auxiliary>
             { isLogged ? (isAdmin || isSuperAdmin ?  <div className='profile-header'>
                                         <div className='profile-icons'>
-                                            <Link to='/profile' title='Perfil'><FontAwesomeIcon icon={faUserCircle} size={iconSize}/></Link>
+                                            <Link to={`/users/${user.id}`} title='Perfil'><FontAwesomeIcon icon={faUserCircle} size={iconSize}/></Link>
                                             <Link to='/logout' title='Cerrar sesión'><FontAwesomeIcon icon={faSignOutAlt} size={iconSize}/></Link>
                                         </div>
                                         <span>{`${user.firstName} ${user.lastName}`}</span>
@@ -26,7 +26,7 @@ const ProfileHeader = () =>{
                                     </div>
                                     : <div className='profile-header'>
                                         <div className='profile-icons'>
-                                        <Link to='/profile' title='Perfil'><FontAwesomeIcon icon={faUserCircle}size={iconSize} /></Link>
+                                        <Link to={`/users/${user.id}`}title='Perfil'><FontAwesomeIcon icon={faUserCircle}size={iconSize} /></Link>
                                             <Link to='/logout' title='Cerrar sesión'><FontAwesomeIcon icon={faSignOutAlt} size={iconSize}/></Link>
                                         </div>
                                         <span>{`${user.firstName} ${user.lastName}`}</span>

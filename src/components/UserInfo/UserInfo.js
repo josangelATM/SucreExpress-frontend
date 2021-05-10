@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 import styles from './UserInfo.module.css' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux'
 const userInfoSchema = Yup.object({
     firstName: Yup.string().required('Nombre es obligatorio'),
     lastName: Yup.string().required('Apellido es obligatorio'),
@@ -22,9 +23,10 @@ const userInfoSchema = Yup.object({
 const UserInfo = (props) => {
     const [user,setUser] = useState({})
     const [status,setStatus] = useState('LOADING')
+    const [statusDelete,setStatusDelete] = useState('LOADING')
     const [modify,setModify] = useState(false)
     const userID = props.match.params.userID
-
+    const isAdmin = useSelector(state => state.auth.isAdmin)
     const fetchUser = () =>{
         axios.get(`/users/${userID}`)
             .then(res=>{
@@ -37,6 +39,27 @@ const UserInfo = (props) => {
             })
     }
 
+    const deleteUser = () =>{
+        axios.delete(`/users/${userID}`)
+            .then(res=>{
+                setStatusDelete('SUCCESS')
+                isAdmin ? window.alert(res.data) : window.location.href = '/logout'; 
+                fetchUser()
+            }).catch(err=>{
+                isAdmin && window.alert(err.response.data)
+            })
+    }
+
+    const reactiveUser = () =>{
+        axios.get(`/users/${userID}/reactive`)
+            .then(res=>{
+                setStatus('SUCCESS')
+                isAdmin && window.alert(res.data)
+                fetchUser()
+            }).catch(err=>{
+                isAdmin && window.alert(err.response.data)
+            })
+    }
 
 
     const updateUserInfo = (values) =>{
@@ -105,8 +128,15 @@ const UserInfo = (props) => {
            
                 </div>
                 <div className={styles.buttonsContainer}>
-                    <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
-                    <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`} type="button" onClick={() =>{setModify(!modify)}}>Cancelar</Button>
+                    <div className={styles.buttonsSeparator}>
+                        <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
+                        <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`} type="button" onClick={() =>{setModify(!modify)}}>Cancelar</Button>
+                    </div>
+                    <div className={styles.buttonsSeparator}>
+                        <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`}  onClick={deleteUser} type="button">Eliminar cuenta</Button>
+                        { isAdmin ? <Button class={`Normal ${modify ? styles.buttonShow : styles.buttonHidden}`} onClick={reactiveUser} type="button">Reactivar cuenta</Button> : null }
+                    </div>
+                    
                 </div>
                 
             </Form>

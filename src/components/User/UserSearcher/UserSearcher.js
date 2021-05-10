@@ -18,7 +18,7 @@ const searchSchema = Yup.object({
 
 const initialValues = {
     query:'',
-    type:'CustomerID'
+    type:'id'
 }
 
 

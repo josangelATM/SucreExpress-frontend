@@ -43,7 +43,7 @@ const PackageItem = (props) => {
     <td>{props.id}</td>
     <td>{props.source}</td>
     <td>{props.customerID}</td>
-    <td>{props.owner.firstName}</td>
+    { props.owner ? <td>{props.owner.firstName}</td> : <td>{'NoName'}</td>}
     <td className={compStyles.smallTD}>
       <Comments text={props.tracking} toolTip={props.comments}/>
     </td>

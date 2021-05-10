@@ -43,7 +43,7 @@ class Login extends Component{
                 if(err.response && err.response.status===401){
                     this.setState({status:'FAILED',serverRes:'Usuario o contraseña incorrecta'})
                 }else{
-                    this.setState({status:'FAILED',serverRes:'Hubo un error, intentalo más tarde'})
+                    this.setState({status:'FAILED',serverRes:err.response.data})
                 }
                 
 
