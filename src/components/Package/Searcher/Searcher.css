@@ -18,4 +18,9 @@
     .searcher h1{
         text-align: center;
     }
+    .buttonsContainer{
+        display: flex;
+        justify-content: center;
+    }
+
 }   

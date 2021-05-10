@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import Button from '../../UI/Button/Button'
-import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import PackagesViewer from '../PackagesViewer/PackagesViewer'
 import Loader from '../../UI/Loader/Loader'
 import * as Yup from 'yup'
@@ -108,7 +107,7 @@ const Searcher = () => {
                 </select>
                 <Field type='date' placeholder='initialDate' name='initialDate' className='form-control'></Field>
                 <Field type='date' placeholder='finalDate' name='finalDate' className='form-control'></Field>
-                <div className={'buttonsContainer'}>
+                <div className='buttonsContainer'>
                     <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
                     <Button class={'Normal'} type="button" onClick={() => getAll(values)} >Mostrar todos</Button>
                 </div>

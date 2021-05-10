@@ -19,16 +19,13 @@ const TableFilters = (props) =>{
         for (i = 1; i < tr.length; i++) {
             td = indexes.map(index=>(tr[i].getElementsByTagName("td")[index]))
             if (td) {
-            txtValues = td.map(t=>(t.innerText))
-            txtValues.forEach(txtValue=>{
-                for(let query of queries){
-                    if (txtValue.toUpperCase().indexOf(query.toUpperCase()) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }    
-                } 
-            })
+            txtValues = td.map(t=>(t.innerText))         
+            
+            if(queries.every((el,index)=>(txtValues[index].toUpperCase().includes(el.toUpperCase())))){
+                tr[i].style.display = "";
+            }else{
+                tr[i].style.display = "none";
+            }      
             
         }
         }

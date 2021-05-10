@@ -24,9 +24,9 @@ const PackagesViewer = (props) => {
         )
     })
     const tableHeaders = isAdmin ? [
-        'ID','Origen','CustomerID','Cliente','Tracking','Peso','Status','Última actualización'
+        'ID','CustomerID','Cliente','Tracking','Peso','Status','Última actualización'
     ] : [
-        'ID','Origen','Tracking','Peso','Status','Última actualización'
+        'ID','Tracking','Peso','Status','Última actualización'
     ]
 
     props.referrals && tableHeaders.push('Cliente')

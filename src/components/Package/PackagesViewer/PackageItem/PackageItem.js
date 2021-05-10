@@ -41,7 +41,6 @@ const PackageItem = (props) => {
 
     let toRender = isAdmin ? <tr>
     <td>{props.id}</td>
-    <td>{props.source}</td>
     <td>{props.customerID}</td>
     { props.owner ? <td>{props.owner.firstName}</td> : <td>{'NoName'}</td>}
     <td className={compStyles.smallTD}>
