@@ -9,6 +9,7 @@ import Register from '../../containers/Register/Register'
 import Activate from '../../containers/Activate/Activate'
 import Login from '../../containers/Login/Login'
 import Recover from '../../containers/Recover/Recover'
+import DesignedBy from '../../components/DesignedBy/DesignedBy'
 import './Layout.css'
 import Logout from '../../components/Logout/Logout'
 import PasswordChange from '../../containers/PasswordChangeRecover/PasswordChangeRecover'
@@ -138,6 +139,7 @@ class Layout extends Component{
         <MediaQuery minDeviceWidth={1224}>
                 <Footer/>
         </MediaQuery>
+        <DesignedBy/>
         </Router>
     </div>
         )
