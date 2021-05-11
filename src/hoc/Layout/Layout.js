@@ -33,6 +33,7 @@ import BillSearcher from '../../components/BillSearcher/BillSearcher'
 import BillViewer from '../../components/BillsViewer/BillViewer/BillViewer'
 import Bill from '../../containers/Bill/Bill'
 import ReferralsPackages from '../../components/Package/ReferralsPackages/ReferralsPackages';
+import NotFound from '../../components/NotFound/NotFound';
 class Layout extends Component{
     render(){
         return(              
@@ -51,19 +52,19 @@ class Layout extends Component{
                   {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/packages/search'/> : <Packages/> ) : <Redirect to='/login'/>}
           </Route>
           <Route path="/packages/add">
-                  {this.props.isLogged ? (this.props.isAdmin ? <AddPackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                  {this.props.isLogged ? (this.props.isAdmin ? <AddPackage/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path="/packages/search">
                   {this.props.isLogged ? <Searcher/> : <Redirect to='/login'/>}       
           </Route>
           <Route path="/packages/referrals">
-                  {this.props.isLogged ? (this.props.user.hasReferrals ? <ReferralsPackages/> : <NotAuthorized/>) : <Redirect to='/login'/>}       
+                  {this.props.isLogged ? (this.props.user.hasReferrals ? <ReferralsPackages/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}       
           </Route>
           <Route path="/packages/:idPackage">
-                {this.props.isLogged ? (this.props.isAdmin ? <UpdatePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                {this.props.isLogged ? (this.props.isAdmin ? <UpdatePackage/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path="/packages/remove/:idPackage">           
-                {this.props.isLogged ? (this.props.isAdmin ? <RemovePackage/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                {this.props.isLogged ? (this.props.isAdmin ? <RemovePackage/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path="/requests">
                   {this.props.isLogged ? <PackageRequest/> : <Redirect to='/login'/>}    
@@ -75,31 +76,31 @@ class Layout extends Component{
                   {this.props.isLogged ? <AddQuotation/> : <Redirect to='/login'/>}  
           </Route>
           <Route path="/quotations/search">
-          {this.props.isLogged ? (this.props.isAdmin ? <QuotationSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>} 
+          {this.props.isLogged ? (this.props.isAdmin ? <QuotationSearcher/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>} 
           </Route>
           <Route path="/quotations/:quotationID">
-                  {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                  {this.props.isLogged ? (this.props.isAdmin ? <UpdateQuotation/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route exact path='/bills'>
                 {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/bills/search'/> : <Bill/> )  : <Redirect to='/login'/>}  
           </Route>
           <Route path='/bills/upload'>
-                {this.props.isLogged ? (this.props.isAdmin ? <BillUploader/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                {this.props.isLogged ? (this.props.isAdmin ? <BillUploader/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path='/bills/search'>
-                {this.props.isLogged ? (this.props.isAdmin ? <BillSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                {this.props.isLogged ? (this.props.isAdmin ? <BillSearcher/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path='/bills/:billID'>
                 {this.props.isLogged ? <BillViewer/> : <Redirect to='/login'/>}  
           </Route>     
           <Route exact path='/users'>
-                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/users/search'/> : <NotAuthorized/> ) : <Redirect to='/login'/>} 
+                  {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/users/search'/> : <Redirect to='/unauthorized'/> ) : <Redirect to='/login'/>} 
           </Route> 
           <Route path='/users/add'>
                   {this.props.isLogged ? <Register/> : <Redirect to='/login'/>} 
           </Route>
           <Route path='/users/search'>
-                  {this.props.isLogged ? (this.props.isAdmin ? <UserSearcher/> : <NotAuthorized/>) : <Redirect to='/login'/>}
+                  {this.props.isLogged ? (this.props.isAdmin ? <UserSearcher/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path='/users/:userID'>
                  {this.props.isLogged ? <Profile userID={this.props.user.id} isAdmin={this.props.isAdmin}/> : <Redirect to='/login'/>} 
@@ -126,8 +127,11 @@ class Layout extends Component{
           <Route path="/register/:userID/:code">
                 <Activate/>
           </Route>
-          <Route path="/Unauthorized">
+          <Route path="/unauthorized">
                 <NotAuthorized/>
+          </Route>
+          <Route>
+                <NotFound/>
           </Route>
         </Switch>
         </main>
