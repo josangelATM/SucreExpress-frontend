@@ -115,6 +115,7 @@ const UserSearcher = () =>{
                 'Nombre' : 'firstName',
                 'Apellido' : 'lastName',
                 'Usuario' : 'username',
+                'Referido por' : 'referredBy',
                 'Correo' : 'email',
                 'Celular' :'phoneNumber'
             } 

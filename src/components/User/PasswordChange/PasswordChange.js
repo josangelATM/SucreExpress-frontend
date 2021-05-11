@@ -44,7 +44,7 @@ const PasswordChange = (props) =>{
             >
                 {({touched, errors, dirty, isValid,handleChange,values}) => (
                         <Form className='form no-border'>
-                        <h1>Cambiar contraseña</h1>
+                        <h1 className={styles.title}>Cambiar contraseña</h1>
                         <Field type='text' name='currentPassword' placeholder='Contraseña actual' className='form-control' />
                         <Field type='text' name='newPassword' placeholder='Contraseña nueva' className='form-control' />
                         <Field type='text' name='passwordConfirmation' placeholder='Confirmar contraseña' className='form-control'/>

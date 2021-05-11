@@ -42,7 +42,8 @@ const PackageItem = (props) => {
     let toRender = isAdmin ? <tr>
     <td>{props.id}</td>
     <td>{props.customerID}</td>
-    { props.owner ? <td>{props.owner.firstName}</td> : <td>{'NoName'}</td>}
+    <td>{props.owner.firstName}</td>
+    <td><Link target='_blank' className={compStyles.link} to={`/users/${props.owner.referredBy}`}>{props.owner.referredBy}</Link></td>
     <td className={compStyles.smallTD}>
       <Comments text={props.tracking} toolTip={props.comments}/>
     </td>

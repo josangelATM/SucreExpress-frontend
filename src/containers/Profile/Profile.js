@@ -21,10 +21,8 @@ class Profile extends Component{
 
         let toRender = this.authorized || this.props.isAdmin ? 
         <div className={styles.profile}>
-        <div className={styles.upContainer}>
             <UserInfo/>
             { this.props.isAdmin ? <PasswordChangeRecover isAdmin={this.props.isAdmin}/> : <PasswordChange/>}
-        </div>
         </div> :
     <Redirect to='/unathorized'/>
 

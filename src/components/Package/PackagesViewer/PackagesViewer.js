@@ -24,9 +24,9 @@ const PackagesViewer = (props) => {
         )
     })
     const tableHeaders = isAdmin ? [
-        'ID','CustomerID','Cliente','Tracking','Peso','Status','Última actualización'
+        'ID','CustomerID','Cliente','Referido por','Tracking','Peso','Status','Última actualización'
     ] : [
-        'ID','Tracking','Peso','Status','Última actualización'
+        'ID','Origen','Tracking','Peso','Status','Última actualización'
     ]
 
     props.referrals && tableHeaders.push('Cliente')
@@ -60,7 +60,7 @@ const PackagesViewer = (props) => {
     const table = packages.length > 0 ? 
     <div className={sharedStyles.tableContainer}>
     
-    <table id='packagesTable'>
+    <table id='packagesTable' className={compStyles.table}>
         <thead>
             {headers}
         </thead>

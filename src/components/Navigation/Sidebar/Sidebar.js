@@ -6,10 +6,12 @@ import Auxiliary from '../../../hoc/Auxiliary/Auxiliary'
 import { faChevronCircleDown, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SideBarButton from '../../UI/Button/SideBarButton/SideBarButton'
+
 const Sidebar = (props) => {
 
     const isAdmin = useSelector(state => state.auth.isAdmin)
     const isLogged = useSelector(state => state.auth.isLogged)
+    const user = useSelector(state => state.auth.user)
 
     const adminLinks = 
         <Auxiliary>
@@ -102,6 +104,10 @@ const Sidebar = (props) => {
                 <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/packages/search'>
                     Buscar
                 </NavLink>
+                { user && user.hasReferrals ? 
+                <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/packages/referrals'>
+                    Referidos
+                </NavLink>: null }
             </div>
         </div>
         

@@ -49,7 +49,7 @@ const PasswordChange = (props) => {
             >
                 {({touched, errors, dirty, isValid,handleChange,values}) => (
                         <Form className='form'>
-                        <h1>Cambiar contraseña</h1>
+                        <h1 className={styles.title}>Cambiar contraseña</h1>
                         <Field type={showPassword ? 'text' : 'password'} name='newPassword' placeholder='Contraseña nueva' className='form-control' />
                         <Field type={showPassword ? 'text' : 'password'} name='passwordConfirmation' placeholder='Confirmar contraseña' className='form-control'/>
                         <div className='showPasswordContainer' onClick={() => {setShowPassword(!showPassword)}}> 

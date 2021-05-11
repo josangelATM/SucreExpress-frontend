@@ -28,7 +28,8 @@ const initialValues = {
     query:'',
     type:'CustomerID',
     initialDate:'',
-    finalDate:''
+    finalDate:'',
+    sort:'desc'
 }
 
 
@@ -45,7 +46,7 @@ const Searcher = () => {
     const getAll = values =>{
         
         setStatus('LOADING')
-        axios.get(`/packages?type=all&initialDate=${values.initialDate}&finalDate=${values.finalDate}`)
+        axios.get(`/packages?type=all&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
                     dispatch(updatePackages(res.data))
@@ -65,7 +66,7 @@ const Searcher = () => {
 
     const handleSubmit = values =>{
         setStatus('LOADING')
-        axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}`)
+        axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
                     
@@ -107,6 +108,10 @@ const Searcher = () => {
                 </select>
                 <Field type='date' placeholder='initialDate' name='initialDate' className='form-control'></Field>
                 <Field type='date' placeholder='finalDate' name='finalDate' className='form-control'></Field>
+                <select name='sort' onChange={handleChange} value={values.sort} className='form-control'>  
+                    <option value='desc'>Más recientes a más antiguos</option>
+                    <option value='asc'>Más antiguos a más recientes</option>
+                </select>
                 <div className='buttonsContainer'>
                     <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Buscar paquete</Button>
                     <Button class={'Normal'} type="button" onClick={() => getAll(values)} >Mostrar todos</Button>
@@ -146,9 +151,9 @@ const Searcher = () => {
         case 'SUCCESS':
             const headers = isAdmin ? {
                 'ID': 'id',
-                'Origen' : 'source',
                 'CustomerID' : 'customerID',
                 'Cliente' : 'owner.firstName',
+                'Referido por' : 'owner.referredBy',
                 'Tracking' : 'tracking',
                 'Peso' : 'weight',
                 'Status' :'status',

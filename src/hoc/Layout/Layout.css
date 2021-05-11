@@ -16,7 +16,7 @@
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     .main{
-        height: fit-content;
+        height: 200rem;
     }
 
 }   
