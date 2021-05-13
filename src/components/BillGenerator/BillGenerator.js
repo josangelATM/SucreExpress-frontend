@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Loader from '../UI/Loader/Loader'
 import PackageItemBill from './PackageItemBill/PackageItemBill'
-import { PDFViewer } from '@react-pdf/renderer'
+import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
 import BillPdf from './BillPdf/BillPdf'
 import { setDiscount, setTotal } from '../../store/actions/billActions'
 const YupSchema = Yup.object({
@@ -66,6 +66,10 @@ const BillGenerator = () => {
                 alert('Error :(')
             })
     }
+    const uploadBill = () =>{
+        const iframe = document.getElementById('iframePDF')
+        console.log(iframe.src)
+    }
     useEffect( ()=>{
         getBillID()
     })
@@ -117,16 +121,35 @@ const BillGenerator = () => {
     return(
         <Auxiliary>
             {generatorForm}
-            { showBill ? <PDFViewer width='80%' height='1000' file>
-                <BillPdf
-                billID={billID}
-                customer={customer}
-                lblPrice={lblPrice}
-                packages={packages}
-                total={total}
-                discount={discount}
-                />
-            </PDFViewer> : false}
+            { showBill ? 
+            <div className={compStyles.PDFContainer}>
+                <PDFViewer width='80%' height='1000' id={'iframePDF'}>
+                    <BillPdf
+                    billID={billID}
+                    customer={customer}
+                    lblPrice={lblPrice}
+                    packages={packages}
+                    total={total}
+                    discount={discount}
+                    />
+                </PDFViewer>
+                <Button class='Normal' onClick={uploadBill}>Subir factura</Button>
+                {/* <div>
+                <PDFDownloadLink document={<BillPdf
+                    billID={billID}
+                    customer={customer}
+                    lblPrice={lblPrice}
+                    packages={packages}
+                    total={total}
+                    discount={discount}
+                    />} fileName="test.pdf">
+                    {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+                </PDFDownloadLink>
+                </div> */}
+            </div>
+            
+            
+            : false}
             
         </Auxiliary>
     )

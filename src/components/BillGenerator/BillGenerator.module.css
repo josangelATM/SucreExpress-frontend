@@ -5,3 +5,9 @@
 .addPackageContainer button{
     margin-left: 1rem;
 }
+
+.PDFContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
