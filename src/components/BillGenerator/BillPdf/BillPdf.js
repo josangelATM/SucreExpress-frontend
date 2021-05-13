@@ -238,7 +238,7 @@ const BillPdf = (props) => {
                 </View>
                 <View style={styles.sectionContainer}>
                   <Text style={styles.textDetail}>{`$  ${(parseFloat(props.total) + parseFloat(props.discount)).toFixed(2)}`}</Text>
-                  <Text style={styles.textDetail}>{`$  ${props.discount == '0.00' ? '-' : props.discount}`}</Text>
+                  <Text style={styles.textDetail}>{`$  ${props.discount == '0.00' ? '-' : parseFloat(props.discount).toFixed(2)}`}</Text>
                   <Text style={styles.textDetail}>{'$  -'}</Text>
                   <Text style={styles.textDetail}>{`$  ${props.total.toFixed(2)}`}</Text>
                 </View>

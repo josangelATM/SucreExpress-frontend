@@ -29,7 +29,6 @@ const BillUploader = () =>{
         const data = serialize(
             values
           );
-          console.log(data);
         setStatus('LOADING')
         
         axios.post('/bills',data)

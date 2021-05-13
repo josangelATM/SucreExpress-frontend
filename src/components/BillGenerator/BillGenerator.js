@@ -9,9 +9,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Loader from '../UI/Loader/Loader'
 import PackageItemBill from './PackageItemBill/PackageItemBill'
-import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
+import { PDFViewer, BlobProvider } from '@react-pdf/renderer'
 import BillPdf from './BillPdf/BillPdf'
-import { setDiscount, setTotal } from '../../store/actions/billActions'
+import { setDiscount, setTotal,deleteAllPackages } from '../../store/actions/billActions'
+import { serialize } from 'object-to-formdata';
 const YupSchema = Yup.object({
     customerID: Yup.string().required(),
     packageID: Yup.array(),
@@ -22,7 +23,8 @@ const YupSchema = Yup.object({
 const initialValues = {
     customerID:'',
     packages:[],
-    discount:''
+    discount:'',
+    lblPrice:''
 }
 
 
@@ -36,6 +38,7 @@ const BillGenerator = () => {
     const discount = useSelector(state => state.bill.discount)
     const hasPackages = packages.length > 0 ? true : false
     const [showBill,setShowBill] = useState(false)
+    const [error, setError] = useState('')
     const dispatch = useDispatch()
     const getBillID = () =>{
         axios.get('/bills/lastID')
@@ -66,10 +69,25 @@ const BillGenerator = () => {
                 alert('Error :(')
             })
     }
-    const uploadBill = () =>{
-        const iframe = document.getElementById('iframePDF')
-        console.log(iframe.src)
+    const uploadBill = (blobPDF) =>{
+        const values = {}
+        values.bill = blobPDF
+        values.id = billID.replace('-','')
+        values.billName =`${values.id}.pdf`
+        values.customerID = customer.id
+        const data = serialize(values);
+        axios.post('/bills',data)
+        .then(res=>{
+            alert(res.data)
+            setShowBill(false)
+            dispatch(deleteAllPackages())
+        })
+        .catch(err=>{
+            setError(err.response.data)
+            alert('error')
+        })
     }
+ 
     useEffect( ()=>{
         getBillID()
     })
@@ -79,13 +97,13 @@ const BillGenerator = () => {
     const generatorForm = <Formik
     initialValues={initialValues}
     validationSchema={YupSchema}
-    onSubmit={(values) =>{
+    onSubmit={(values, {resetForm}) =>{
         values.discount != '' && dispatch(setDiscount(values.discount))
         dispatch(setLblPrice(values.lblPrice))
         findUser(values)
         dispatch(setTotal())
         setShowBill(true)
-       
+        error == '' && resetForm() 
     }}
     >
         {({dirty, isValid, values, handleChange}) =>(
@@ -133,21 +151,19 @@ const BillGenerator = () => {
                     discount={discount}
                     />
                 </PDFViewer>
-                <Button class='Normal' onClick={uploadBill}>Subir factura</Button>
-                {/* <div>
-                <PDFDownloadLink document={<BillPdf
+                <BlobProvider document={<BillPdf
                     billID={billID}
                     customer={customer}
                     lblPrice={lblPrice}
                     packages={packages}
                     total={total}
                     discount={discount}
-                    />} fileName="test.pdf">
-                    {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-                </PDFDownloadLink>
-                </div> */}
+                    />}>
+                    {({ blob, url, loading, error }) => {
+                        return loading ? <Loader/> : <Button class='Normal' onClick={() => uploadBill(blob)}>Subir factura</Button>
+                    }}
+                </BlobProvider>
             </div>
-            
             
             : false}
             

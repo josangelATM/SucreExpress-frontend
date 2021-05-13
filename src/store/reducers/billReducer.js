@@ -71,6 +71,13 @@ const setDiscount = (state,action) =>{
     }
 }
 
+const deleteAllPackages = (state,action) =>{
+    return{
+        ...state,
+        packages:[]
+    }
+}
+
 const billReducer = (state = initialState, action) => {
     
     switch(action.type){
@@ -81,6 +88,7 @@ const billReducer = (state = initialState, action) => {
         case (actionTypes.SET_BILL_ID): return setBillID(state,action);
         case (actionTypes.SET_TOTAL): return setTotalPrice(state,action);
         case (actionTypes.SET_DISCOUNT): return setDiscount(state,action);
+        case (actionTypes.DELETE_ALL_PACKAGES_BILL): return deleteAllPackages(state,action);
         default: return state;
     }
     

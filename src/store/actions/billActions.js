@@ -50,3 +50,9 @@ export const setDiscount = (discount) =>{
         discount
     }
 }
+
+export const deleteAllPackages = () =>{
+    return{
+        type: actionTypes.DELETE_ALL_PACKAGES_BILL
+    }
+}
