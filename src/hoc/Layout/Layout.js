@@ -31,7 +31,7 @@ import UserSearcher from '../../components/User/UserSearcher/UserSearcher'
 import Profile from '../../containers/Profile/Profile'
 import BillUploader from '../../components/BillUploader/BillUploader'
 import BillSearcher from '../../components/BillSearcher/BillSearcher'
-import BillViewer from '../../components/BillsViewer/BillViewer/BillViewer'
+import BillGenerator from '../../components/BillGenerator/BillGenerator'
 import Bill from '../../containers/Bill/Bill'
 import ReferralsPackages from '../../components/Package/ReferralsPackages/ReferralsPackages';
 import NotFound from '../../components/NotFound/NotFound';
@@ -91,8 +91,8 @@ class Layout extends Component{
           <Route path='/bills/search'>
                 {this.props.isLogged ? (this.props.isAdmin ? <BillSearcher/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
-          <Route path='/bills/:billID'>
-                {this.props.isLogged ? <BillViewer/> : <Redirect to='/login'/>}  
+          <Route path='/bills/generator'>
+                {this.props.isLogged ? <BillGenerator/> : <Redirect to='/login'/>}  
           </Route>     
           <Route exact path='/users'>
                   {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/users/search'/> : <Redirect to='/unauthorized'/> ) : <Redirect to='/login'/>} 

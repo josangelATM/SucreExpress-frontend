@@ -11,7 +11,8 @@ import { serialize } from 'object-to-formdata';
 const initialValues = {
     bill:'',
     customerID:'',
-    id:''
+    id:'',
+    billNumber:''
 }
 
 const billSchema = Yup.object({
@@ -53,6 +54,7 @@ const BillUploader = () =>{
                         <Form className='form'>
                                 <h1>Guardar factura</h1>
                                     <Field type='text' placeholder='ID' name='id' className='form-control'/>
+                                    <Field type='text' placeholder='BillNumber' name='billNumber' className='form-control'/>
                                     <Field type='text' placeholder='CustomerID' name='customerID' className='form-control'/>
                                     <Field type='file' name='bill' value={undefined} className='form-control' onChange={(event) => {setFieldValue("bill", event.currentTarget.files[0])}}></Field>
                                 <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Guardar</Button>

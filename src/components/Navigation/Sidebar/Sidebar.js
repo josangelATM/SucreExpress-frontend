@@ -72,6 +72,9 @@ const Sidebar = (props) => {
                     <FontAwesomeIcon icon={faChevronDown} size='1x'/>
                 </div>
                 <div className='dropdown-content'>
+                    <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bills/generator'>
+                        Generar
+                    </NavLink>
                     <NavLink onClick={props.toggle} className={compStyles.navItem} activeClassName='active' to='/bills/upload'>
                         Subir
                     </NavLink>

@@ -83,6 +83,9 @@ const Header = () =>{
                     <NavLink to='/bills/upload'>
                         Subir
                     </NavLink>
+                    <NavLink to='/bills/generator'>
+                        Generar
+                    </NavLink>
                     <NavLink to='/bills/search'>
                         Buscar
                     </NavLink>

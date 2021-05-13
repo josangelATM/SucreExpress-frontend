@@ -1,0 +1,7 @@
+.addPackageContainer{
+    display: flex;
+    align-items: center;
+}
+.addPackageContainer button{
+    margin-left: 1rem;
+}

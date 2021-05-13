@@ -13,3 +13,7 @@ export {
 export {
     updateQuotations,deleteQuotation
 } from './quotationActions'
+
+export{
+    updateCustomer,addPackage,deletePackage,setLblPrice,setBillID,setTotal,setDiscount
+} from './billActions'
