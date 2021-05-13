@@ -114,7 +114,7 @@ const BillGenerator = () => {
             </table> : null }
             <Field type='text' placeholder='Precio x libra' name='lblPrice' className='form-control'/>
             <Field type='text' placeholder='Descuento' name='discount' className='form-control'/>
-            <Button class={'Normal'} type="submit" disabled={!dirty || !isValid || !hasPackages}>Generar Factura</Button>
+            <Button class={'Normal'} type="submit" disabled={!isValid || !hasPackages}>Generar Factura</Button>
         </Form>
         )}
     </Formik>

@@ -60,7 +60,7 @@ const setLblPrice = (state,action) =>{
 const setBillID = (state,action) =>{
     return{
         ...state,
-        billID: `SN-${action.billID}`
+        billID: `SE-${action.billID}`
     }
 }
 
