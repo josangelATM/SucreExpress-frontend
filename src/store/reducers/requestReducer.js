@@ -33,8 +33,8 @@ const deleteRequest = (state, action) => {
 const requestReducer = (state = initialState, action) => {
     
     switch(action.type){
-        case (actionTypes.UPDATE_REQUESTS): return updateRequests(state,action); break;
-        case (actionTypes.DELETE_REQUEST): return deleteRequest(state,action); break;
+        case (actionTypes.UPDATE_REQUESTS): return updateRequests(state,action); 
+        case (actionTypes.DELETE_REQUEST): return deleteRequest(state,action); 
         default: return state;
     }
     

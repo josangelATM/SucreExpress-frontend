@@ -19,9 +19,6 @@ const ItemViewerMobile = (props) =>{
             <div className={compStyles.detailsContainer}>
                 <Button class='Link' size={'small'}><a target='_blank' href={`/${props.itemName}/${props.item.id}`}>Actualizar</a></Button>
             </div> : null }
-
- 
-            
         </div>
     )
 }

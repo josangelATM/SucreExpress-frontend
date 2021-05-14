@@ -29,8 +29,8 @@ const logout = (state, action) => {
 
 const userReducer = (state = initialState, action) => {
     switch(action.type){
-        case (actionTypes.LOGIN): return login(state,action); break;
-        case (actionTypes.LOGOUT): return logout(state,action); break;
+        case (actionTypes.LOGIN): return login(state,action); 
+        case (actionTypes.LOGOUT): return logout(state,action);
         default: return state;
     }
     

@@ -27,7 +27,7 @@ export const exportToCSV = (table_id,title,separator = ',') => {
     }
     var csv_string = csv.join('\n');
     // Download it
-    var filename = title + new Date().toLocaleDateString() + '.csv';
+    var filename = `${title}${new Date().toLocaleDateString()}.csv`
     var link = document.createElement('a');
     link.style.display = 'none';
     link.setAttribute('target', '_blank');

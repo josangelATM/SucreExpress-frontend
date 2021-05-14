@@ -43,9 +43,9 @@ const deletePackage = (state, action) => {
 const packageReducer = (state = initialState, action) => {
     
     switch(action.type){
-        case (actionTypes.UPDATE_PACKAGES): return updatePackages(state,action); break;
-        case (actionTypes.DELETE_PACKAGE): return deletePackage(state,action); break;
-        case (actionTypes.UPDATE_PACKAGE): return updatePackage(state,action); break;
+        case (actionTypes.UPDATE_PACKAGES): return updatePackages(state,action); 
+        case (actionTypes.DELETE_PACKAGE): return deletePackage(state,action); 
+        case (actionTypes.UPDATE_PACKAGE): return updatePackage(state,action); 
         default: return state;
     }
     

@@ -10,7 +10,7 @@ import { Redirect } from 'react-router-dom'
 import Button from '../../components/UI/Button/Button'
 import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import './Login.css'
 const loginSchema = Yup.object({
     username: Yup.string().required('Usuario es obligatorio'),

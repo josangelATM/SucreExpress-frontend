@@ -33,8 +33,8 @@ const deleteQuotation = (state, action) => {
 const quotationReducer = (state = initialState, action) => {
     
     switch(action.type){
-        case (actionTypes.UPDATE_QUOTATIONS): return updateQuoations(state,action); break;
-        case (actionTypes.DELETE_QUOTATION): return deleteQuotation(state,action); break;
+        case (actionTypes.UPDATE_QUOTATIONS): return updateQuoations(state,action);
+        case (actionTypes.DELETE_QUOTATION): return deleteQuotation(state,action);
         default: return state;
     }
     

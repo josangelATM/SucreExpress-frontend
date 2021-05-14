@@ -58,7 +58,10 @@ const PackageItem = (props) => {
     <td className={compStyles.smallTD}>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
-    <td>{props.billID}</td>
+    <td>
+      {props.billID ? 
+      <a className={compStyles.link} target={'_blank'} href={props.bill.billLink}>{props.billID}</a> : null }
+    </td>
     <td>{props.updatedAt}</td>
     { props.referrals ? <td>{props.owner.firstName}</td> : null}
     <td><Button disabled={!hasComments} class='Link' size={'small'} onClick={toggleModal}>Ver comentarios</Button></td>
@@ -67,18 +70,7 @@ const PackageItem = (props) => {
     </ModalContent>
 </tr>
 
-    // let deleteStatus = null
-    // switch(status){
-    //   case 'LOADING':
-    //     deleteStatus = <Loader/>
-    //     break;
-    //   case 'SUCCESS':
-    //     deleteStatus = <Message class='Normal-msg' message='Paquete eliminado exitosamente' />
-    //     break;
-    //   case 'FAIL':
-    //     deleteStatus = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde' />
-    //     break;
-    // }
+
     return(
         <Auxiliary>
             {toRender}
