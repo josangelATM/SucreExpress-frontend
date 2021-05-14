@@ -71,12 +71,16 @@ const BillGenerator = () => {
     }
     const uploadBill = (blobPDF) =>{
         const values = {}
+        values.packagesID = packages.map(item =>(item.id))
         values.bill = blobPDF
         values.id = billID.replace('-','')
         values.billName =`${values.id}.pdf`
         values.customerID = customer.id
-        const data = serialize(values);
-        axios.post('/bills',data)
+        const form_data = new FormData();
+        for ( let key in values ) {
+            form_data.append(key, values[key]);
+        }
+        axios.post('/bills',form_data)
         .then(res=>{
             alert(res.data)
             setShowBill(false)

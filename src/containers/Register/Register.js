@@ -31,7 +31,8 @@ const registerSchema = Yup.object({
 class Register extends Component{
     state = {
         status: 'REGISTER',
-        serverRes: '',
+        error: '',
+        serverRes:'',
         showPassword: false
     }
     
@@ -54,22 +55,13 @@ class Register extends Component{
         this.setState({status:'LOADING'})
         data.id = data.id + '-PN'
         data.status = this.props.isAdmin ? 'active' : 'pending'
-        console.log(data.referredBy);
         axios.post('/users/register',data)
             .then(res =>  {
                 this.setState({status:'SUCCESFUL',serverRes:res.data})
             })
             .catch(err => {
-                this.setState({status:'FAILED'})
-                if(err.response.data.name==='UserExistsError'){
-                    this.setState({serverRes:'Nombre de usuario ya registrado'})
-                }else if(err.response.data.code===11000 && err.response.data.keyPattern.id){
-                    this.setState({serverRes:'Cédula ya registrada'})
-                }else if(err.response.data.code===11000 && err.response.data.keyPattern.email){
-                    this.setState({serverRes:'Correo ya registrado'})
-                }else{
-                    this.setState({serverRes:'Hubo un error, intentanlo más tarde'})
-                }
+                this.setState({status:'FAILED',error:err.response.data})
+                
                
             })
     }   
@@ -166,7 +158,7 @@ class Register extends Component{
             case 'FAILED': 
                 toRender = 
                 <Auxiliary>
-                    <Message class='Error-msg' message={this.state.serverRes}/>
+                    <Message class='Error-msg' message={this.state.error}/>
                     {form}
                 </Auxiliary>
                 break;

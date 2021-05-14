@@ -25,13 +25,12 @@ const initialValues = {
 class Login extends Component{
     state = {
         status: 'LOGIN',
-        serverRes: '',
+        error: '',
         showPassword: false
     }
     
 
     handleSubmit = values =>{
-        console.log(values)
         this.setState({status:'LOADING'})
         axios.post('/users/login',values)
             .then(res =>  {
@@ -40,19 +39,9 @@ class Login extends Component{
                 this.setState({status:'SUCCESFUL'})
             })
             .catch(err => {
-                if(err.response && err.response.status===401){
-                    this.setState({status:'FAILED',serverRes:'Usuario o contraseña incorrecta'})
-                }else{
-                    this.setState({status:'FAILED',serverRes:err.response.data})
-                }
-                
-
+                this.setState({status:'FAILED',error:err.response.data})
             })
     }   
-
-    
-
-
     render(){
         let loginForm = <Formik
         initialValues={initialValues}
@@ -96,10 +85,9 @@ class Login extends Component{
             case 'FAILED': 
                 toRender = 
                 <Auxiliary>
-                    <Message class='Error-msg' message={this.state.serverRes}/>
+                    <Message class='Error-msg' message={this.state.error}/>
                     {loginForm}
                 </Auxiliary>
-            
                 break;
         }
         

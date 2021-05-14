@@ -92,7 +92,7 @@ class Layout extends Component{
                 {this.props.isLogged ? (this.props.isAdmin ? <BillSearcher/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}
           </Route>
           <Route path='/bills/generator'>
-                {this.props.isLogged ? <BillGenerator/> : <Redirect to='/login'/>}  
+                {this.props.isLogged ? (this.props.isAdmin ? <BillGenerator/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}  
           </Route>     
           <Route exact path='/users'>
                   {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/users/search'/> : <Redirect to='/unauthorized'/> ) : <Redirect to='/login'/>} 

@@ -58,6 +58,7 @@ const PackageItem = (props) => {
     <td className={compStyles.smallTD}>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
+    <td>{props.billID}</td>
     <td>{props.updatedAt}</td>
     { props.referrals ? <td>{props.owner.firstName}</td> : null}
     <td><Button disabled={!hasComments} class='Link' size={'small'} onClick={toggleModal}>Ver comentarios</Button></td>

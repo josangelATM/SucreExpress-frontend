@@ -42,7 +42,8 @@ class Packages extends Component{
         'Peso' : 'weight',
         'Status' :'status',
         'Última actualización' : 'updatedAt',
-        'Comentarios' : 'comments'
+        'Comentarios' : 'comments',
+        'Factura ID' : 'billID'
     } 
 
 

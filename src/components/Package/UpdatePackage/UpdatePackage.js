@@ -65,7 +65,7 @@ const UpdatePackage =  (props) =>{
                 <Form className='form'>
                         <h1>Actualizar paquete</h1>
                         <Field type='text' placeholder='Origen' name='id' 
-                        className='form-control disabled' ></Field>
+                        className='form-control disabled' disabled ></Field>
                         <Field type='text' placeholder='Origen' name='source' 
                         className='form-control'></Field>
                         <Field type='text' placeholder='Customer ID' name='customerID' defaultValue={values.customerID}
@@ -74,6 +74,8 @@ const UpdatePackage =  (props) =>{
                         className='form-control'></Field>
                         <Field type='text' placeholder='Peso' name='weight' 
                         className='form-control'></Field>
+                        <Field type='text' placeholder='Factura ID' name='billID' 
+                        className='form-control' disabled></Field>
                         <textarea rows="6" cols="15" placeholder="Comentarios" name='comments' 
                         className='form-control' onChange={handleChange} value={values.comments}></textarea>
                         <select name="status" value={values.status} onChange={handleChange}
