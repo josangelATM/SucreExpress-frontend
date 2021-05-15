@@ -52,7 +52,7 @@ const QuotationsViewer = (props) => {
 
     return(
         <Auxiliary>
-            <SearchFilter headers={tableHeaders} tableID={'quotationsTable'} />
+            {quotations.length > 0 ? <SearchFilter headers={tableHeaders} tableID={'quotationsTable'} /> : null }
             {table}
         </Auxiliary>
     )

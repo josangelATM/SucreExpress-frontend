@@ -8,6 +8,18 @@
     padding: 2rem 2rem;
 }
 
+.closeBtn{
+    cursor: pointer;
+}
+
+.show{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
 .Error-msg{
     background-color: #f3a5a5 ;
     color: red
@@ -16,6 +28,11 @@
 .Normal-msg{
     background-color: #f3a5a5 ;
     color: #31a741
+}
+
+.closeContainer{
+    display: flex;
+    justify-content:flex-end;
 }
 
 

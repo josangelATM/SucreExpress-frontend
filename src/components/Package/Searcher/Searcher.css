@@ -13,7 +13,7 @@
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     .searcher{
-        width: 80%;
+        width: 90%;
     }
     .searcher h1{
         text-align: center;

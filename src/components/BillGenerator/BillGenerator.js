@@ -12,7 +12,6 @@ import PackageItemBill from './PackageItemBill/PackageItemBill'
 import { PDFViewer, BlobProvider } from '@react-pdf/renderer'
 import BillPdf from './BillPdf/BillPdf'
 import { setDiscount, setTotal,deleteAllPackages } from '../../store/actions/billActions'
-import { serialize } from 'object-to-formdata';
 const YupSchema = Yup.object({
     customerID: Yup.string().required(),
     packageID: Yup.array(),
@@ -115,7 +114,7 @@ const BillGenerator = () => {
     >
         {({dirty, isValid, values, handleChange}) =>(
         <Form class='form'>
-            <h1>Generador de Facturas</h1>
+            <h1 className={compStyles.billGeneratorTitle}>Generador de Facturas</h1>
             { billID == '' ? <Loader/> : <h1>{billID}</h1>}
             <Field type='text' placeholder='CustomerID' name='customerID' className='form-control'/>
             <div className={compStyles.addPackageContainer}>
