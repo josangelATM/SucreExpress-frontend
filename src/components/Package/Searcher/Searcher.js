@@ -44,7 +44,7 @@ const Searcher = () => {
 
 
     const getAll = values =>{
-        
+        document.getElementById('packagesContainer').scrollIntoView()
         setStatus('LOADING')
         axios.get(`/packages?type=all&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
@@ -65,6 +65,7 @@ const Searcher = () => {
     }
 
     const handleSubmit = values =>{
+        document.getElementById('packagesContainer').scrollIntoView()
         setStatus('LOADING')
         axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
@@ -168,9 +169,6 @@ const Searcher = () => {
                 'Última actualización' : 'updatedAt',
                 'Comentarios' : 'comments'
             } 
-
-
-       
             searchResult = isDesktopOrLaptop ? <PackagesViewer/> : <ItemsViewerMobile headers={headers} reduxItem='packages' id={'packageMobileTable'} details={isAdmin ? true : false}/>
             break;
         case 'NO_RESULT':
@@ -187,7 +185,9 @@ const Searcher = () => {
     return(
        <div className='searcher'>
            {form}
-           {searchResult}
+           <div id={'packagesContainer'}>
+            {searchResult}
+           </div>
         </div>
         
     )

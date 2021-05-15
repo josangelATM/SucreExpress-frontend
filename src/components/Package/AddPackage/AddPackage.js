@@ -31,17 +31,17 @@ const AddPackage =  () =>{
     const [status,setStatus] = useState('BEFORE')
     const [response,setResponse] = useState('')
 
-    const handleSubmit = (values) => {
+    const handleSubmit = (values,resetForm) => {
         setStatus('LOADING')
         axios.post('/packages',values)
             .then(res =>  {
                 setResponse(res.data)
                 setStatus('SUCCESS')
+                resetForm()
             })
             .catch(err => {
-                
-                
                 setStatus('FAIL')
+                setResponse(err.response.data)
             })
     }
     
@@ -49,11 +49,7 @@ const AddPackage =  () =>{
     initialValues={initialValues}
     validationSchema={packageSchema}
     onSubmit={(values, { resetForm }) =>{
-        handleSubmit(values);
-        if(status==='SUCCESS'){
-            resetForm();
-        }
-        
+        handleSubmit(values,resetForm);    
     }}
 >
     {({touched, errors, dirty, isValid, values, handleChange}) =>(
@@ -111,7 +107,7 @@ const AddPackage =  () =>{
         case 'FAIL':
             return(
                 <Auxiliary>
-                    <Message class='Error-msg' message='Algún campo único ya está registrado'/>
+                    <Message class='Error-msg' message={response}/>
                     {packageForm}
                 </Auxiliary> 
             )

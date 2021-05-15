@@ -45,8 +45,8 @@ const BillGenerator = () => {
             .then((res =>{
                 dispatch(setBillID(res.data+1))
             }))
-            .catch(err=>{
-                alert('Ha ocurrido un error, intentalo más tarde')
+            .catch(err=>{    
+                alert(err.response.data)
             })
     }
     const findPackage = (values) =>{
@@ -56,7 +56,7 @@ const BillGenerator = () => {
                 dispatch(addPackage(res.data)) 
             })
             .catch(err=>{
-                alert('Error :(')
+                alert(err.response.data)
             })
     }
 
@@ -64,9 +64,11 @@ const BillGenerator = () => {
         axios.get(`/users/${values.customerID}`)
             .then(res=>{
                 dispatch(updateCustomer(res.data)) 
+                setError('')
             })
             .catch(err=>{
-                alert('Error :(')
+                setError(err.response.data)
+                alert(err.response.data)
             })
     }
     const uploadBill = (blobPDF) =>{
@@ -88,7 +90,7 @@ const BillGenerator = () => {
         })
         .catch(err=>{
             setError(err.response.data)
-            alert('error')
+            alert(err.response.data)
         })
     }
  
@@ -106,7 +108,8 @@ const BillGenerator = () => {
         dispatch(setLblPrice(values.lblPrice))
         findUser(values)
         dispatch(setTotal())
-        setShowBill(true)
+        console.log(error)
+        error == '' && setShowBill(true)
         error == '' && resetForm() 
     }}
     >
