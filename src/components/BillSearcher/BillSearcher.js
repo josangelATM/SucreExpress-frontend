@@ -91,6 +91,9 @@ switch(status){
     case 'FAIL':
         toRender = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde' />
         break;
+    default:
+        toRender = <Message class='Error-msg' message='Hubo un problema, intentalo más tarde' />
+        break;
 
 }
 
