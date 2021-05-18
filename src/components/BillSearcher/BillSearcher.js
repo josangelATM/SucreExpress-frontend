@@ -59,7 +59,7 @@ const BillSearcher = () =>{
     >
         {({dirty, isValid, values, handleChange}) =>(
         <Form class='form'>
-            <h1>Búsqueda de facturas</h1>
+            <h1 className={styles.formTitle}>Búsqueda de facturas</h1>
             <Field type='text' placeholder='ID/CustomerID/Factura' name='query' className='form-control'></Field>
             <select name='type' onChange={handleChange} value={values.type} className='form-control'>  
                 <option value='customerID' selected>CustomerID</option>
@@ -83,6 +83,7 @@ switch(status){
         const headers = {
             'ID': 'id',
             'CustomerID' : 'customerID',
+            'Pagado?' : 'paid',
             'Factura' : 'billLink'
         } 
         toRender = isDesktopOrLaptop ? <BillsViewer bills={bills}/> : <ItemsViewerMobile items={bills} headers={headers} id={'billMobileTable'} details={false}/>

@@ -10,7 +10,7 @@ import SearchFilter from '../../SearchFilter/SearchFilter'
 import {exportToCSV,ocurrencesCounter} from '../../../helpers/helpers'
 import CounterDisplay from '../../CounterDisplay/CounterDisplay'
 import compStyles from './PackagesViewer.module.css'
-import './PackagesViewer.css'
+
 import TableFilters from '../../TableFilters/TableFilters'
 const PackagesViewer = (props) => {
     
@@ -24,9 +24,9 @@ const PackagesViewer = (props) => {
         )
     })
     const tableHeaders = isAdmin ? [
-        'ID','CustomerID','Cliente','Referido por','Tracking','Peso','Status','Última actualización'
+        'ID','CustomerID','Cliente','Tracking','Status Logístico','Status','Pagado','Última actualización'
     ] : [
-        'ID','Origen','Tracking','Peso','Status','Factura ID','Última actualización'
+        'ID','Origen','Tracking','Peso','Status','Pagado','Factura ID','Última actualización'
     ]
 
     props.referrals && tableHeaders.push('Cliente')

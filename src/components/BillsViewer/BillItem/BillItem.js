@@ -6,8 +6,9 @@ import styles from './BillItem.module.css'
 const BillItem = (props) => {
     const isAdmin = useSelector(state => state.auth.isAdmin)
     let toRender = isAdmin ? <tr>
-    <td>{props.id}</td>
+    <td><a target='_blank' href={`/bills/${props.id}`} className={styles.clickableLink}>{props.id}</a></td>
     <td>{props.customerID}</td>
+    <td>{props.paid == 'Pagado' ? 'Y' : 'N'}</td>
     <td><a href={props.billLink} target='_blank' className={styles.clickableLink}>{props.billFileName}</a></td>
 </tr> : <tr>
     <td>{props.id}</td>

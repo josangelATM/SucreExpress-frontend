@@ -12,6 +12,7 @@ import {updatePackage} from '../../../store/actions/index'
 const packageSchema = Yup.object({
     status: Yup.string().required('Status es requerido'),
     source: Yup.string(),
+    logisticStatus: Yup.string().required(),
     id: Yup.string().required('ID no se puede modificar'),
     customerID: Yup.string().required('Customer ID es requerido'),
     tracking: Yup.string().required('Tracking es requerido'),
@@ -64,10 +65,17 @@ const UpdatePackage =  (props) =>{
         {({touched, errors, dirty, isValid, values, handleChange}) =>(
                 <Form className='form'>
                         <h1>Actualizar paquete</h1>
-                        <Field type='text' placeholder='Origen' name='id' 
+                        <Field type='text' placeholder='ID' name='id' 
                         className='form-control disabled' disabled ></Field>
                         <Field type='text' placeholder='Origen' name='source' 
                         className='form-control'></Field>
+                        <select name="logisticStatus" value={values.logisticStatus} onChange={handleChange}
+                            className={'form-control'}>
+                                <option hidden>Status Logistico</option>
+                                <option value="Origen">Origen</option>
+                                <option value="En tránsito">En tránsito</option>
+                                <option value="Destino">Destino</option>
+                            </select>
                         <Field type='text' placeholder='Customer ID' name='customerID' defaultValue={values.customerID}
                         className='form-control'></Field>
                         <Field type='text' placeholder='Tracking' name='tracking' defaultValue={values.tracking}
@@ -90,6 +98,7 @@ const UpdatePackage =  (props) =>{
                             <option value="Mal identificado">Mal identificado</option>
                             <option value="Reclamado">Reclamado</option>
                             <option value="Facturado">Facturado</option>
+                            <option value="Proveedor">Proveedor</option>
                             <option value="Devuelto al origen">Devuelto al origen</option>
                         </select>
                         <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>

@@ -17,9 +17,9 @@ const BillsViewer = (props) => {
     })
 
     const tableHeaders = isAdmin ? [
-        'ID','CustomerID','Factura'
+        'ID','CustomerID','Pagado','Factura'
     ] : [
-        'ID','Factura'
+        'ID','Pagado','Factura',
     ]
 
 

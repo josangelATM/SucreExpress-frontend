@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
   mainContainer:{
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-    fontSize:'1.7cm',
+    fontSize:'0.4cm',
     width:'90%',
     height:'75%',
-    borderTop:'2cm',
-    borderBottom:'2cm',
+    borderTop:'1cm',
+    borderBottom:'1cm',
     borderRight:'0.2cm',
     borderLeft:'0.2cm',
     borderTopColor:'#5293C1',
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   },
   title:{
     color:'#787575',
-    fontSize:'2.5cm',
-    marginBottom:'1cm'
+    fontSize:'0.6cm',
+    marginBottom:'0.2cm'
 
   },
   subSectionSuperior:{
@@ -40,31 +40,31 @@ const styles = StyleSheet.create({
   textSectionSuperior:{
     width:'33%',
     flexDirection:'column',
-    marginTop:'5cm',
-    marginLeft:'5cm'
+    marginTop:'1cm',
+    marginLeft:'1cm'
     
   },
   customerContainer:{
-    marginTop:'5cm',
+    marginTop:'1cm',
     height:'auto'
   },
   tableContainer:{
     height:'65%'
   },
   companyName:{
-    fontSize:'2.6cm',
+    fontSize:'0.5cm',
     marginTop:'1cm'
   },
   contactContainer:{
-    marginTop:'14cm',
-    marginBottom:'5cm'
+    marginTop:'1cm',
+    marginBottom:'1cm'
   },
   contactText:{
-    marginBottom:'4cm'
+    marginBottom:'0.4cm'
   },
   link:{
     color:'#1a05ff',
-    marginBottom:'4cm'
+    marginBottom:'0.5cm'
   },table: { 
     display: "table", 
     width: "90%", 
@@ -77,22 +77,22 @@ const styles = StyleSheet.create({
   tableCol: { 
     width: "15%", 
     borderStyle: "solid", 
-    borderWidth: '1cm', 
+    borderWidth: '0.2cm', 
     borderTop:'0',
-    borderBottom:'0.3cm',
+    borderBottom:'0.1cm',
     borderRight:'0',
     borderLeft:'0'
   }, 
   tableCell: { 
     margin: "auto", 
     marginTop: 5, 
-    fontSize:'1.7cm',
+    fontSize:'0.4cm',
     width:'auto'
   },
   tableColHeader: { 
     width: "15%", 
     borderStyle: "solid", 
-    borderWidth: '0.5cm',
+    borderWidth: '0.2cm',
     borderTop:'0',
     borderLeft:'0',
     borderRight:'0',
@@ -101,17 +101,17 @@ const styles = StyleSheet.create({
     margin: "auto", 
     marginTop: 5, 
     color:'#787575',
-    fontSize:'2.5cm',
+    fontSize:'0.7cm',
   },
   tableRowHeader: {
     margin: "auto", 
     flexDirection: "row",
-    marginBottom: '2cm'
+    marginBottom: '0.5cm'
   },
   trackingHeader:{
     width: "50%", 
     borderStyle: "solid", 
-    borderWidth: '0.5cm',
+    borderWidth: '0.2cm',
     borderTop:'0',
     borderLeft:'0',
     borderRight:'0',
@@ -119,38 +119,38 @@ const styles = StyleSheet.create({
   trackingCol:{
     width: "50%",
     borderTop:'0',
-    borderBottom:'0.3cm',
     borderRight:'0',
-    borderLeft:'0'
+    borderLeft:'0',
+    borderBottom:'0.1cm',
   },
   trackingCell:{
     margin: "auto", 
     marginTop: 5, 
-    fontSize:'1.7cm',
+    fontSize:'0.4cm',
     width:'auto'
   },
   totalPrice:{
-    fontSize:'4cm',
+    fontSize:'1.5cm',
     color:'#5293C1',
     marginTop:'0.5cm'
   },
   totalSection:{
-    marginBottom:'2cm',
-    marginLeft:'2cm'
+    marginBottom:'0.5cm',
+    marginLeft:'0.5cm'
   }, dateStr:{
-    marginTop:'1cm'
+    marginTop:'0.5cm'
   },
   bottomSection:{
     flexDirection:'row'
   },
   detailsSection:{
-    marginLeft:'40cm',
+    marginLeft:'10cm',
     flexDirection:'row'
 
   },
   textDetail:{
-    marginBottom: '2cm',
-    marginRight:'5cm'
+    marginBottom: '0.5cm',
+    marginRight:'3cm'
   } 
 
 
@@ -160,7 +160,7 @@ const BillPdf = (props) => {
     const dateStr = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
     return(
         <Document title={props.billID} >
-        <Page size="A0" style={styles.page}>
+        <Page size="A4" style={styles.page}>
         <View style={styles.mainContainer}>
         <View style={styles.sectionSuperior}>
           <View style={styles.textSectionSuperior}>

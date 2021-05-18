@@ -70,7 +70,6 @@ const Searcher = () => {
         axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
                 if(Array.isArray(res.data)){
-                    
                     dispatch(updatePackages(res.data))
                     if(res.data.length === 0){
                         setStatus('NO_RESULT')
@@ -104,11 +103,12 @@ const Searcher = () => {
                 <Field type='text' placeholder='ID/CustomerID/Tracking' name='query' className='form-control'></Field>
                 <select name='type' onChange={handleChange} value={values.type} className='form-control'>  
                     <option value='CustomerID'>CustomerID</option>
+                    <option value='firstName'>Nombre</option>
                     <option value='Tracking'>Tracking</option>
                     <option value='ID' selected>ID</option>
                 </select>
-                <Field type='date' placeholder='initialDate' name='initialDate' className='form-control'></Field>
-                <Field type='date' placeholder='finalDate' name='finalDate' className='form-control'></Field>
+                <Field type='datetime-local' placeholder='initialDate' name='initialDate' className='form-control'></Field>
+                <Field type='datetime-local' placeholder='finalDate' name='finalDate' className='form-control'></Field>
                 <select name='sort' onChange={handleChange} value={values.sort} className='form-control'>  
                     <option value='desc'>Más recientes a más antiguos</option>
                     <option value='asc'>Más antiguos a más recientes</option>
@@ -156,8 +156,10 @@ const Searcher = () => {
                 'Cliente' : 'owner.firstName',
                 'Referido por' : 'owner.referredBy',
                 'Tracking' : 'tracking',
+                'Status Logistico' : 'logisticStatus',
                 'Peso' : 'weight',
                 'Status' :'status',
+                'Pagado?' :'paid',
                 'Última actualización' : 'updatedAt',
                 'Comentarios' : 'comments'
             } : {
@@ -166,6 +168,7 @@ const Searcher = () => {
                 'Tracking' : 'tracking',
                 'Peso' : 'weight',
                 'Status' :'status',
+                'Pagado?' :'paid',
                 'Última actualización' : 'updatedAt',
                 'Comentarios' : 'comments'
             } 

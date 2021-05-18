@@ -37,18 +37,20 @@ const PackageItem = (props) => {
     }
 
     const hasComments = props.comments ? true:false
-
+    
+    console.log(props.id)
 
     let toRender = isAdmin ? <tr>
     <td>{props.id}</td>
     <td>{props.customerID}</td>
     <td>{props.owner.firstName}</td>
-    <td><Link target='_blank' className={compStyles.link} to={`/users/${props.owner.referredBy}`}>{props.owner.referredBy}</Link></td>
+    {/* <td><Link target='_blank' className={compStyles.link} to={`/users/${props.owner.referredBy}`}>{props.owner.referredBy}</Link></td> */}
     <td className={compStyles.smallTD}>
       <Comments text={props.tracking} toolTip={props.comments}/>
     </td>
-    <td>{props.weight}</td>
+    <td>{props.logisticStatus}</td>
     <td>{props.status}</td>
+    <td>{props.paid == 'Pagado' ? 'Y' : 'N'}</td>
     <td>{props.updatedAt}</td>
     <td><Button class='Link' size={'small'}><a target='_blank' href={`/packages/${props.id}`}>Actualizar</a></Button></td>
     <td><Button class='Link' size={'small'} onClick={confirmation}>Eliminar</Button></td>
@@ -58,6 +60,7 @@ const PackageItem = (props) => {
     <td className={compStyles.smallTD}>{props.tracking}</td>
     <td>{props.weight}</td>
     <td>{props.status}</td>
+    <td>{props.paid == 'Pagado' ? 'Y' : 'N'}</td>
     <td>
       {props.billID ? 
       <a className={compStyles.link} target={'_blank'} href={props.bill.billLink}>{props.billID}</a> : null }
@@ -69,8 +72,6 @@ const PackageItem = (props) => {
         { hasComments && props.comments.length  === 0 ? <p>No comments</p> : <p>{props.comments}</p>}
     </ModalContent>
 </tr>
-
-
     return(
         <Auxiliary>
             {toRender}
