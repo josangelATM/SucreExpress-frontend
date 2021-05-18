@@ -5,6 +5,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import styles from './Profile.module.css'
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary'
 import PasswordChangeRecover from '../PasswordChangeRecover/PasswordChangeRecover'
+import Notifications from '../../components/UI/Notifications/Notifications'
 class Profile extends Component{
 
     userID= this.props.userID;
@@ -13,8 +14,6 @@ class Profile extends Component{
 
     
     render(){
-        
-
         let toRender = this.authorized || this.props.isAdmin ? 
         <div className={styles.profile}>
             <UserInfo/>

@@ -35,12 +35,14 @@ import Bill from '../../containers/Bill/Bill'
 import ReferralsPackages from '../../components/Package/ReferralsPackages/ReferralsPackages';
 import NotFound from '../../components/NotFound/NotFound';
 import BillViewer from '../../components/BillsViewer/BillViewer/BillViewer';
+import Notifications from '../../components/UI/Notifications/Notifications';
 class Layout extends Component{
     render(){
         return(              
     <div className='Layout'>
         <Router history={browserHistory}>
         <Header></Header>
+        {this.props.isAdmin ? <Notifications/> : null}
         <main className='main'>
         <Switch>
           <Route path="/" exact>

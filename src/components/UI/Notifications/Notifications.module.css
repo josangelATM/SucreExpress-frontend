@@ -1,0 +1,40 @@
+.container{
+    position: sticky;
+    top: 1rem;
+    left: -10rem;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.8rem;
+    border-radius: 2.5rem;
+    background-color: #5293C1;
+    left: 73%;
+    color: white;
+}
+
+.item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.number{
+    margin:0 2rem;
+}
+
+.text{
+    margin:0 2rem;
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .container{
+        position: static;
+        margin-bottom: 2rem;
+        align-self: center;
+    }
+}   
