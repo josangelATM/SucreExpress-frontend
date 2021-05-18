@@ -10,6 +10,7 @@ import Message from '../../UI/Message/Message'
 import formsStyles from '../../../assets/Shared/Forms.module.css'
 const packageSchema = Yup.object({
     status: Yup.string().required('Status es requerido'),
+    logisticStatus: Yup.string().required(),
     source: Yup.string(),
     customerID: Yup.string().required('Customer ID es requerido'),
     tracking: Yup.string().required('Tracking es requerido'),
@@ -19,6 +20,7 @@ const packageSchema = Yup.object({
 
 const initialValues = {
     status:'En tránsito',
+    logisticStatus: '',
     source: '',
     customerID:'',
     tracking:'',
@@ -58,6 +60,13 @@ const AddPackage =  () =>{
             <span>Campos obligatorios marcados en rojo</span>
             <Field type='text' placeholder='Origen' name='source'
             className={`${formsStyles.normalField}  ${formsStyles.requiredField} `}></Field>
+            <select name="logisticStatus" value={values.logisticStatus} onChange={handleChange}
+            className={`${formsStyles.normalField} ${formsStyles.requiredField} `}>
+                <option hidden>Status Logistico</option>
+                <option value="Origen">Origen</option>
+                <option value="En tránsito">En tránsito</option>
+                <option value="Destino">Destino</option>
+            </select>
             <Field type='text' placeholder='Customer ID' name='customerID'
             className={`${formsStyles.normalField} ${formsStyles.requiredField} `}></Field>
             <Field type='text' placeholder='Tracking' name='tracking'
@@ -72,6 +81,7 @@ const AddPackage =  () =>{
                 <option value="Pagado">Pagado</option>
                 <option value="Entregado">Entregado</option>
                 <option value="Mal identificado">Mal identificado</option>
+                <option value="Proveedor">Proveedor</option>
                 <option value="No encontrado">No encontrado</option>
             </select>
             <textarea rows="6" cols="15" placeholder="Comentarios" name='comments' 

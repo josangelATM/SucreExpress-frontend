@@ -34,6 +34,7 @@ import BillGenerator from '../../components/BillGenerator/BillGenerator'
 import Bill from '../../containers/Bill/Bill'
 import ReferralsPackages from '../../components/Package/ReferralsPackages/ReferralsPackages';
 import NotFound from '../../components/NotFound/NotFound';
+import BillViewer from '../../components/BillsViewer/BillViewer/BillViewer';
 class Layout extends Component{
     render(){
         return(              
@@ -92,7 +93,10 @@ class Layout extends Component{
           </Route>
           <Route path='/bills/generator'>
                 {this.props.isLogged ? (this.props.isAdmin ? <BillGenerator/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}  
-          </Route>     
+          </Route>
+          <Route path='/bills/:billID'>
+                {this.props.isLogged ? (this.props.isAdmin ? <BillViewer/> : <Redirect to='/unauthorized'/>) : <Redirect to='/login'/>}  
+          </Route>       
           <Route exact path='/users'>
                   {this.props.isLogged ? (this.props.isAdmin ? <Redirect to='/users/search'/> : <Redirect to='/unauthorized'/> ) : <Redirect to='/login'/>} 
           </Route> 
