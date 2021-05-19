@@ -21,7 +21,7 @@ const UsersViewer = (props) => {
 
     const headers =  <tr>
         {tableHeaders.map(head =>(
-            <th>{head}</th>
+            <th key={head}>{head}</th>
         ))}
         <th>Ver más</th>
     </tr>

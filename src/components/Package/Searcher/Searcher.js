@@ -44,7 +44,6 @@ const Searcher = () => {
 
 
     const getAll = values =>{
-        document.getElementById('packagesContainer').scrollIntoView()
         setStatus('LOADING')
         axios.get(`/packages?type=all&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
@@ -65,7 +64,6 @@ const Searcher = () => {
     }
 
     const handleSubmit = values =>{
-        document.getElementById('packagesContainer').scrollIntoView()
         setStatus('LOADING')
         axios.get(`/packages?type=${values.type}&query=${values.query}&userType=${userType}&customerID=${userID}&initialDate=${values.initialDate}&finalDate=${values.finalDate}&sort=${values.sort}`)
             .then(res =>  {
@@ -100,7 +98,7 @@ const Searcher = () => {
             {({dirty, isValid, values, handleChange, resetForm}) =>(
             <Form class='form'>
                 <h1>Búsqueda de paquetes</h1>
-                <Field type='text' placeholder='ID/CustomerID/Tracking' name='query' className='form-control'></Field>
+                <Field type='text' placeholder='ID/CustomerID/Tracking/Nombre' name='query' className='form-control'></Field>
                 <select name='type' onChange={handleChange} value={values.type} className='form-control'>  
                     <option value='CustomerID'>CustomerID</option>
                     <option value='firstName'>Nombre</option>
@@ -172,7 +170,7 @@ const Searcher = () => {
                 'Última actualización' : 'updatedAt',
                 'Comentarios' : 'comments'
             } 
-            searchResult = isDesktopOrLaptop ? <PackagesViewer/> : <ItemsViewerMobile headers={headers} reduxItem='packages' id={'packageMobileTable'} details={isAdmin ? true : false}/>
+            searchResult = isDesktopOrLaptop ? <PackagesViewer tableID={'packageTableID'}/> : <ItemsViewerMobile headers={headers} reduxItem='packages' id={'packageMobileTable'} details={isAdmin ? true : false}/>
             break;
         case 'NO_RESULT':
             searchResult = <Message class='Error-msg' message='Búsqueda sin resultados'/>
@@ -188,7 +186,7 @@ const Searcher = () => {
     return(
        <div className='searcher'>
            {form}
-           <div id={'packagesContainer'}>
+           <div className={'packagesContainer'}>
             {searchResult}
            </div>
         </div>

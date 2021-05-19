@@ -12,6 +12,7 @@ const BillItem = (props) => {
     <td><a href={props.billLink} target='_blank' className={styles.clickableLink}>{props.billFileName}</a></td>
 </tr> : <tr>
     <td>{props.id}</td>
+    <td>{props.paid == 'Pagado' ? 'Y' : 'N'}</td>
     <td><a href={props.billLink} target='_blank' className={styles.clickableLink}>{props.billFileName}</a></td>
 </tr>
 

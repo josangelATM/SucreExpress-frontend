@@ -38,7 +38,6 @@ const PackageItem = (props) => {
 
     const hasComments = props.comments ? true:false
     
-    console.log(props.id)
 
     let toRender = isAdmin ? <tr>
     <td>{props.id}</td>
@@ -62,7 +61,7 @@ const PackageItem = (props) => {
     <td>{props.status}</td>
     <td>{props.paid == 'Pagado' ? 'Y' : 'N'}</td>
     <td>
-      {props.billID ? 
+      {props.billID && props.bill ? 
       <a className={compStyles.link} target={'_blank'} href={props.bill.billLink}>{props.billID}</a> : null }
     </td>
     <td>{props.updatedAt}</td>

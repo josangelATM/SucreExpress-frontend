@@ -33,7 +33,7 @@ const PackagesViewer = (props) => {
 
 
     const updateCounter = ()=>{
-        setCounter(ocurrencesCounter(['Entregado','Panamá','En tránsito','Reclamado','No encontrado','Mal identificado','Miami','Pagado','Facturado', 'Devuelto al origen'],'packagesTable','Status',tableHeaders))
+        setCounter(ocurrencesCounter(['Entregado','Panamá','En tránsito','Reclamado','No encontrado','Mal identificado','Miami','Pagado','Facturado', 'Devuelto al origen'],props.tableID,'Status',tableHeaders))
     }
 
     useLayoutEffect(()=>{
@@ -60,7 +60,7 @@ const PackagesViewer = (props) => {
     const table = packages.length > 0 ? 
     <div className={sharedStyles.tableContainer}>
     
-    <table id='packagesTable' className={compStyles.table}>
+    <table id={props.tableID} className={compStyles.table}>
         <thead>
             {headers}
         </thead>
@@ -77,7 +77,7 @@ const PackagesViewer = (props) => {
             <Auxiliary>
             <div className={compStyles.functionsContainer}>
                 <CounterDisplay counter={counter}/>
-                <TableFilters headers={tableHeaders} qty={1} tableID={'packagesTable'} updatedCounter={updateCounter}/>
+                <TableFilters headers={tableHeaders} qty={1} tableID={props.tableID} updatedCounter={updateCounter}/>
                 <Button class='Normal' onClick={() => exportToCSV(props.tableID,'Packages')}>Exportar datos</Button>
             </div>
             {table}
