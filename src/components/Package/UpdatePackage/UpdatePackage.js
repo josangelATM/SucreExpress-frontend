@@ -8,7 +8,7 @@ import Loader from '../../UI/Loader/Loader'
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import Message from '../../UI/Message/Message';
 import { useDispatch } from 'react-redux';
-import {updatePackage} from '../../../store/actions/index'
+import {updatePackage, deletePackages} from '../../../store/actions/index'
 const packageSchema = Yup.object({
     status: Yup.string().required('Status es requerido'),
     source: Yup.string(),
@@ -48,6 +48,18 @@ const UpdatePackage =  (props) =>{
                 setStatus('FAIL')
             })
     }
+
+    const removePackage = () => {
+        axios.delete(`/packages/${idPackage}`)
+              .then(res => {
+                  alert(res.data)
+                dispatch(deletePackages(idPackage))  
+              })
+              .catch(err =>{
+                alert('Hubo un error, intentalo más tarde')
+              })    
+      }
+      
 
 
     let toRender = null 
@@ -101,7 +113,8 @@ const UpdatePackage =  (props) =>{
                             <option value="Proveedor">Proveedor</option>
                             <option value="Devuelto al origen">Devuelto al origen</option>
                         </select>
-                        <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
+                            <Button class={'Normal'} type="submit" disabled={!dirty || !isValid}>Actualizar</Button>
+                            <Button class={'Normal'} type="button" onClick={removePackage}>Eliminar</Button>
                     </Form>             
                         )}
         </Formik>

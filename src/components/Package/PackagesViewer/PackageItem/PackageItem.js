@@ -47,12 +47,12 @@ const PackageItem = (props) => {
     <td className={compStyles.smallTD}>
       <Comments text={props.tracking} toolTip={props.comments}/>
     </td>
+    <td>{props.weight}</td>
     <td>{props.logisticStatus}</td>
     <td>{props.status}</td>
     <td>{props.paid == 'Pagado' ? 'Y' : 'N'}</td>
     <td>{props.updatedAt}</td>
     <td><Button class='Link' size={'small'}><a target='_blank' href={`/packages/${props.id}`}>Actualizar</a></Button></td>
-    <td><Button class='Link' size={'small'} onClick={confirmation}>Eliminar</Button></td>
 </tr> : <tr>
     <td>{props.id}</td>
     <td>{props.source}</td>

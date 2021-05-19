@@ -24,7 +24,7 @@ const PackagesViewer = (props) => {
         )
     })
     const tableHeaders = isAdmin ? [
-        'ID','CustomerID','Cliente','Tracking','Status Logístico','Status','Pagado','Última actualización'
+        'ID','CustomerID','Cliente','Tracking','Peso','Status Logístico','Status','Pagado','Última actualización'
     ] : [
         'ID','Origen','Tracking','Peso','Status','Pagado','Factura ID','Última actualización'
     ]
@@ -51,7 +51,6 @@ const PackagesViewer = (props) => {
         {isAdmin ?  
         <Auxiliary>
             <th>Actualizar</th>
-            <th>Eliminar</th> 
         </Auxiliary>
         : 
         <th>Ver comentarios</th> }
