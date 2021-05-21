@@ -103,6 +103,7 @@ const UpdatePackage =  (props) =>{
                             <option value="En tránsito" >En tránsito</option>
                             <option value="Miami">Miami</option>
                             <option value="Panamá">Panamá</option>
+                            <option value="PanamáF">PanamáF</option>
                             <option value="Pagado">Pagado</option>
                             <option value="Entregado">Entregado</option>
                             <option value="Entregado no pagado">Entregado no pagado</option>
