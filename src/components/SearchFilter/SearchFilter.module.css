@@ -16,7 +16,7 @@
     font-size: 1.5rem;
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
     .filterContainer{
         flex-direction: column;
     }

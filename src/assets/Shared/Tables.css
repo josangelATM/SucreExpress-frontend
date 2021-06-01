@@ -2,6 +2,7 @@ table {
     font-size: 1.8rem;
     width: fit-content;      
     border-collapse: collapse;
+    min-width: 100rem;
 }
 
 table thead tr th{

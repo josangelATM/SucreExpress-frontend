@@ -28,6 +28,7 @@ const Notifications = () =>{
                 setNumRequests(res.data.length)
             })
             .catch(err=>{
+                console.log(err)
                 alert(err.response.data)
             })
     }
